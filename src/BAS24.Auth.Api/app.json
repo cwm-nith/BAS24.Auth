@@ -1,0 +1,73 @@
+{
+  "Cloudinary": {
+    "APIKey": "",
+    "APISecret": "",
+    "CloudName": "",
+    "Folder": "",
+    "NoProfileId": ""
+  },
+  "ConnectionStrings": {
+    "Default": ""
+  },
+  "Postgres": {
+    "ConnectionStrings": "",
+    "DefaultUser": "",
+    "DefaultUserPassword": ""
+  },
+  "Jwt": {
+    "ExpiryInMinutes": "60",
+    "SigningKey": "",
+    "Site": ""
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Debug",
+      "Microsoft": "Information",
+      "System": "Information"
+    }
+  },
+  "OneSignal": {
+    "ApiKey": "",
+    "AppId": "",
+    "URL": "https://onesignal.com/api/v1/notifications/",
+    "PopupChannelId": ""
+  },
+  "Serilog": {
+    "ApplicationName": "unt-sd",
+    "Console": {
+      "Enabled": true
+    },
+    "Enrich": [
+      "WithMachineName",
+      "WithProcessId",
+      "WithThreadId"
+    ],
+    "Filter": [
+      {
+        "Args": {
+          "expression": "EndsWith(RequestPath, '/metrics')"
+        },
+        "Name": "ByExcluding"
+      }
+    ],
+    "MinimumLevel": {
+      "Default": "Information",
+      "Override": {
+        "Microsoft.AspNetCore.Http.Connections": "Debug",
+        "Microsoft.AspNetCore.SignalR": "Debug"
+      }
+    },
+    "Seq": {
+      "ApiKey": "IMeN0rfWXqff4uzzYQuQ",
+      "Enabled": true,
+      "Url": "http://localhost:5341"
+    },
+    "Using": [
+      "Serilog.Settings.Configuration"
+    ]
+  },
+  "DataProtector": {
+    "PersistKeyPath": "../data",
+    "ProtectorKey": ""
+  }
+}

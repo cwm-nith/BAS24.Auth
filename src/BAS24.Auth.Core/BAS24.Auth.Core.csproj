@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>BAS24.Api</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="BAS24.Libs" Version="1.0.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Dtos" />
+        <Folder Include="IRepositories" />
+    </ItemGroup>
+
+</Project>

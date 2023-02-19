@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAS24.Auth.Core", "src\BAS24.Auth.Core\BAS24.Auth.Core.csproj", "{C9C9054E-FCB1-48E3-B3F6-51BF989BA48B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAS24.Auth.Api", "src\BAS24.Auth.Api\BAS24.Auth.Api.csproj", "{93212158-E74D-47AC-9FEA-B557F306D596}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAS24.Auth.Infrastructure", "src\BAS24.Auth.Infrastructure\BAS24.Auth.Infrastructure.csproj", "{E899EF9A-5835-4D5D-8694-504BE8E830F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAS24.Auth.Application", "src\BAS24.Auth.Application\BAS24.Auth.Application.csproj", "{1A8707BF-7578-42A9-A42C-9A7DD1615C6A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C9C9054E-FCB1-48E3-B3F6-51BF989BA48B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9C9054E-FCB1-48E3-B3F6-51BF989BA48B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9C9054E-FCB1-48E3-B3F6-51BF989BA48B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9C9054E-FCB1-48E3-B3F6-51BF989BA48B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93212158-E74D-47AC-9FEA-B557F306D596}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93212158-E74D-47AC-9FEA-B557F306D596}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93212158-E74D-47AC-9FEA-B557F306D596}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93212158-E74D-47AC-9FEA-B557F306D596}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E899EF9A-5835-4D5D-8694-504BE8E830F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E899EF9A-5835-4D5D-8694-504BE8E830F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E899EF9A-5835-4D5D-8694-504BE8E830F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E899EF9A-5835-4D5D-8694-504BE8E830F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A8707BF-7578-42A9-A42C-9A7DD1615C6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A8707BF-7578-42A9-A42C-9A7DD1615C6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A8707BF-7578-42A9-A42C-9A7DD1615C6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A8707BF-7578-42A9-A42C-9A7DD1615C6A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

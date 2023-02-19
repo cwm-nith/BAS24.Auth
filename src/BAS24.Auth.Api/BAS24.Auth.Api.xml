@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BAS24.Auth.Api</name>
+    </assembly>
+    <members>
+        <member name="M:BAS24.Auth.Api.Controllers.V1.WeatherForecastController.Get">
+            <summary>
+              Get weather fore cast
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
