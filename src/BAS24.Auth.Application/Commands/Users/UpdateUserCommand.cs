@@ -1,26 +1,26 @@
-namespace BAS24.Api.Dtos.Users;
+using BAS24.Libs.CQRS.Commands;
 
-public class CreateUserDto
+namespace BAS24.Auth.Application.Commands.Users;
+
+public class UpdateUserCommand : ICommand
 {
-  public CreateUserDto(
-    string username,
-    string password,
+  public UpdateUserCommand(Guid id,
+    string? username,
     string? fullname,
     string[]? phones,
     string? address,
     string? regionName)
   {
+    Id = id;
     Username = username;
-    Password = password;
     Fullname = fullname;
     Phones = phones;
     Address = address;
     RegionName = regionName;
   }
 
-  public string Username { get; set; }
-
-  public string Password { get; set; }
+  public Guid Id { get; set; }
+  public string? Username { get; set; }
 
   public string? Fullname { get; set; }
 

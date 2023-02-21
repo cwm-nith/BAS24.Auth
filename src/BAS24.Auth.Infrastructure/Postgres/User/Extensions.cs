@@ -43,4 +43,22 @@ public static class Extensions
       UpdatedAt = t.UpdatedAt
     };
   }
+  //
+  // public static UserDto AsUserDto(this UserEntity e)
+  // {
+  //   return new UserDto
+  //   {
+  //     Id = e.Id.ToString(),
+  //     Username = e.Username,
+  //     Fullname = e.Fullname,
+  //     Active = t.Active,
+  //     CreatedAt = t.CreatedAt,
+  //     Address = t.Address,
+  //     Phones = t.Phones,
+  //     IsLock = t.IsLock ?? false,
+  //     IsApprove = t.IsApprove,
+  //     RegionName = t.RegionName,
+  //     UpdatedAt = t.UpdatedAt
+  //   };
+  // }
 }

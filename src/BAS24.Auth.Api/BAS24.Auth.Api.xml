@@ -11,6 +11,26 @@
             <param name="login"></param>
             <returns></returns>
         </member>
+        <member name="M:BAS24.Auth.Api.Controllers.V1.UserController.UpdateUserAsync(BAS24.Api.Dtos.Users.UpdateUserDto)">
+            <summary>
+              update user
+            </summary>
+            <param name="update"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BAS24.Auth.Api.Controllers.V1.UserController.RemoveUserAsync(System.Guid)">
+            <summary>
+              remove user by id
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BAS24.Auth.Api.Controllers.V1.UserController.GetUserListAsync(BAS24.Api.Dtos.Users.GetUserPageDto)">
+            <summary>
+              get user list
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:BAS24.Auth.Api.Controllers.V1.WeatherForecastController.Get">
             <summary>
               Get weather fore cast

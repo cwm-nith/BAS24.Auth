@@ -12,6 +12,7 @@ public class UserDto
   public bool IsApprove { get; set; }
   public string? RegionName { get; set; }
   public string? Token { get; set; }
+  public bool Active { get; set; }
 
   public static UserDto FromEntity(UserEntity entity)
   {

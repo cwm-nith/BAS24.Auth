@@ -34,9 +34,9 @@ public class UserEntity
     PasswordHash = passwordHasher.HashPassword(this, password);
   }
 
-  public void SetPhone(string[] phone)
+  public void SetPhone(string[]? phone)
   {
-    Phones = phone;
+    Phones = phone ?? Phones;
   }
 
   public bool ValidatePassword(string password, IPasswordHasher<UserEntity> passwordHasher)
