@@ -7,13 +7,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\BAS24.Auth.Core\BAS24.Auth.Core.csproj"/>
+        <ProjectReference Include="..\BAS24.Auth.Core\BAS24.Auth.Core.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Commands"/>
-        <Folder Include="Events"/>
-        <Folder Include="Queries"/>
+        <Folder Include="Events" />
+        <Folder Include="Queries" />
     </ItemGroup>
 
 </Project>

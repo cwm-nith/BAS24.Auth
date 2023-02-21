@@ -45,6 +45,10 @@ namespace BAS24.Auth.Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("fullname");
 
+                    b.Property<bool>("IsApprove")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_approve");
+
                     b.Property<bool?>("IsLock")
                         .HasColumnType("boolean")
                         .HasColumnName("is_lock");

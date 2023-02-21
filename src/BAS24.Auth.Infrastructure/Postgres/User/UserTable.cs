@@ -13,6 +13,7 @@ public class UserTable : BasePostgresTable
     bool? active,
     string? address,
     bool? isLock,
+    bool isApprove,
     string? regionName,
     DateTime createdAt,
     DateTime updatedAt)
@@ -23,6 +24,7 @@ public class UserTable : BasePostgresTable
     Fullname = fullname;
     Phones = phones;
     Active = active;
+    IsApprove = isApprove;
     Address = address;
     IsLock = isLock;
     RegionName = regionName;
@@ -49,6 +51,9 @@ public class UserTable : BasePostgresTable
 
   [Column("is_lock")]
   public bool? IsLock { get; set; }
+
+  [Column("is_approve")]
+  public bool IsApprove { get; set; }
 
   [Column("region_name")]
   public string? RegionName { get; set; }

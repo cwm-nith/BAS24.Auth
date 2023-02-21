@@ -1,54 +1,75 @@
+using BAS24.Api.Entities.User;
 using BAS24.Api.Exceptions.Middlewares;
 using BAS24.Api.Middlewares;
 using BAS24.Auth.Infrastructure.Options;
 using BAS24.Auth.Infrastructure.Postgres;
+using BAS24.Auth.Infrastructure.Services;
+using BAS24.Auth.Infrastructure.Services.Interfaces;
 using BAS24.Auth.Infrastructure.Swagger.CustomizeHeader;
 using BAS24.Auth.Infrastructure.Swagger.RequestExamples;
 using BAS24.Libs.CQRS.Commands;
 using BAS24.Libs.CQRS.Events;
 using BAS24.Libs.CQRS.Queries;
+using BAS24.Libs.Jwt;
 using BAS24.Libs.Logging;
 using BAS24.Libs.Postgres;
+using BAS24.Libs.SpecialPassword;
 using BAS24.Libs.Swagger;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BAS24.Auth.Infrastructure;
 
 public static class Extensions
 {
-  public static IServiceCollection AddInfrastructure(this IServiceCollection service)
+  public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
   {
-    service.AddCommandHandlers();
-    service.AddQueryHandlers();
-    service.AddEventHandlers();
+    services.AddTransient<IPasswordHasher<UserEntity>, PasswordHasher<UserEntity>>();
+    services.AddTransient<ITokenProvider<UserEntity>, TokenProvider<UserEntity>>();
+    services.AddJwt(configuration);
+    services.AddSpecialPassword();
 
-    service.AddPostgres<PostgresDbContext>();
-    service.AddPostgresRepositories();
+    services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-    service.ConfigureOptions<ConfigureSwaggerOptions>();
-    service.AddApiVersioning(setup =>
+    services.AddSingleton<ICommandDispatcher, CommandDispatcher>();
+    services.AddSingleton<IQueryDispatcher, QueryDispatcher>();
+    services.AddSingleton<IEventDispatcher, EventDispatcher>();
+
+    services.AddCommandHandlers();
+    services.AddQueryHandlers();
+    services.AddEventHandlers();
+
+    services.AddTransient<IUserService, UserService>();
+
+    services.AddPostgres<PostgresDbContext>();
+    services.AddPostgresRepositories();
+
+    services.ConfigureOptions<ConfigureSwaggerOptions>();
+    services.AddApiVersioning(setup =>
     {
       setup.DefaultApiVersion = new ApiVersion(1, 0);
       setup.AssumeDefaultVersionWhenUnspecified = true;
       setup.ReportApiVersions = true;
     });
 
-    service.AddVersionedApiExplorer(setup =>
+    services.AddVersionedApiExplorer(setup =>
     {
       setup.GroupNameFormat = "'v'VVV";
       setup.SubstituteApiVersionInUrl = true;
     });
-    // service.AddSwagger<AuthorizationHeaderParameterOperationFilter>("BAS24.Auth.Api.xml").AddSwaggerExample();
-    service.AddSwagger<AuthorizationHeaderParameterOperationFilter>("BAS24.Auth.Api.xml").AddSwaggerExample();
+    // services.AddSwagger<AuthorizationHeaderParameterOperationFilter>("BAS24.Auth.Api.xml").AddSwaggerExample();
+    services.AddSwagger<AuthorizationHeaderParameterOperationFilter>("BAS24.Auth.Api.xml").AddSwaggerExample();
 
-    service.Configure<ForwardedHeadersOptions>(options =>
+    services.Configure<ForwardedHeadersOptions>(options =>
     {
       options.ForwardedHeaders = ForwardedHeaders.All;
     });
-    return service;
+    return services;
   }
 
   public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)

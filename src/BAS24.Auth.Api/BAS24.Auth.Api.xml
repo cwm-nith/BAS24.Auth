@@ -4,6 +4,13 @@
         <name>BAS24.Auth.Api</name>
     </assembly>
     <members>
+        <member name="M:BAS24.Auth.Api.Controllers.V1.UserController.LoginAsync(BAS24.Api.Dtos.Users.LoginDto)">
+            <summary>
+              user login
+            </summary>
+            <param name="login"></param>
+            <returns></returns>
+        </member>
         <member name="M:BAS24.Auth.Api.Controllers.V1.WeatherForecastController.Get">
             <summary>
               Get weather fore cast

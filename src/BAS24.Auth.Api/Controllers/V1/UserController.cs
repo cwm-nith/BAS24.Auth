@@ -4,6 +4,7 @@ using BAS24.Auth.Application.Commands.Users;
 using BAS24.Auth.Infrastructure.Services.Interfaces;
 using BAS24.Libs.CQRS.Commands;
 using BAS24.Libs.CQRS.Queries;
+using BAS24.Libs.Jwt;
 using BAS24.Libs.Postgres;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -45,5 +46,19 @@ public class UserController : BaseController
       dto.Address,
       dto.RegionName));
     return AcceptedWithResource("user", id);
+  }
+
+  /// <summary>
+  ///   user login
+  /// </summary>
+  /// <param name="login"></param>
+  /// <returns></returns>
+  [HttpPost("login")]
+  [AllowAnonymous]
+  public async Task<ActionResult> LoginAsync([FromBody] LoginDto login)
+  {
+    var dto = await _userService.LoginAsync(login.Username, login.Password, _serviceProvider);
+    var token = new JsonWebToken { AccessToken = dto.Token ?? string.Empty };
+    return OkWithResource(token, $"user/{dto.Id}", dto.Id);
   }
 }

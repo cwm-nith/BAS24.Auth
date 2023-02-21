@@ -1,4 +1,6 @@
+using BAS24.Api.IRepositories;
 using BAS24.Auth.Infrastructure.Postgres.User;
+using BAS24.Auth.Infrastructure.Repositories;
 using BAS24.Libs.Postgres;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,7 +20,7 @@ public static class Extensions
         return new PostgresDbContext(options);
       });
 
-
+    services.AddTransient<IUserRepository, UserRepository>();
     //services.AddTransient<IDbRepository, DbRepository>();
 
     //services.AddTransient<IReportRepository, ReportRepository>();

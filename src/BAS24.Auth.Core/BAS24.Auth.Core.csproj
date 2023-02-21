@@ -11,9 +11,4 @@
         <PackageReference Include="BAS24.Libs" Version="1.0.3" />
     </ItemGroup>
 
-    <ItemGroup>
-        <Folder Include="Dtos" />
-        <Folder Include="IRepositories" />
-    </ItemGroup>
-
 </Project>

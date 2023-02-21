@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BAS24.Auth.Api.Controllers.V1;
@@ -24,7 +23,6 @@ public class WeatherForecastController : BaseController
   /// </summary>
   /// <returns></returns>
   [HttpGet]
-  [AllowAnonymous]
   public IEnumerable<WeatherForecast> Get()
   {
     return Enumerable.Range(1, 5).Select(index => new WeatherForecast

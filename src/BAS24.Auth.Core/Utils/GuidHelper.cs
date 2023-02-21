@@ -1,6 +1,7 @@
 namespace BAS24.Api.Utils;
 
-public class GuidHelper
+public static class GuidHelper
 {
-  
+  public static string NewId
+    => Guid.NewGuid().ToString("N");
 }

@@ -1,6 +1,6 @@
 using BAS24.Libs.Exceptions;
 
-namespace BAS24.Api.Entities.User;
+namespace BAS24.Api.Exceptions.Users;
 
 public class InvalidPasswordException : BaseException
 {
@@ -16,5 +16,5 @@ public class InvalidPasswordException : BaseException
   {
   }
 
-  public override string Code { get; }
+  public override string Code => "invalid_password";
 }
