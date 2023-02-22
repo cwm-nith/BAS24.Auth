@@ -1,6 +1,9 @@
+using BAS24.Api.Dtos.Twilio;
 using BAS24.Api.Dtos.Users;
 using BAS24.Api.Utils;
+using BAS24.Auth.Application.Commands.Twilio;
 using BAS24.Auth.Application.Commands.Users;
+using BAS24.Auth.Application.Queries.Twilio;
 using BAS24.Auth.Application.Queries.Users;
 using BAS24.Auth.Infrastructure.Services.Interfaces;
 using BAS24.Libs.CQRS.Commands;
@@ -46,7 +49,9 @@ public class UserController : BaseController
       dto.Phones,
       dto.Address,
       dto.RegionName));
-    return AcceptedWithResource("user", id);
+    var userDto = await _userService.LoginAsync(dto.Username, dto.Password, _serviceProvider, false);
+    var token = new JsonWebToken { AccessToken = userDto.Token ?? string.Empty };
+    return OkWithResource(token, $"user/{userDto.Id}", userDto.Id);
   }
 
   /// <summary>
@@ -111,5 +116,39 @@ public class UserController : BaseController
     var query = new GetUserPageQuery { Page = dto.Page, Results = dto.Results };
     var result = await _query.QueryAsync<GetUserPageQuery, PagedResult<UserDto>>(query);
     return Ok(result);
+  }
+
+  /// <summary>
+  ///   Verify Code
+  /// </summary>
+  /// <param name="dto"></param>
+  /// <returns></returns>
+  [ProducesResponseType(StatusCodes.Status200OK)]
+  [ProducesResponseType(StatusCodes.Status400BadRequest)]
+  [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+  [ProducesDefaultResponseType]
+  [HttpPost("verify")]
+  public async Task<ActionResult> VerifyAsync([FromBody] VerifyCodeDto dto)
+  {
+    var cmd = new VerifyCodeCommand(dto.Code);
+    await _command.PerformAsync(cmd, UserId);
+    return Ok();
+  }
+
+  /// <summary>
+  ///   Send Code
+  /// </summary>
+  /// <param name="dto"></param>
+  /// <returns></returns>
+  [ProducesResponseType(StatusCodes.Status200OK)]
+  [ProducesResponseType(StatusCodes.Status400BadRequest)]
+  [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+  [ProducesDefaultResponseType]
+  [HttpPost("send-code")]
+  public async Task<ActionResult> SendCodeAsync([FromBody] SendSmsDto dto)
+  {
+    var q = new GetCodeSmsQuery(dto.To);
+    var code = await _query.QueryAsync<GetCodeSmsQuery, SmsDto>(q);
+    return Ok(code);
   }
 }

@@ -72,6 +72,13 @@ public class UserRepository : IUserRepository
     return user?.AsEntity();
   }
 
+  public async Task<UserEntity?> GetActiveUserByPhoneNumber(string phoneNumber)
+  {
+    var user = await _repository.FirstOrDefaultAsync(x =>
+      x.Phones != null && x.Phones.Length > 0 && x.Phones.Contains(phoneNumber) && (x.Active ?? false));
+    return user?.AsEntity();
+  }
+
   public async Task<PagedResult<UserEntity>> GetUserPaginate(PagedQuery query)
   {
     var context = _repository.Context;

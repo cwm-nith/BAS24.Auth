@@ -17,7 +17,8 @@ public static class Extensions
       isLock: e.IsLock,
       isApprove: e.IsApprove,
       regionName: e.RegionName,
-      updatedAt: e.UpdatedAt
+      updatedAt: e.UpdatedAt,
+      code: e.Code
     )
     {
       Id = e.Id
@@ -40,25 +41,8 @@ public static class Extensions
       IsLock = t.IsLock ?? false,
       IsApprove = t.IsApprove,
       RegionName = t.RegionName,
-      UpdatedAt = t.UpdatedAt
+      UpdatedAt = t.UpdatedAt,
+      Code = t.Code
     };
   }
-  //
-  // public static UserDto AsUserDto(this UserEntity e)
-  // {
-  //   return new UserDto
-  //   {
-  //     Id = e.Id.ToString(),
-  //     Username = e.Username,
-  //     Fullname = e.Fullname,
-  //     Active = t.Active,
-  //     CreatedAt = t.CreatedAt,
-  //     Address = t.Address,
-  //     Phones = t.Phones,
-  //     IsLock = t.IsLock ?? false,
-  //     IsApprove = t.IsApprove,
-  //     RegionName = t.RegionName,
-  //     UpdatedAt = t.UpdatedAt
-  //   };
-  // }
 }

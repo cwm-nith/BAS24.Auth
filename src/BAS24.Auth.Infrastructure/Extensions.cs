@@ -22,6 +22,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Twilio.Clients;
 
 namespace BAS24.Auth.Infrastructure;
 
@@ -43,6 +44,8 @@ public static class Extensions
     services.AddCommandHandlers();
     services.AddQueryHandlers();
     services.AddEventHandlers();
+
+    services.AddHttpClient<ITwilioRestClient, TwilioService>();
 
     services.AddTransient<IUserService, UserService>();
 

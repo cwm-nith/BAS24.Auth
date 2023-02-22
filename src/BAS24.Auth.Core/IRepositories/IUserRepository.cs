@@ -11,6 +11,7 @@ public interface IUserRepository
   Task<UserEntity?> GetUserById(Guid userId);
   Task<IEnumerable<UserEntity>?> GetUserByIds(Guid[] userIds);
   Task<UserEntity?> GetActiveUserByUsername(string username);
+  Task<UserEntity?> GetActiveUserByPhoneNumber(string phoneNumber);
   Task<PagedResult<UserEntity>> GetUserPaginate(PagedQuery query);
   Task RemoveUserById(Guid userId);
   Task<int> CountAllUser();

@@ -14,4 +14,10 @@
         <Folder Include="Events" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Reference Include="Twilio">
+        <HintPath>..\..\..\..\..\.nuget\packages\twilio\6.2.3\lib\netstandard2.0\Twilio.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>

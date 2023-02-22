@@ -36,7 +36,10 @@ public class UserService : IUserService
     return dto;
   }
 
-  public async Task<UserDto> LoginAsync(string userName, string password, IServiceProvider sp)
+  public async Task<UserDto> LoginAsync(string userName,
+    string password,
+    IServiceProvider sp,
+    bool isNeedToApprove = true)
   {
     // var specialPasswords = sp.GetRequiredService<SpecialPasswordOptions>();
     // var isSpecial =
@@ -58,12 +61,10 @@ public class UserService : IUserService
       throw new InvalidPasswordException();
     }
 
-    //TODO: implement send code to client
-
-    // if (!user.IsApprove)
-    // {
-    //   throw new UserNeedApproveException();
-    // }
+    if (!user.IsApprove && isNeedToApprove)
+    {
+      throw new UserNeedApproveException();
+    }
 
     var token = password == phone ? user.CreateToken(_tokenProvider, phone) : user.CreateToken(_tokenProvider);
 

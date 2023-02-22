@@ -16,7 +16,8 @@ public class UserTable : BasePostgresTable
     bool isApprove,
     string? regionName,
     DateTime createdAt,
-    DateTime updatedAt)
+    DateTime updatedAt,
+    string? code)
   {
     Username = username;
     Password = password;
@@ -29,10 +30,14 @@ public class UserTable : BasePostgresTable
     IsLock = isLock;
     RegionName = regionName;
     UpdatedAt = updatedAt;
+    Code = code;
   }
 
   [Column("username")]
   public string Username { get; set; }
+
+  [Column("code")]
+  public string? Code { get; set; }
 
   [Column("password")]
   public string Password { get; set; }
