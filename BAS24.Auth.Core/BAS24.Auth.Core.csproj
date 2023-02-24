@@ -9,6 +9,7 @@
 
     <ItemGroup>
         <PackageReference Include="BAS24.Libs" Version="1.0.3" />
+        <PackageReference Include="Twilio" Version="6.2.4" />
     </ItemGroup>
 
     <ItemGroup>
