@@ -28,4 +28,8 @@
         <ProjectReference Include="..\BAS24.Auth.Infrastructure\BAS24.Auth.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Controllers\V2" />
+    </ItemGroup>
+
 </Project>
