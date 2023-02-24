@@ -66,7 +66,7 @@ public static class Extensions
       setup.SubstituteApiVersionInUrl = true;
     });
     // services.AddSwagger<AuthorizationHeaderParameterOperationFilter>("Api.xml").AddSwaggerExample();
-    services.AddSwagger<AuthorizationHeaderParameterOperationFilter>("Api.xml").AddSwaggerExample();
+    services.AddSwagger<AuthorizationHeaderParameterOperationFilter>("BAS24.Auth.Api.xml").AddSwaggerExample();
 
     services.Configure<ForwardedHeadersOptions>(options =>
     {
