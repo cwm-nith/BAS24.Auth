@@ -7,17 +7,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
+        <ProjectReference Include="..\BAS24.Auth.Application\BAS24.Auth.Application.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-<<<<<<<< HEAD:Infra/Infra.csproj
-      <ProjectReference Include="..\Application\Application.csproj" />
-========
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
->>>>>>>> store:BAS24.Auth.Infrastructure/BAS24.Auth.Infrastructure.csproj
     </ItemGroup>
 
 </Project>
