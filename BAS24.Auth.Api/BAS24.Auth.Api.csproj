@@ -23,9 +23,15 @@
     </ItemGroup>
 
     <ItemGroup>
+<<<<<<<< HEAD:Api/Api.csproj
         <ProjectReference Include="..\Application\Application.csproj" />
         <ProjectReference Include="..\Core\Core.csproj" />
         <ProjectReference Include="..\Infra\Infra.csproj" />
+========
+        <ProjectReference Include="..\BAS24.Auth.Application\BAS24.Auth.Application.csproj" />
+        <ProjectReference Include="..\BAS24.Auth.Core\BAS24.Auth.Core.csproj" />
+        <ProjectReference Include="..\BAS24.Auth.Infrastructure\BAS24.Auth.Infrastructure.csproj" />
+>>>>>>>> store:BAS24.Auth.Api/BAS24.Auth.Api.csproj
     </ItemGroup>
 
 </Project>
