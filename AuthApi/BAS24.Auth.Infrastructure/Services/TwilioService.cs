@@ -4,7 +4,7 @@ using Twilio.Http;
 using HttpClient = System.Net.Http.HttpClient;
 using HttpClientTwilio = Twilio.Http.HttpClient;
 
-namespace Infra.Services;
+namespace BAS24.Auth.Infrastructure.Services;
 
 public class TwilioService : ITwilioRestClient
 {

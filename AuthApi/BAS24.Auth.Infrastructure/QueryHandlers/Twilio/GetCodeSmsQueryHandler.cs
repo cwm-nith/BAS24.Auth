@@ -3,10 +3,10 @@ using BAS24.Api.Exceptions.Twilio;
 using BAS24.Api.Exceptions.Users;
 using BAS24.Api.IRepositories;
 using BAS24.Api.Utils;
-using Application.Queries.Twilio;
+using BAS24.Auth.Application.Queries.Twilio;
 using BAS24.Libs.CQRS.Queries;
 
-namespace Infra.QueryHandlers.Twilio;
+namespace BAS24.Auth.Infrastructure.QueryHandlers.Twilio;
 
 public class GetCodeSmsQueryHandler : IQueryHandler<GetCodeSmsQuery, SmsDto>
 {
@@ -34,15 +34,23 @@ public class GetCodeSmsQueryHandler : IQueryHandler<GetCodeSmsQuery, SmsDto>
 
     var code = GenerateRandomNumber.Create(8);
 
-    var data = await _repository.RequestAsync(new SendSmsDto(query.To, code));
-
-    if (data is null)
+    try
     {
-      throw new CodeSendFailedException();
-    }
+      var data = await _repository.RequestAsync(new SendSmsDto(query.To, code));
 
-    user.Code = code;
-    await _userRepository.UpdateUser(user);
-    return new SmsDto(data.Body);
+      if (data is null)
+      {
+        throw new CodeSendFailedException();
+      }
+
+      user.Code = code;
+      await _userRepository.UpdateUser(user);
+      return new SmsDto(data.Body);
+    }
+    catch (Exception e)
+    {
+      Console.WriteLine(e);
+      throw new FailedToSendCodeException();
+    }
   }
 }

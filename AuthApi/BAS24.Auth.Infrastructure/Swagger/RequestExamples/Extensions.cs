@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Infra.Swagger.RequestExamples;
+namespace BAS24.Auth.Infrastructure.Swagger.RequestExamples;
 
 public static class Extensions
 {

@@ -3,7 +3,7 @@ using BAS24.Libs.CQRS.Queries;
 using BAS24.Libs.Postgres;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infra.Postgres;
+namespace BAS24.Auth.Infrastructure.Postgres;
 
 public class PostgresRepository<TTable> : IPostgresRepository<TTable> where TTable : BasePostgresTable
 {

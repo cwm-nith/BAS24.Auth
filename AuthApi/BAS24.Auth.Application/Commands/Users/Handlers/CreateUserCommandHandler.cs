@@ -4,7 +4,7 @@ using BAS24.Api.IRepositories;
 using BAS24.Libs.CQRS.Commands;
 using Microsoft.AspNetCore.Identity;
 
-namespace Application.Commands.Users.Handlers;
+namespace BAS24.Auth.Application.Commands.Users.Handlers;
 
 public class CreateUserCommandHandler : ICommandHandler<CreateUserCommand>
 {

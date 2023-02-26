@@ -1,6 +1,6 @@
 using BAS24.Libs.CQRS.Commands;
 
-namespace Application.Commands.Twilio;
+namespace BAS24.Auth.Application.Commands.Twilio;
 
 public class VerifyCodeCommand : ICommand
 {

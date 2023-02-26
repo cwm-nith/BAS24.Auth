@@ -1,7 +1,12 @@
 using BAS24.Api.Entities.User;
 using BAS24.Api.Exceptions.Middlewares;
 using BAS24.Api.Middlewares;
-using Infra.Swagger.RequestExamples;
+using BAS24.Auth.Infrastructure.Options;
+using BAS24.Auth.Infrastructure.Postgres;
+using BAS24.Auth.Infrastructure.Services;
+using BAS24.Auth.Infrastructure.Services.Interfaces;
+using BAS24.Auth.Infrastructure.Swagger.CustomizeHeader;
+using BAS24.Auth.Infrastructure.Swagger.RequestExamples;
 using BAS24.Libs.CQRS.Commands;
 using BAS24.Libs.CQRS.Events;
 using BAS24.Libs.CQRS.Queries;
@@ -10,11 +15,6 @@ using BAS24.Libs.Logging;
 using BAS24.Libs.Postgres;
 using BAS24.Libs.SpecialPassword;
 using BAS24.Libs.Swagger;
-using Infra.Options;
-using Infra.Postgres;
-using Infra.Services;
-using Infra.Services.Interfaces;
-using Infra.Swagger.CustomizeHeader;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -24,7 +24,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Twilio.Clients;
 
-namespace Infra;
+namespace BAS24.Auth.Infrastructure;
 
 public static class Extensions
 {
@@ -82,7 +82,7 @@ public static class Extensions
     //     new CultureInfo("en-US"),
     //     new CultureInfo("fr")
     // };
-
+    PrepareDatabase.PrepareDatabasePopulation(app);
     app.UseForwardedHeaders();
 
     app.UseErrorHandler()

@@ -2,7 +2,7 @@ using BAS24.Api.Exceptions.Users;
 using BAS24.Api.IRepositories;
 using BAS24.Libs.CQRS.Commands;
 
-namespace Application.Commands.Users.Handlers;
+namespace BAS24.Auth.Application.Commands.Users.Handlers;
 
 public class UpdateUserCommandHandler : ICommandHandler<UpdateUserCommand, Guid>
 {

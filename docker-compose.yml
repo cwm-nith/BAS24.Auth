@@ -5,6 +5,20 @@ networks:
   frontend:
 
 services:
+  bas24apiauthdb:
+    container_name: bas24_api_auth_db
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      PGDATA: /data/postgres
+    volumes:
+      - bas24apiauthdb:/data/postgres
+    ports:
+      - "5435:5432"
+    networks:
+      - backend
+    restart: unless-stopped
   bas24apigateway:
     build:
       context: .
@@ -17,8 +31,10 @@ services:
       - backend
       - frontend
 #    environment:
-#      - ASPNETCORE_ENVIRONMENT=Development
+#      - ASPNETCORE_ENVIRONMENT=Production
   bas24authapi:
+    depends_on:
+      - bas24apiauthdb
     build:
       context: .
       dockerfile: AuthApi/Dockerfile
@@ -28,3 +44,12 @@ services:
       - "8001:80"
     networks:
       - backend
+    environment:
+      - DB_HOST=bas24apiauthdb
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=BAS24Auth
+
+volumes:
+  bas24apiauthdb:

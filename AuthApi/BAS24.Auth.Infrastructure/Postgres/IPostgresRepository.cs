@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 using BAS24.Libs.CQRS.Queries;
 using BAS24.Libs.Postgres;
 
-namespace Infra.Postgres;
+namespace BAS24.Auth.Infrastructure.Postgres;
 
 public interface IPostgresRepository<T> where T : BasePostgresTable
 {

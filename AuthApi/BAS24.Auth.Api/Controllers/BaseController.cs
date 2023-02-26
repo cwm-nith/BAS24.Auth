@@ -2,7 +2,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controllers;
+namespace BAS24.Auth.Api.Controllers;
 
 [Route("/api/v{version:apiVersion}/[controller]")]
 [ApiController]

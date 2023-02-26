@@ -1,11 +1,11 @@
 using BAS24.Api.IRepositories;
+using BAS24.Auth.Infrastructure.Postgres.User;
+using BAS24.Auth.Infrastructure.Repositories;
 using BAS24.Libs.Postgres;
-using Infra.Postgres.User;
-using Infra.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Infra.Postgres;
+namespace BAS24.Auth.Infrastructure.Postgres;
 
 public static class Extensions
 {

@@ -26,6 +26,6 @@ RUN dotnet publish "BAS24.Auth.Api/BAS24.Auth.Api.csproj" -c Release -o /app/pub
 FROM base AS final
 WORKDIR /app
 COPY AuthApi/BAS24.Auth.Api/BAS24.Auth.Api.xml .
-ENV ASPNETCORE_URLS=http://*:8080
+#ENV ASPNETCORE_URLS=http://*:8080
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "BAS24.Auth.Api.dll"]

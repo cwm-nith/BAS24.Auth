@@ -1,7 +1,7 @@
-using Infra.Postgres.User;
+using BAS24.Auth.Infrastructure.Postgres.User;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infra.Postgres;
+namespace BAS24.Auth.Infrastructure.Postgres;
 
 public class PostgresDbContext : DbContext
 {

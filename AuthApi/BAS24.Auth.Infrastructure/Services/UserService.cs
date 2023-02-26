@@ -2,10 +2,10 @@ using BAS24.Api.Dtos.Users;
 using BAS24.Api.Entities.User;
 using BAS24.Api.Exceptions.Users;
 using BAS24.Api.IRepositories;
+using BAS24.Auth.Infrastructure.Services.Interfaces;
 using BAS24.Libs.Jwt;
-using Infra.Services.Interfaces;
 
-namespace Infra.Services;
+namespace BAS24.Auth.Infrastructure.Services;
 
 public class UserService : IUserService
 {

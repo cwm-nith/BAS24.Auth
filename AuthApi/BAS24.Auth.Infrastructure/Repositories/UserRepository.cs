@@ -1,14 +1,14 @@
 using BAS24.Api.Entities.User;
 using BAS24.Api.Exceptions.Users;
 using BAS24.Api.IRepositories;
+using BAS24.Auth.Infrastructure.Postgres;
+using BAS24.Auth.Infrastructure.Postgres.User;
 using BAS24.Libs.CQRS.Queries;
 using BAS24.Libs.Postgres;
-using Infra.Postgres;
-using Infra.Postgres.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infra.Repositories;
+namespace BAS24.Auth.Infrastructure.Repositories;
 
 public class UserRepository : IUserRepository
 {

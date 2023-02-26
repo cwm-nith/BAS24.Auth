@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Infra.Migrations
+namespace BAS24.Auth.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class UserTable : Migration

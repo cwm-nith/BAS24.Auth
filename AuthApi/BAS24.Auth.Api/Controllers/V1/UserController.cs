@@ -1,11 +1,11 @@
 using BAS24.Api.Dtos.Twilio;
 using BAS24.Api.Dtos.Users;
 using BAS24.Api.Utils;
-using Application.Commands.Twilio;
-using Application.Commands.Users;
-using Application.Queries.Twilio;
-using Application.Queries.Users;
-using Infra.Services.Interfaces;
+using BAS24.Auth.Application.Commands.Twilio;
+using BAS24.Auth.Application.Commands.Users;
+using BAS24.Auth.Application.Queries.Twilio;
+using BAS24.Auth.Application.Queries.Users;
+using BAS24.Auth.Infrastructure.Services.Interfaces;
 using BAS24.Libs.CQRS.Commands;
 using BAS24.Libs.CQRS.Queries;
 using BAS24.Libs.Jwt;
@@ -13,7 +13,7 @@ using BAS24.Libs.Postgres;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controllers.V1;
+namespace BAS24.Auth.Api.Controllers.V1;
 
 public class UserController : BaseController
 {

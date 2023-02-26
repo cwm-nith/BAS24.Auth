@@ -7,7 +7,7 @@ using Twilio.Clients;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
 
-namespace Infra.Repositories;
+namespace BAS24.Auth.Infrastructure.Repositories;
 
 public class TwilioRepository : ITwilioRepository
 {
@@ -43,6 +43,7 @@ public class TwilioRepository : ITwilioRepository
     if (user.Code == code)
     {
       user.IsApprove = true;
+      user.Active = true;
       user.Code = null;
       await _repository.UpdateUser(user);
     }

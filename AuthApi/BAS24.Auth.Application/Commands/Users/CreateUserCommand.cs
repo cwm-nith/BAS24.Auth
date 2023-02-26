@@ -1,6 +1,6 @@
 using BAS24.Libs.CQRS.Commands;
 
-namespace Application.Commands.Users;
+namespace BAS24.Auth.Application.Commands.Users;
 
 public class CreateUserCommand : ICommand
 {

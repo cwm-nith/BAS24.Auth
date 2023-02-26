@@ -1,7 +1,7 @@
 using BAS24.Api.Dtos.Users;
 using BAS24.Libs.CQRS.Queries;
 
-namespace Application.Queries.Users;
+namespace BAS24.Auth.Application.Queries.Users;
 
 public class GetUserPageQuery : IQuery<PagedResult<UserDto>>
 {

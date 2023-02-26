@@ -1,6 +1,6 @@
 using BAS24.Api.Entities.User;
 
-namespace Infra.Postgres.User;
+namespace BAS24.Auth.Infrastructure.Postgres.User;
 
 public static class Extensions
 {

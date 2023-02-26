@@ -1,9 +1,9 @@
 using BAS24.Api.Dtos.Users;
 using BAS24.Api.IRepositories;
-using Application.Queries.Users;
+using BAS24.Auth.Application.Queries.Users;
 using BAS24.Libs.CQRS.Queries;
 
-namespace Infra.QueryHandlers.Users;
+namespace BAS24.Auth.Infrastructure.QueryHandlers.Users;
 
 public class GetUserPageQueryHandler : IQueryHandler<GetUserPageQuery, PagedResult<UserDto>>
 {

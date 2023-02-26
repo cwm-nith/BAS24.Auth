@@ -1,5 +1,5 @@
 using System.Text;
-using Infra;
+using BAS24.Auth.Infrastructure;
 using BAS24.Libs.CQRS.Handlers;
 using BAS24.Libs.Json;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

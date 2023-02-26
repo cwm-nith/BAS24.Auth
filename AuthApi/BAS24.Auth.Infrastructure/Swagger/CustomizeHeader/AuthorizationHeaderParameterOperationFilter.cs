@@ -2,7 +2,7 @@ using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Infra.Swagger.CustomizeHeader;
+namespace BAS24.Auth.Infrastructure.Swagger.CustomizeHeader;
 
 public class AuthorizationHeaderParameterOperationFilter : IOperationFilter
 {

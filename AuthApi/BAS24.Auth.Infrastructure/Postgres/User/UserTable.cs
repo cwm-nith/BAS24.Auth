@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using BAS24.Libs.Postgres;
 
-namespace Infra.Postgres.User;
+namespace BAS24.Auth.Infrastructure.Postgres.User;
 
 public class UserTable : BasePostgresTable
 {

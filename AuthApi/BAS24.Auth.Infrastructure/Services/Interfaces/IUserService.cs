@@ -1,6 +1,6 @@
 using BAS24.Api.Dtos.Users;
 
-namespace Infra.Services.Interfaces;
+namespace BAS24.Auth.Infrastructure.Services.Interfaces;
 
 public interface IUserService
 {
