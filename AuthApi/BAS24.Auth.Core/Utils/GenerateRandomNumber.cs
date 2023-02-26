@@ -4,7 +4,15 @@ public static class GenerateRandomNumber
 {
   public static string Create(int length)
   {
-    var rnm = new Random(length);
-    return rnm.Next().ToString();
+    var finalCode = "";
+    for (var num = 0; num < length; num++)
+    {
+      var rnm = new Random();
+      var code = rnm.Next(10).ToString();
+      finalCode += code;
+    }
+
+    return finalCode;
   }
+
 }
