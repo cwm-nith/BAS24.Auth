@@ -145,10 +145,63 @@ public class UserController : BaseController
   [ProducesResponseType(StatusCodes.Status401Unauthorized)]
   [ProducesDefaultResponseType]
   [HttpPost("send-code")]
-  public async Task<ActionResult> SendCodeAsync([FromBody] SendSmsDto dto)
+  public async Task<ActionResult<SmsDto>> SendCodeAsync([FromBody] SendSmsDto dto)
   {
     var q = new GetCodeSmsQuery(dto.To);
     var code = await _query.QueryAsync<GetCodeSmsQuery, SmsDto>(q);
     return Ok(code);
+  }
+  
+  /// <summary>
+  /// return current user login
+  /// </summary>
+  /// <returns></returns>
+  [ProducesResponseType(StatusCodes.Status200OK)]
+  [ProducesResponseType(StatusCodes.Status400BadRequest)]
+  [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+  [ProducesDefaultResponseType]
+  [HttpGet("get-me")]
+  public async Task<ActionResult<UserDto>> GetMeAsync()
+  {
+    var q = new GetUserByIdQuery(UserId);
+    var user = await _query.QueryAsync<GetUserByIdQuery, UserDto>(q);
+    return Ok(user);
+  }
+  
+  /// <summary>
+  /// return user by id specify
+  /// </summary>
+  /// <returns></returns>
+  [ProducesResponseType(StatusCodes.Status200OK)]
+  [ProducesResponseType(StatusCodes.Status400BadRequest)]
+  [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+  [ProducesDefaultResponseType]
+  [HttpGet("{userId}")]
+  public async Task<ActionResult<UserDto>> GetUserByIdAsync(string userId)
+  {
+    var q = new GetUserByIdQuery(userId);
+    var user = await _query.QueryAsync<GetUserByIdQuery, UserDto>(q);
+    return Ok(user);
+  }
+  
+  /// <summary>
+  /// update user by id specify
+  /// </summary>
+  /// <returns></returns>
+  [ProducesResponseType(StatusCodes.Status200OK)]
+  [ProducesResponseType(StatusCodes.Status400BadRequest)]
+  [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+  [ProducesDefaultResponseType]
+  [HttpPut("{userId}")]
+  public async Task<ActionResult<UserDto>> GetUserByIdAsync(string userId, [FromBody] UpdateUserDto dto)
+  {
+    var cmd = new UpdateUserCommand(UserId.ToGuid(),
+      dto.Username,
+      dto.Fullname,
+      dto.Phones,
+      dto.Address,
+      dto.RegionName);
+    await _command.PerformAsync(cmd, UserId.ToGuid());
+    return Accepted();
   }
 }
