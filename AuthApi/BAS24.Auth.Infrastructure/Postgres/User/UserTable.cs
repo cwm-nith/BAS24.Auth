@@ -1,8 +1,11 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using BAS24.Auth.Infrastructure.Postgres.Media;
+using BAS24.Auth.Infrastructure.Postgres.Store;
 using BAS24.Libs.Postgres;
 
 namespace BAS24.Auth.Infrastructure.Postgres.User;
 
+[Table("users")]
 public class UserTable : BasePostgresTable
 {
   public UserTable(
@@ -68,4 +71,7 @@ public class UserTable : BasePostgresTable
 
   [Column("updated_at")]
   public DateTime UpdatedAt { get; set; }
+  
+  public List<MediaTable>? Medias { get; set; }
+  public List<StoreTable>? Stores { get; set; }
 }

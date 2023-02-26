@@ -4,45 +4,63 @@
         <name>BAS24.Auth.Api</name>
     </assembly>
     <members>
-        <member name="M:Api.Controllers.V1.UserController.LoginAsync(BAS24.Api.Dtos.Users.LoginDto)">
+        <member name="M:BAS24.Auth.Api.Controllers.V1.UserController.LoginAsync(BAS24.Api.Dtos.Users.LoginDto)">
             <summary>
               user login
             </summary>
             <param name="login"></param>
             <returns></returns>
         </member>
-        <member name="M:Api.Controllers.V1.UserController.UpdateUserAsync(BAS24.Api.Dtos.Users.UpdateUserDto)">
+        <member name="M:BAS24.Auth.Api.Controllers.V1.UserController.UpdateUserAsync(BAS24.Api.Dtos.Users.UpdateUserDto)">
             <summary>
               update user
             </summary>
             <param name="update"></param>
             <returns></returns>
         </member>
-        <member name="M:Api.Controllers.V1.UserController.RemoveUserAsync(System.Guid)">
+        <member name="M:BAS24.Auth.Api.Controllers.V1.UserController.RemoveUserAsync(System.Guid)">
             <summary>
               remove user by id
             </summary>
             <param name="userId"></param>
             <returns></returns>
         </member>
-        <member name="M:Api.Controllers.V1.UserController.GetUserListAsync(BAS24.Api.Dtos.Users.GetUserPageDto)">
+        <member name="M:BAS24.Auth.Api.Controllers.V1.UserController.GetUserListAsync(BAS24.Api.Dtos.Users.GetUserPageDto)">
             <summary>
               get user list
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Api.Controllers.V1.UserController.VerifyAsync(BAS24.Api.Dtos.Twilio.VerifyCodeDto)">
+        <member name="M:BAS24.Auth.Api.Controllers.V1.UserController.VerifyAsync(BAS24.Api.Dtos.Twilio.VerifyCodeDto)">
             <summary>
               Verify Code
             </summary>
             <param name="dto"></param>
             <returns></returns>
         </member>
-        <member name="M:Api.Controllers.V1.UserController.SendCodeAsync(BAS24.Api.Dtos.Twilio.SendSmsDto)">
+        <member name="M:BAS24.Auth.Api.Controllers.V1.UserController.SendCodeAsync(BAS24.Api.Dtos.Twilio.SendSmsDto)">
             <summary>
               Send Code
             </summary>
             <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BAS24.Auth.Api.Controllers.V1.UserController.GetMeAsync">
+            <summary>
+            return current user login
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:BAS24.Auth.Api.Controllers.V1.UserController.GetUserByIdAsync(System.String)">
+            <summary>
+            return user by id specify
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:BAS24.Auth.Api.Controllers.V1.UserController.GetUserByIdAsync(System.String,BAS24.Api.Dtos.Users.UpdateUserDto)">
+            <summary>
+            update user by id specify
+            </summary>
             <returns></returns>
         </member>
     </members>

@@ -1,4 +1,7 @@
 using BAS24.Api.IRepositories;
+using BAS24.Auth.Infrastructure.Postgres.Media;
+using BAS24.Auth.Infrastructure.Postgres.SocialLink;
+using BAS24.Auth.Infrastructure.Postgres.Store;
 using BAS24.Auth.Infrastructure.Postgres.User;
 using BAS24.Auth.Infrastructure.Repositories;
 using BAS24.Libs.Postgres;
@@ -12,7 +15,12 @@ public static class Extensions
   public static IServiceCollection AddPostgresRepositories(this IServiceCollection services)
   {
     services.AddPostgresRepository<UserTable>();
-
+    services.AddPostgresRepository<MediaTable>();
+    services.AddPostgresRepository<SocialLinkTable>();
+    services.AddPostgresRepository<SocialUserLinkTable>();
+    services.AddPostgresRepository<StoreMemberTable>();
+    services.AddPostgresRepository<StoreTable>();
+    
     services.AddScoped(typeof(PostgresDbContext),
       sp =>
       {
