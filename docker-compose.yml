@@ -1,17 +1,30 @@
 version: "3.5"
 
-services:
-  bas24-auth:
-    build: .
-    container_name: bas24_auth
-    restart: unless-stopped
-    ports:
-      - 8080:8080
-    networks:
-      - bas24
-#    volumes:
-#      - mipd:/data
-
 networks:
-  bas24:
-    name: bas24-network
+  backend:
+  frontend:
+
+services:
+  bas24apigateway:
+    build:
+      context: .
+      dockerfile: ApiGateWay/Dockerfile
+    container_name: bas24_api_gateway
+    #    restart: unless-stopped
+    ports:
+      - "8000:80"
+    networks:
+      - backend
+      - frontend
+#    environment:
+#      - ASPNETCORE_ENVIRONMENT=Development
+  bas24authapi:
+    build:
+      context: .
+      dockerfile: AuthApi/Dockerfile
+    container_name: bas24_auth_api
+#    restart: unless-stopped
+    ports:
+      - "8001:80"
+    networks:
+      - backend
