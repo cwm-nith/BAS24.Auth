@@ -403,5 +403,5 @@ ASALocalRun/
 
 # Local History for Visual Studio
 .localhistory/
-src/UNTSD.Api/appsettings.Development.json
-src/data/
+AuthApi/**/appsettings.Development.json
+AuthApi/data/
