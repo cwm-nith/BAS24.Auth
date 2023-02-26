@@ -403,5 +403,12 @@ ASALocalRun/
 
 # Local History for Visual Studio
 .localhistory/
-src/UNTSD.Api/appsettings.Development.json
-src/data/
+AuthApi/BAS24.Auth.Api/appsettings.Development.json
+AuthApi/BAS24.Auth.Api/appsettings.json
+AuthApi/BAS24.Auth.Application/appsettings.Development.json
+AuthApi/BAS24.Auth.Application/appsettings.json
+AuthApi/BAS24.Auth.Core/appsettings.Development.json
+AuthApi/BAS24.Auth.Core/appsettings.json
+AuthApi/BAS24.Auth.Infrastructure/appsettings.Development.json
+AuthApi/BAS24.Auth.Infrastructure/appsettings.json
+AuthApi/data/

@@ -1,0 +1,67 @@
+{
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/api/v1/auth",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "bas24authapi",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v1/user",
+      "UpstreamHttpMethod": [ "Post", "Put", "Get" ],
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "5s",
+        "PeriodTimespan": 1,
+        "Limit": 1
+      },
+      "FileCacheOptions": { "TtlSeconds": 30 }
+    },
+    {
+      "UpstreamPathTemplate": "/api/v1/auth/login",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "bas24authapi",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v1/user/login",
+      "UpstreamHttpMethod": [ "Post" ],
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "5s",
+        "PeriodTimespan": 1,
+        "Limit": 1
+      },
+      "FileCacheOptions": { "TtlSeconds": 30 }
+    },
+    {
+      "UpstreamPathTemplate": "/api/v1/users",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "bas24authapi",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v1/user",
+      "UpstreamHttpMethod": [ "Get", "Put" ],
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "5s",
+        "PeriodTimespan": 1,
+        "Limit": 1
+      },
+      "FileCacheOptions": { "TtlSeconds": 30 }
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:8000"
+  }
+}
