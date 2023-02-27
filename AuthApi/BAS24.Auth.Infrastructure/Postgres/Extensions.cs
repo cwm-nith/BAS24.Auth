@@ -30,7 +30,7 @@ public static class Extensions
 
     services.AddTransient<IUserRepository, UserRepository>();
     services.AddTransient<ITwilioRepository, TwilioRepository>();
-    //services.AddTransient<IDbRepository, DbRepository>();
+    services.AddTransient<IStoreRepository, StoreRepository>();
 
     //services.AddTransient<IReportRepository, ReportRepository>();
 

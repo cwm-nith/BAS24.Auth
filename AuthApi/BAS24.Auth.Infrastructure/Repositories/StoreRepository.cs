@@ -1,30 +1,41 @@
+using BAS24.Api.Entities.Stores;
 using BAS24.Api.IRepositories;
+using BAS24.Auth.Infrastructure.Postgres;
+using BAS24.Auth.Infrastructure.Postgres.Store;
+using BAS24.Libs.CQRS.Queries;
 
 namespace BAS24.Auth.Infrastructure.Repositories;
 
 public class StoreRepository:IStoreRepository
 {
-  public Task CreateStoreAsync()
+  private readonly IPostgresRepository<StoreTable> _repository;
+
+  public StoreRepository(IPostgresRepository<StoreTable> repository)
+  {
+    _repository = repository;
+  }
+
+  public Task CreateStoreAsync(StoreEntity entity)
+  {
+    return _repository.AddAsync(entity.AsTable());
+  }
+
+  public Task UpdateStoreAsync(StoreEntity entity)
+  {
+    return _repository.UpdateAsync(entity.AsTable());
+  }
+
+  public Task ActivateStoreAsync(string ownerId, string storeId)
   {
     throw new NotImplementedException();
   }
 
-  public Task UpdateStoreAsync()
+  public Task DeactivateStoreAsync(string ownerId, string storeId)
   {
     throw new NotImplementedException();
   }
 
-  public Task ActivateStoreAsync()
-  {
-    throw new NotImplementedException();
-  }
-
-  public Task DeactivateStoreAsync()
-  {
-    throw new NotImplementedException();
-  }
-
-  public Task DeleteStoreAsync()
+  public Task DeleteStoreAsync(string ownerId, string storeId)
   {
     throw new NotImplementedException();
   }
@@ -44,17 +55,17 @@ public class StoreRepository:IStoreRepository
     throw new NotImplementedException();
   }
 
-  public Task GetStoreAsync()
+  public Task<StoreEntity?> GetStoreAsync(string ownerId, string storeId)
   {
     throw new NotImplementedException();
   }
 
-  public Task GetStoresByUserAsync()
+  public Task<PagedResult<StoreEntity>> GetStoresByUserAsync(string ownerId)
   {
     throw new NotImplementedException();
   }
 
-  public Task GetAllStoresAsync()
+  public Task<PagedResult<StoreEntity>> GetAllStoresAsync()
   {
     throw new NotImplementedException();
   }
