@@ -1,11 +1,12 @@
 using BAS24.Api.Entities.Stores;
+using BAS24.Auth.Infrastructure.Postgres.SocialLink;
 using BAS24.Auth.Infrastructure.Postgres.User;
 
 namespace BAS24.Auth.Infrastructure.Postgres.Store;
 
 public static class Extensions
 {
-  public static StoreMemberTable AsTable(this StoreMemberEntity s) => new StoreMemberTable(
+  public static StoreMemberTable AsTable(this StoreMemberEntity s) => new(
     storeId: s.StoreId,
     memberId: s.MemberId,
     updatedAt: s.UpdatedAt
@@ -18,7 +19,7 @@ public static class Extensions
     StoreMemberRole = s.StoreMemberRole,
   };
 
-  public static StoreMemberEntity AsEntity(this StoreMemberTable s) => new StoreMemberEntity(
+  public static StoreMemberEntity AsEntity(this StoreMemberTable s) => new(
     id: s.Id,
     storeId: s.StoreId,
     memberId: s.MemberId,
@@ -31,7 +32,7 @@ public static class Extensions
     Store = s.Store?.AsEntity(),
   };
 
-  public static StoreTable AsTable(this StoreEntity e) => new StoreTable(
+  public static StoreTable AsTable(this StoreEntity e) => new(
     ownerId: e.OwnerId,
     name: e.Name,
     address: e.Address,
@@ -49,10 +50,10 @@ public static class Extensions
     Id = e.Id,
     Owner = e.Owner?.AsTable(),
     StoreMembers = e.StoreMembers?.Select(i => i.AsTable()).ToList(),
-    // SocialUserLinks = 
+    SocialUserLinks = e.SocialUserLinks?.Select(i => i.AsTable()).ToList()
   };
 
-  public static StoreEntity AsEntity(this StoreTable s) => new StoreEntity(
+  public static StoreEntity AsEntity(this StoreTable s) => new(
     id: s.Id,
     ownerId: s.OwnerId,
     name: s.Name,
@@ -72,6 +73,6 @@ public static class Extensions
   {
     Owner = s.Owner?.AsEntity(),
     StoreMembers = s.StoreMembers?.Select(i => i.AsEntity()).ToList(),
-    // SocialUserLinks =
+    SocialUserLinks = s.SocialUserLinks?.Select(i=> i.AsEntity()).ToList()
   };
 }

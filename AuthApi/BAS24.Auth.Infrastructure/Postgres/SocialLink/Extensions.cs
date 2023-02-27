@@ -5,7 +5,7 @@ namespace BAS24.Auth.Infrastructure.Postgres.SocialLink;
 
 public static class Extensions
 {
-  public static SocialUserLinkEntity AsEntity(this SocialUserLinkTable s) => new SocialUserLinkEntity(
+  public static SocialUserLinkEntity AsEntity(this SocialUserLinkTable s) => new(
     id: s.Id,
     socialLinkId: s.SocialLinkId,
     storeId: s.StoreId,
@@ -19,13 +19,13 @@ public static class Extensions
     CreatedAt = s.CreatedAt,
   };
 
-  public static SocialUserLinkTable AsTable(this SocialUserLinkEntity s) => new SocialUserLinkTable(
-    socialLinkId: s.SocialLinkId, 
-    storeId: s.StoreId, 
-    storeOwnerId: s.StoreOwnerId, 
-    link: s.Link, 
+  public static SocialUserLinkTable AsTable(this SocialUserLinkEntity s) => new(
+    socialLinkId: s.SocialLinkId,
+    storeId: s.StoreId,
+    storeOwnerId: s.StoreOwnerId,
+    link: s.Link,
     updatedAt: s.UpdatedAt
-    )
+  )
   {
     SocialLink = s.SocialLink?.AsTable(),
     CreatedAt = s.CreatedAt,
@@ -33,7 +33,7 @@ public static class Extensions
     Store = s.Store?.AsTable(),
   };
 
-  public static SocialLinkEntity AsEntity(this SocialLinkTable s) => new SocialLinkEntity(id: s.Id,
+  public static SocialLinkEntity AsEntity(this SocialLinkTable s) => new(id: s.Id,
     name: s.Name,
     createdAt: s.CreatedAt,
     updatedAt: s.UpdatedAt)
@@ -42,10 +42,10 @@ public static class Extensions
   };
 
   public static SocialLinkTable AsTable(this SocialLinkEntity s) =>
-    new SocialLinkTable(name: s.Name, updatedAt: s.UpdatedAt)
+    new(name: s.Name, updatedAt: s.UpdatedAt)
     {
       CreatedAt = s.CreatedAt,
       Id = s.Id,
-      SocialUserLinks = s.SocialUserLinks?.Select(i=> i.AsTable()).ToList()
+      SocialUserLinks = s.SocialUserLinks?.Select(i => i.AsTable()).ToList()
     };
 }
