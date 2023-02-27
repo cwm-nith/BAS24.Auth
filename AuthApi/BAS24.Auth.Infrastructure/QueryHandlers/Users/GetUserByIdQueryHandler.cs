@@ -16,7 +16,7 @@ public class GetUserByIdQueryHandler:IQueryHandler<GetUserByIdQuery, UserDto>
     _repository = repository;
   }
 
-  public async Task<UserDto>? HandleAsync(GetUserByIdQuery query)
+  public async Task<UserDto> HandleAsync(GetUserByIdQuery query)
   {
     var user = await _repository.GetUserById(query.Id.ToGuid());
     if (user is null) throw new UserNotFoundException(query.Id);

@@ -23,5 +23,23 @@ public class PostgresDbContext : DbContext
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {
     base.OnModelCreating(modelBuilder);
+    modelBuilder.Entity<UserTable>()
+      .HasMany(i => i.Stores)
+      .WithOne(i => i.Owner)
+      .HasForeignKey(i=> i.OwnerId);
+
+    modelBuilder.Entity<SocialLinkTable>()
+      .HasMany(i => i.SocialUserLinks)
+      .WithOne(i => i.SocialLink)
+      .HasForeignKey(i => i.SocialLinkId);
+
+    modelBuilder.Entity<StoreTable>()
+      .HasMany(i => i.SocialUserLinks)
+      .WithOne(i => i.Store)
+      .HasForeignKey(i => i.StoreId);
+    modelBuilder.Entity<StoreTable>()
+      .HasMany(i => i.StoreMembers)
+      .WithOne(i => i.Store)
+      .HasForeignKey(i => i.StoreId);
   }
 }

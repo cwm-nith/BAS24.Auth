@@ -3,17 +3,20 @@ using System;
 using BAS24.Auth.Infrastructure.Postgres;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace BAS24.Auth.Infrastructure.Postgres
+namespace BAS24.Auth.Infrastructure.Migrations
 {
     [DbContext(typeof(PostgresDbContext))]
-    partial class PostgresDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230227165223_Db001")]
+    partial class Db001
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -141,7 +144,7 @@ namespace BAS24.Auth.Infrastructure.Postgres
                         .HasColumnType("uuid")
                         .HasColumnName("store_id");
 
-                    b.Property<int>("StoreMemberRole")
+                    b.Property<int>("StoreMemerRole")
                         .HasColumnType("integer")
                         .HasColumnName("store_member_role");
 

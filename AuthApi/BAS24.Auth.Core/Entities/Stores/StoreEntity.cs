@@ -1,85 +1,73 @@
-using System.ComponentModel.DataAnnotations.Schema;
+using BAS24.Api.Entities.SocialLinks;
+using BAS24.Api.Entities.User;
 using BAS24.Api.Enums;
-using BAS24.Auth.Infrastructure.Postgres.Media;
-using BAS24.Auth.Infrastructure.Postgres.SocialLink;
-using BAS24.Auth.Infrastructure.Postgres.User;
-using BAS24.Libs.Postgres;
 
-namespace BAS24.Auth.Infrastructure.Postgres.Store;
+namespace BAS24.Api.Entities.Stores;
 
-[Table("stores")]
-public class StoreTable : BasePostgresTable
+public class StoreEntity
 {
-  [Column("owner_id")]
+  public Guid Id { get; set; }
   public Guid OwnerId { get; set; }
 
-  [Column("name")]
   public string Name { get; set; }
 
-  [Column("description")]
   public string? Description { get; set; }
 
-  [Column("address")]
   public string Address { get; set; }
 
-  [Column("phones")]
   public string[] Phones { get; set; }
 
-  [Column("emails")]
   public string[] Emails { get; set; }
 
-  [Column("tags")]
   public string[] Tags { get; set; }
 
-  [Column("key_words")]
   public string[] KeyWords { get; set; }
 
-  [Column("categoryIds")]
   public Guid[] CategoryIds { get; set; }
 
-  [Column("price_rating")]
   public Rating PriceRating { get; set; } = Rating.None;
 
-  [Column("store_rating")]
   public Rating StoreRating { get; set; }
 
-  [Column("start_working_time")]
   public DateTime StartWorkingTime { get; set; }
 
-  [Column("end_working_time")]
   public DateTime EndWorkingTime { get; set; }
 
-  [Column("created_at")]
   public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-  [Column("updated_at")]
   public DateTime UpdatedAt { get; set; }
 
-  public UserTable? Owner { get; set; }
-  public ICollection<SocialUserLinkTable>? SocialUserLinks { get; set; }
-  public ICollection<StoreMemberTable>? StoreMembers { get; set; }
-  
-  public StoreTable(Guid ownerId,
+  public UserEntity? Owner { get; set; }
+  public List<SocialUserLinkEntity>? SocialUserLinks { get; set; }
+  public List<StoreMemberEntity>? StoreMembers { get; set; }
+
+  public StoreEntity(Guid id,
+    Guid ownerId,
     string name,
+    string? description,
     string address,
     string[] phones,
     string[] emails,
     string[] tags,
     string[] keyWords,
     Guid[] categoryIds,
+    Rating priceRating,
     Rating storeRating,
     DateTime startWorkingTime,
     DateTime endWorkingTime,
     DateTime updatedAt)
   {
+    Id = id;
     OwnerId = ownerId;
     Name = name;
+    Description = description;
     Address = address;
     Phones = phones;
     Emails = emails;
     Tags = tags;
     KeyWords = keyWords;
     CategoryIds = categoryIds;
+    PriceRating = priceRating;
     StoreRating = storeRating;
     StartWorkingTime = startWorkingTime;
     EndWorkingTime = endWorkingTime;

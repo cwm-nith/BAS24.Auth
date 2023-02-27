@@ -13,7 +13,7 @@ public class StoreMemberTable:BasePostgresTable
   [Column("member_id")]
   public Guid MemberId { get; set; }
   [Column("store_member_role")]
-  public StoreMemberRoles StoreMemerRole { get; set; } = StoreMemberRoles.General;
+  public StoreMemberRoles StoreMemberRole { get; set; } = StoreMemberRoles.General;
   [Column("created_at")]
   public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
   [Column("updated_at")]

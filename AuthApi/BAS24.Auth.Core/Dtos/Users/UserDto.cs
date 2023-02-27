@@ -12,7 +12,7 @@ public class UserDto
   public bool IsApprove { get; set; }
   public string? RegionName { get; set; }
   public string? Token { get; set; }
-  public bool Active { get; set; }
+  public bool? Active { get; set; }
 
   public static UserDto FromEntity(UserEntity entity)
   {
@@ -24,7 +24,8 @@ public class UserDto
       Username = entity.Username,
       IsLock = entity.IsLock,
       IsApprove = entity.IsApprove,
-      RegionName = entity.RegionName
+      RegionName = entity.RegionName,
+      Active = entity.Active,
     };
   }
 }

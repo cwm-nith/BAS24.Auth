@@ -14,7 +14,7 @@ public class SocialLinkTable:BasePostgresTable
   [Column("updated_at")]
   public DateTime UpdatedAt { get; set; }
   
-  public List<MediaTable>? Medias { get; set; }
+  public ICollection<SocialUserLinkTable>? SocialUserLinks { get; set; }
 
   public SocialLinkTable(string name, DateTime updatedAt)
   {
