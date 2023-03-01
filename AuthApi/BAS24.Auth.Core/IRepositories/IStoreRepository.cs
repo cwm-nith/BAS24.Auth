@@ -1,3 +1,4 @@
+using BAS24.Api.Dtos.Stores;
 using BAS24.Api.Entities.Stores;
 using BAS24.Libs.CQRS.Queries;
 
@@ -7,13 +8,14 @@ public interface IStoreRepository
 {
   Task CreateStoreAsync(StoreEntity entity);
   Task UpdateStoreAsync(StoreEntity entity);
-  Task ActivateStoreAsync(string ownerId, string storeId);
-  Task DeactivateStoreAsync(string ownerId, string storeId);
-  Task DeleteStoreAsync(string ownerId, string storeId);
+  Task ActivateStoreAsync(Guid ownerId, Guid storeId);
+  Task DeactivateStoreAsync(Guid ownerId, Guid storeId);
+  Task DeleteStoreAsync(Guid ownerId, Guid storeId);
   Task AddUserToStoreAsync();
   Task UpdateUserStoreRoleAsync();
   Task RemoveUserFromStoreAsync();
-  Task<StoreEntity?> GetStoreAsync(string ownerId, string storeId);
-  Task<PagedResult<StoreEntity>> GetStoresByUserAsync(string ownerId);
-  Task <PagedResult<StoreEntity>> GetAllStoresAsync();
+  Task<StoreEntity?> GetStoreByOwnerAsync(Guid ownerId, Guid storeId);
+  Task<PagedResult<StoreEntity>> GetStoresByUserAsync(Guid ownerId);
+  Task <PagedResult<StoreEntity>> GetAllStoresAsync(GetStoresPageDto dto);
+  Task<StoreEntity?> GetStoreByIdAsync(Guid id);
 }

@@ -4,6 +4,14 @@ namespace BAS24.Api.Dtos.Users;
 
 public class UserDto
 {
+  public UserDto(string id, string username, bool isLock, bool isApprove)
+  {
+    Id = id;
+    Username = username;
+    IsLock = isLock;
+    IsApprove = isApprove;
+  }
+
   public string Id { get; set; }
   public string Username { get; set; }
   public string? Fullname { get; set; }
@@ -16,14 +24,13 @@ public class UserDto
 
   public static UserDto FromEntity(UserEntity entity)
   {
-    return new UserDto
+    return new UserDto(id: entity.Id.ToString(),
+      username: entity.Username,
+      isLock: entity.IsLock,
+      isApprove: entity.IsApprove)
     {
       Fullname = entity.Fullname,
-      Id = entity.Id.ToString(),
       Address = entity.Address,
-      Username = entity.Username,
-      IsLock = entity.IsLock,
-      IsApprove = entity.IsApprove,
       RegionName = entity.RegionName,
       Active = entity.Active,
     };

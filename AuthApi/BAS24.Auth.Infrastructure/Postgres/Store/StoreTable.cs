@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using BAS24.Api.Enums;
+using BAS24.Auth.Infrastructure.Postgres.Media;
 using BAS24.Auth.Infrastructure.Postgres.SocialLink;
 using BAS24.Auth.Infrastructure.Postgres.User;
 using BAS24.Libs.Postgres;
@@ -57,6 +58,7 @@ public class StoreTable : BasePostgresTable
   public UserTable? Owner { get; set; }
   public ICollection<SocialUserLinkTable>? SocialUserLinks { get; set; }
   public ICollection<StoreMemberTable>? StoreMembers { get; set; }
+  public ICollection<MediaTable>? Medias { get; set; }
   
   public StoreTable(Guid ownerId,
     string name,

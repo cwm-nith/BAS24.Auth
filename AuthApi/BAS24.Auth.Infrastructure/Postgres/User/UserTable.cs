@@ -72,4 +72,5 @@ public class UserTable : BasePostgresTable
   [Column("updated_at")]
   public DateTime UpdatedAt { get; set; }
   public ICollection<StoreTable>? Stores { get; set; }
+  public MediaTable? Media { get; set; }
 }

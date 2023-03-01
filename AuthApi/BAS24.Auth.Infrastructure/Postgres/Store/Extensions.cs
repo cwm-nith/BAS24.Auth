@@ -48,6 +48,7 @@ public static class Extensions
   )
   {
     Id = e.Id,
+    Description = e.Description,
     Owner = e.Owner?.AsTable(),
     StoreMembers = e.StoreMembers?.Select(i => i.AsTable()).ToList(),
     SocialUserLinks = e.SocialUserLinks?.Select(i => i.AsTable()).ToList()
