@@ -30,7 +30,7 @@ public class StoreController : BaseController
   [ProducesResponseType(StatusCodes.Status401Unauthorized)]
   [ProducesDefaultResponseType]
   [HttpPost]
-  public async Task<ActionResult> CreateStoreAsync([FromBody] CreateStoreDto dto)
+  public async Task<ActionResult<StoreDto>> CreateStoreAsync([FromBody] CreateStoreDto dto)
   {
     var id = GuidHelper.NewId;
     var cmd = new CreateStoreCommand(
@@ -48,7 +48,11 @@ public class StoreController : BaseController
       endWorkingTime: dto.EndWorkingTime
     );
     await _command.PerformAsync(cmd);
-    return AcceptedWithResource("store", id);
+    var query = new GetStoreByIdAndOwnerIdQuery(id.ToGuid(), cmd.OwnerId, false);
+    var result = await _query.QueryAsync<GetStoreByIdAndOwnerIdQuery, StoreDto>(query);
+    return OkWithResource(result,
+      "store",
+      id);
   }
 
   /// <summary>
@@ -108,5 +112,21 @@ public class StoreController : BaseController
     var query = new GetStoreByIdAndOwnerIdQuery(id.ToGuid(), ownerId.ToGuid(), isActive);
     var result = await _query.QueryAsync<GetStoreByIdAndOwnerIdQuery, StoreDto>(query);
     return Ok(result);
+  }
+
+  /// <summary>
+  /// Verify store by store owner
+  /// </summary>
+  /// <param name="dto"></param>
+  /// <returns></returns>
+  [ProducesResponseType(StatusCodes.Status200OK)]
+  [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+  [ProducesResponseType(StatusCodes.Status400BadRequest)]
+  [HttpPost("verify-store")]
+  public async Task<ActionResult> VerifyStoreAsync([FromBody] VerifyStoreDto dto)
+  {
+    var cmd = new VerifyStoreCommand(dto.Code, dto.OwnerId);
+    await _command.PerformAsync(cmd, dto.Id);
+    return Ok();
   }
 }

@@ -2,7 +2,7 @@ namespace BAS24.Api.Dtos.Twilio;
 
 public class SendSmsDto
 {
-  public SendSmsDto(string to, string? message)
+  public SendSmsDto(string to, string? message = null)
   {
     To = to;
     Message = message;

@@ -48,7 +48,12 @@ public class StoreTable : BasePostgresTable
 
   [Column("end_working_time")]
   public DateTime EndWorkingTime { get; set; }
-
+  
+  [Column("active")]
+  public bool Active { get; set; }
+  
+  [Column("code")]
+  public string? Code { get; set; }
   [Column("created_at")]
   public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
@@ -71,6 +76,7 @@ public class StoreTable : BasePostgresTable
     Rating storeRating,
     DateTime startWorkingTime,
     DateTime endWorkingTime,
+    bool active,
     DateTime updatedAt)
   {
     OwnerId = ownerId;
@@ -84,6 +90,7 @@ public class StoreTable : BasePostgresTable
     StoreRating = storeRating;
     StartWorkingTime = startWorkingTime;
     EndWorkingTime = endWorkingTime;
+    Active = active;
     UpdatedAt = updatedAt;
   }
 }

@@ -17,7 +17,7 @@ public class GetStoresPageQueryHandler : IQueryHandler<GetStoresPageQuery, Paged
   public async Task<PagedResult<StoreDto>>? HandleAsync(GetStoresPageQuery query)
   {
     var q = new GetStoresPageDto()
-      { Page = query.Page, Results = query.Results, OwnerId = query.OwnerId };
+      { Page = query.Page, Results = query.Results, OwnerId = query.OwnerId, Active = query.Active};
     var data = await _repository.GetAllStoresAsync(q);
     return data.Map(StoreDto.FromEntity);
   }

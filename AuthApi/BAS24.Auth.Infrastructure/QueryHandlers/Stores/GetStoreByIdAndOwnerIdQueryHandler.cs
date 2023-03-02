@@ -1,3 +1,4 @@
+using BAS24.Api.Dtos.SocialLinks;
 using BAS24.Api.Dtos.Stores;
 using BAS24.Api.Exceptions.Stores;
 using BAS24.Api.IRepositories;
@@ -17,7 +18,8 @@ public class GetStoreByIdAndOwnerIdQueryHandler:IQueryHandler<GetStoreByIdAndOwn
 
   public async Task<StoreDto> HandleAsync(GetStoreByIdAndOwnerIdQuery query)
   {
-    var store = await _repository.GetStoreByOwnerAsync(query.OwnerId,query.Id);
+    var q = new GetStoreByOwnerDto(query.OwnerId, query.Id, query.IsActive);
+    var store = await _repository.GetStoreByOwnerAsync(q);
     if (store is null) throw new StoreNotFoundException();
     return StoreDto.FromEntity(store);
   }

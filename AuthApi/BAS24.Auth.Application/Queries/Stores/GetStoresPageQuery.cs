@@ -8,4 +8,5 @@ public class GetStoresPageQuery:IQuery<PagedResult<StoreDto>>
   public int Page { get; set; }
   public int Results { get; set; }
   public string? OwnerId { get; set; }
+  public bool Active { get; set; }
 }

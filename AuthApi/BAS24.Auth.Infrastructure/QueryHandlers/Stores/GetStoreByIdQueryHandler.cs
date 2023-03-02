@@ -17,7 +17,7 @@ public class GetStoreByIdQueryHandler:IQueryHandler<GetStoreByIdQuery, StoreDto>
 
   public async Task<StoreDto> HandleAsync(GetStoreByIdQuery query)
   {
-    var store = await _repository.GetStoreByIdAsync(query.Id);
+    var store = await _repository.GetStoreByIdAsync(query.Id, query.IsActive);
     if (store is null) throw new StoreNotFoundException();
     return StoreDto.FromEntity(store);
   }

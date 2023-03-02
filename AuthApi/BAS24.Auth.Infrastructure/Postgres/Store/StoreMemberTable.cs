@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using BAS24.Api.Enums;
 using BAS24.Auth.Infrastructure.Postgres.User;
 using BAS24.Libs.Postgres;
 
@@ -12,8 +11,8 @@ public class StoreMemberTable:BasePostgresTable
   public Guid StoreId { get; set; }
   [Column("member_id")]
   public Guid MemberId { get; set; }
-  [Column("store_member_role")]
-  public StoreMemberRoles StoreMemberRole { get; set; } = StoreMemberRoles.General;
+  [Column("permission")]
+  public int Permission { get; set; }
   [Column("created_at")]
   public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
   [Column("updated_at")]
@@ -21,8 +20,9 @@ public class StoreMemberTable:BasePostgresTable
 
   public UserTable? User { get; set; }
   public StoreTable? Store { get; set; }
-  public StoreMemberTable(Guid storeId, Guid memberId, DateTime updatedAt)
+  public StoreMemberTable(Guid storeId, Guid memberId, DateTime updatedAt, int permission)
   {
+    Permission = permission;
     StoreId = storeId;
     MemberId = memberId;
     UpdatedAt = updatedAt;

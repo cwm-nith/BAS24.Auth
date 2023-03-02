@@ -7,10 +7,12 @@ public class GetStoreByIdAndOwnerIdQuery:IQuery<StoreDto>
 {
   public Guid Id { get; set; }
   public Guid OwnerId { get; set; }
+  public bool IsActive { get; set; }
 
-  public GetStoreByIdAndOwnerIdQuery(Guid id, Guid ownerId)
+  public GetStoreByIdAndOwnerIdQuery(Guid id, Guid ownerId, bool isActive)
   {
     Id = id;
     OwnerId = ownerId;
+    IsActive = isActive;
   }
 }

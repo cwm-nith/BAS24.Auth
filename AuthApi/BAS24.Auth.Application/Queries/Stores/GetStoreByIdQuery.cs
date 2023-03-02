@@ -6,9 +6,11 @@ namespace BAS24.Auth.Application.Queries.Stores;
 public class GetStoreByIdQuery:IQuery<StoreDto>
 {
   public Guid Id { get; set; }
+  public bool IsActive { get; set; }
 
-  public GetStoreByIdQuery(Guid id)
+  public GetStoreByIdQuery(Guid id, bool isActive)
   {
     Id = id;
+    IsActive = isActive;
   }
 }

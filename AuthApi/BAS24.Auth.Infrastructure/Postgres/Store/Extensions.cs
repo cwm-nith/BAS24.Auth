@@ -9,28 +9,22 @@ public static class Extensions
   public static StoreMemberTable AsTable(this StoreMemberEntity s) => new(
     storeId: s.StoreId,
     memberId: s.MemberId,
-    updatedAt: s.UpdatedAt
+    updatedAt: s.UpdatedAt,
+    permission: s.Permission
   )
   {
     Id = s.Id,
-    Store = s.Store?.AsTable(),
-    User = s.User?.AsTable(),
     CreatedAt = s.CreatedAt,
-    StoreMemberRole = s.StoreMemberRole,
   };
 
   public static StoreMemberEntity AsEntity(this StoreMemberTable s) => new(
     id: s.Id,
     storeId: s.StoreId,
     memberId: s.MemberId,
-    storeMemberRole: s.StoreMemberRole,
+    permission: s.Permission,
     createdAt: s.CreatedAt,
     updatedAt: s.UpdatedAt
-  )
-  {
-    User = s.User?.AsEntity(),
-    Store = s.Store?.AsEntity(),
-  };
+  );
 
   public static StoreTable AsTable(this StoreEntity e) => new(
     ownerId: e.OwnerId,
@@ -44,10 +38,12 @@ public static class Extensions
     storeRating: e.StoreRating,
     startWorkingTime: e.StartWorkingTime,
     endWorkingTime: e.EndWorkingTime,
+    active: e.Active,
     updatedAt: e.UpdatedAt
   )
   {
     Id = e.Id,
+    Code = e.Code,
     Description = e.Description,
     Owner = e.Owner?.AsTable(),
     StoreMembers = e.StoreMembers?.Select(i => i.AsTable()).ToList(),
@@ -69,9 +65,11 @@ public static class Extensions
     storeRating: s.StoreRating,
     startWorkingTime: s.StartWorkingTime,
     endWorkingTime: s.EndWorkingTime,
+    active: s.Active,
     updatedAt: s.UpdatedAt
   )
   {
+    Code = s.Code,
     Owner = s.Owner?.AsEntity(),
     StoreMembers = s.StoreMembers?.Select(i => i.AsEntity()).ToList(),
     SocialUserLinks = s.SocialUserLinks?.Select(i=> i.AsEntity()).ToList()

@@ -5,4 +5,5 @@ namespace BAS24.Api.Dtos.Stores;
 public class GetStoresPageDto:PagedQuery
 {
   public string? OwnerId { get; set; }
+  public bool Active { get; set; }
 }

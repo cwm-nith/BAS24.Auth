@@ -27,6 +27,7 @@ public class PostgresDbContext : DbContext
     modelBuilder
       .AddUserTableRelationship()
       .AddStoreTableRelationship()
-      .AddSocialLinkTableRelationship();
+      .AddSocialLinkTableRelationship()
+      .AddStoreMemberTableRelationship();
   }
 }

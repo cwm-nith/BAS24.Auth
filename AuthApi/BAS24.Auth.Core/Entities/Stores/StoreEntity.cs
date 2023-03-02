@@ -33,6 +33,9 @@ public class StoreEntity
 
   public DateTime EndWorkingTime { get; set; }
 
+  public bool Active { get; set; }
+  public string? Code { get; set; }
+
   public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
   public DateTime UpdatedAt { get; set; }
@@ -55,6 +58,7 @@ public class StoreEntity
     Rating storeRating,
     DateTime startWorkingTime,
     DateTime endWorkingTime,
+    bool active,
     DateTime updatedAt)
   {
     Id = id;
@@ -71,6 +75,7 @@ public class StoreEntity
     StoreRating = storeRating;
     StartWorkingTime = startWorkingTime;
     EndWorkingTime = endWorkingTime;
+    Active = active;
     UpdatedAt = updatedAt;
   }
 }

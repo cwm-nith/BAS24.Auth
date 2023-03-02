@@ -3,17 +3,20 @@ using System;
 using BAS24.Auth.Infrastructure.Postgres;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace BAS24.Auth.Infrastructure.Postgres
+namespace BAS24.Auth.Infrastructure.Migrations
 {
     [DbContext(typeof(PostgresDbContext))]
-    partial class PostgresDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230302152129_Db005")]
+    partial class Db005
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -152,12 +155,14 @@ namespace BAS24.Auth.Infrastructure.Postgres
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("updated_at");
 
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("MemberId")
-                        .IsUnique();
-
                     b.HasIndex("StoreId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("store_members");
                 });
@@ -182,10 +187,6 @@ namespace BAS24.Auth.Infrastructure.Postgres
                         .IsRequired()
                         .HasColumnType("uuid[]")
                         .HasColumnName("categoryIds");
-
-                    b.Property<string>("Code")
-                        .HasColumnType("text")
-                        .HasColumnName("code");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone")
@@ -355,17 +356,15 @@ namespace BAS24.Auth.Infrastructure.Postgres
 
             modelBuilder.Entity("BAS24.Auth.Infrastructure.Postgres.Store.StoreMemberTable", b =>
                 {
-                    b.HasOne("BAS24.Auth.Infrastructure.Postgres.User.UserTable", "User")
-                        .WithOne()
-                        .HasForeignKey("BAS24.Auth.Infrastructure.Postgres.Store.StoreMemberTable", "MemberId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("BAS24.Auth.Infrastructure.Postgres.Store.StoreTable", "Store")
                         .WithMany("StoreMembers")
                         .HasForeignKey("StoreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("BAS24.Auth.Infrastructure.Postgres.User.UserTable", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Store");
 
