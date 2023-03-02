@@ -129,4 +129,12 @@ public class StoreController : BaseController
     await _command.PerformAsync(cmd, dto.Id);
     return Ok();
   }
+
+  [HttpPost("deactivate")]
+  public async Task<ActionResult> DeactivateStoreAsync([FromBody] DeactivateStoreDto dto)
+  {
+    var cmd = new DeactivateStoreCommand(dto.OwnerId);
+    await _command.PerformAsync(cmd, dto.Id);
+    return Ok();
+  }
 }

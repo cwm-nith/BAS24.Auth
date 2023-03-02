@@ -39,6 +39,7 @@ public class StoreDto
   public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
   public DateTime UpdatedAt { get; set; }
+  public bool Active { get; set; }
 
   public UserDto? Owner { get; set; }
   public List<SocialUserLinkDto>? SocialUserLinks { get; set; }
@@ -58,7 +59,8 @@ public class StoreDto
     Rating storeRating,
     DateTime startWorkingTime,
     DateTime endWorkingTime,
-    DateTime updatedAt)
+    DateTime updatedAt,
+    bool active)
   {
     Id = id;
     OwnerId = ownerId;
@@ -93,7 +95,8 @@ public class StoreDto
       storeRating: e.StoreRating,
       startWorkingTime: e.StartWorkingTime,
       endWorkingTime: e.EndWorkingTime,
-      updatedAt: e.UpdatedAt)
+      updatedAt: e.UpdatedAt,
+      active: e.Active)
     {
       CreatedAt = e.CreatedAt,
       Owner = e.Owner != null ? UserDto.FromEntity(e.Owner) : null,
