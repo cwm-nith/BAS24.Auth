@@ -4,6 +4,13 @@
         <name>BAS24.Auth.Api</name>
     </assembly>
     <members>
+        <member name="M:BAS24.Auth.Api.Controllers.V1.StoreController.CreateStoreAsync(BAS24.Api.Dtos.Stores.CreateStoreDto)">
+            <summary>
+            Create store
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
         <member name="M:BAS24.Auth.Api.Controllers.V1.StoreController.GetStoreListAsync(BAS24.Api.Dtos.Stores.GetStoresPageDto)">
             <summary>
             return all stores or base on owner
@@ -11,19 +18,21 @@
             <param name="dto"></param>
             <returns></returns>
         </member>
-        <member name="M:BAS24.Auth.Api.Controllers.V1.StoreController.GetStoreByIdAsync(System.String)">
+        <member name="M:BAS24.Auth.Api.Controllers.V1.StoreController.GetStoreByIdAsync(System.String,System.Boolean)">
             <summary>
             return store base on its id
             </summary>
             <param name="id">store id in string</param>
+            <param name="isActive">Default value is true</param>
             <returns></returns>
         </member>
-        <member name="M:BAS24.Auth.Api.Controllers.V1.StoreController.GetStoreByIdAndOwnerIdAsync(System.String,System.String)">
+        <member name="M:BAS24.Auth.Api.Controllers.V1.StoreController.GetStoreByIdAndOwnerIdAsync(System.String,System.String,System.Boolean)">
             <summary>
             return store base on its id and owner id
             </summary>
             <param name="id"></param>
             <param name="ownerId"></param>
+            <param name="isActive">Default value is true</param>
             <returns></returns>
         </member>
         <member name="M:BAS24.Auth.Api.Controllers.V1.UserController.LoginAsync(BAS24.Api.Dtos.Users.LoginDto)">

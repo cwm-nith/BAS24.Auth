@@ -20,6 +20,11 @@ public class StoreController : BaseController
     _query = query;
   }
 
+  /// <summary>
+  /// Create store
+  /// </summary>
+  /// <param name="dto"></param>
+  /// <returns></returns>
   [ProducesResponseType(StatusCodes.Status202Accepted)]
   [ProducesResponseType(StatusCodes.Status400BadRequest)]
   [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -57,7 +62,13 @@ public class StoreController : BaseController
   [HttpGet]
   public async Task<ActionResult<PagedResult<StoreDto>>> GetStoreListAsync([FromQuery] GetStoresPageDto dto)
   {
-    var query = new GetStoresPageQuery() { Page = dto.Page, Results = dto.Results, OwnerId = dto.OwnerId };
+    var query = new GetStoresPageQuery()
+    {
+      Page = dto.Page,
+      Results = dto.Results,
+      OwnerId = dto.OwnerId,
+      Active = dto.Active
+    };
     var result = await _query.QueryAsync<GetStoresPageQuery, PagedResult<StoreDto>>(query);
     return Ok(result);
   }
@@ -66,31 +77,35 @@ public class StoreController : BaseController
   /// return store base on its id
   /// </summary>
   /// <param name="id">store id in string</param>
+  /// <param name="isActive">Default value is true</param>
   /// <returns></returns>
   [ProducesResponseType(StatusCodes.Status200OK)]
   [ProducesResponseType(StatusCodes.Status401Unauthorized)]
   [ProducesDefaultResponseType]
   [HttpGet("{id}")]
-  public async Task<ActionResult<StoreDto>> GetStoreByIdAsync(string id)
+  public async Task<ActionResult<StoreDto>> GetStoreByIdAsync(string id, bool isActive = true)
   {
-    var query = new GetStoreByIdQuery(id.ToGuid());
+    var query = new GetStoreByIdQuery(id.ToGuid(), isActive);
     var result = await _query.QueryAsync<GetStoreByIdQuery, StoreDto>(query);
     return Ok(result);
   }
-  
+
   /// <summary>
   /// return store base on its id and owner id
   /// </summary>
   /// <param name="id"></param>
   /// <param name="ownerId"></param>
+  /// <param name="isActive">Default value is true</param>
   /// <returns></returns>
   [ProducesResponseType(StatusCodes.Status200OK)]
   [ProducesResponseType(StatusCodes.Status401Unauthorized)]
   [ProducesDefaultResponseType]
   [HttpGet("{id}/{ownerId}")]
-  public async Task<ActionResult<StoreDto>> GetStoreByIdAndOwnerIdAsync(string id, string ownerId)
+  public async Task<ActionResult<StoreDto>> GetStoreByIdAndOwnerIdAsync(string id,
+    string ownerId,
+    [FromQuery] bool isActive = true)
   {
-    var query = new GetStoreByIdAndOwnerIdQuery(id.ToGuid(), ownerId.ToGuid());
+    var query = new GetStoreByIdAndOwnerIdQuery(id.ToGuid(), ownerId.ToGuid(), isActive);
     var result = await _query.QueryAsync<GetStoreByIdAndOwnerIdQuery, StoreDto>(query);
     return Ok(result);
   }
