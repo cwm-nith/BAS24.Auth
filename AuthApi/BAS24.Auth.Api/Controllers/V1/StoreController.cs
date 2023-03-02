@@ -130,10 +130,34 @@ public class StoreController : BaseController
     return Ok();
   }
 
+  /// <summary>
+  /// Deactivate store. This action is for store admin only
+  /// </summary>
+  /// <param name="dto"></param>
+  /// <returns></returns>
+  [ProducesResponseType(StatusCodes.Status200OK)]
+  [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+  [ProducesResponseType(StatusCodes.Status400BadRequest)]
   [HttpPost("deactivate")]
   public async Task<ActionResult> DeactivateStoreAsync([FromBody] DeactivateStoreDto dto)
   {
     var cmd = new DeactivateStoreCommand(dto.OwnerId);
+    await _command.PerformAsync(cmd, dto.Id);
+    return Ok();
+  }
+  
+  /// <summary>
+  /// Activate store. This action is for store admin only
+  /// </summary>
+  /// <param name="dto"></param>
+  /// <returns></returns>
+  [ProducesResponseType(StatusCodes.Status200OK)]
+  [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+  [ProducesResponseType(StatusCodes.Status400BadRequest)]
+  [HttpPost("activate")]
+  public async Task<ActionResult> ActivateStoreAsync([FromBody] ActivateStoreDto dto)
+  {
+    var cmd = new ActivateStoreCommand(dto.OwnerId);
     await _command.PerformAsync(cmd, dto.Id);
     return Ok();
   }

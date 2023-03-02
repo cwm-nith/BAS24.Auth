@@ -78,6 +78,12 @@ public class StoreRepository : IStoreRepository
     var q = new GetStoreByOwnerDto(ownerId, storeId, false);
     var store = await GetStoreByOwnerAsync(q);
     if (store is null) throw new StoreNotFoundException();
+    
+    var storeAdmin = store.StoreMembers?
+      .FirstOrDefault(i => i.MemberId == ownerId);
+    if (storeAdmin is null) throw new StoreMemberNotFoundException();
+    if (!storeAdmin.IsAdmin) throw new ForbiddenException();
+    
     store.Active = true;
     await UpdateStoreAsync(store);
   }

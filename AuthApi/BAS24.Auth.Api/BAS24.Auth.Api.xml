@@ -42,6 +42,20 @@
             <param name="dto"></param>
             <returns></returns>
         </member>
+        <member name="M:BAS24.Auth.Api.Controllers.V1.StoreController.DeactivateStoreAsync(BAS24.Api.Dtos.Stores.DeactivateStoreDto)">
+            <summary>
+            Deactivate store. This action is for store admin only
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BAS24.Auth.Api.Controllers.V1.StoreController.ActivateStoreAsync(BAS24.Api.Dtos.Stores.ActivateStoreDto)">
+            <summary>
+            Activate store. This action is for store admin only
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
         <member name="M:BAS24.Auth.Api.Controllers.V1.UserController.LoginAsync(BAS24.Api.Dtos.Users.LoginDto)">
             <summary>
               user login
