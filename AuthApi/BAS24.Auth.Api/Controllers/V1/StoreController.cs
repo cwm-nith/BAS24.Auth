@@ -161,7 +161,28 @@ public class StoreController : BaseController
     await _command.PerformAsync(cmd, dto.Id);
     return Ok();
   }
-  
+
+  /// <summary>
+  /// Add member to store
+  /// </summary>
+  /// <param name="dto"></param>
+  /// <returns></returns>
+  [ProducesResponseType(StatusCodes.Status200OK)]
+  [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+  [ProducesResponseType(StatusCodes.Status400BadRequest)]
+  [HttpPut("add-member")]
+  public async Task<ActionResult> AddMemberAsync([FromBody] AddMemberDto dto)
+  {
+    var cmd = new AddMemberCommand()
+    {
+      Permission = dto.Permission,
+      StoreId = dto.StoreId,
+      MemberId = dto.MemberId
+    };
+    await _command.PerformAsync(cmd, UserId.ToGuid());
+    return Accepted();
+  }
+
   /// <summary>
   /// Update member role
   /// </summary>

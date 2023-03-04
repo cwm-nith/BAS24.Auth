@@ -13,7 +13,7 @@ public interface IStoreRepository
   Task VerifyStoreAsync(Guid id, Guid ownerId, string code);
   Task DeactivateStoreAsync(Guid ownerId, Guid storeId);
   Task DeleteStoreAsync(Guid ownerId, Guid storeId);
-  Task AddUserToStoreAsync();
+  Task AddUserToStoreAsync(Guid id, AddMemberDto dto);
   Task UpdateUserStoreRoleAsync(Guid ownerId, UpdateRoleOfStoreMemberDto dto);
   Task RemoveUserFromStoreAsync();
   Task<StoreEntity?> GetStoreByOwnerAsync(GetStoreByOwnerDto dto);

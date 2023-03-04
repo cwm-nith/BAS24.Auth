@@ -56,6 +56,13 @@
             <param name="dto"></param>
             <returns></returns>
         </member>
+        <member name="M:BAS24.Auth.Api.Controllers.V1.StoreController.AddMemberAsync(BAS24.Api.Dtos.Stores.AddMemberDto)">
+            <summary>
+            Add member to store
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
         <member name="M:BAS24.Auth.Api.Controllers.V1.StoreController.UpdateMemberRoleAsync(BAS24.Api.Dtos.Stores.UpdateRoleOfStoreMemberDto)">
             <summary>
             Update member role

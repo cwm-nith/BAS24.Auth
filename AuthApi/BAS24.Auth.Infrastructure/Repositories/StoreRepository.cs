@@ -127,9 +127,27 @@ public class StoreRepository : IStoreRepository
     throw new NotImplementedException();
   }
 
-  public Task AddUserToStoreAsync()
+  public async Task AddUserToStoreAsync(Guid id, AddMemberDto dto)
   {
-    throw new NotImplementedException();
+    var store = await GetStoreByIdAsync(dto.StoreId, true);
+    if (store is null) throw new StoreNotFoundException();
+    var memAdmin = store.StoreMembers?
+      .Any(i => i.MemberId == id && i.IsAdmin);
+    if (memAdmin != true) throw new ForbiddenException("This action for administration only!");
+    
+    var member = await GetMemberByMemberIdAndStoreIdAsync(dto.MemberId, dto.StoreId);
+    if (member != null) throw new MemberAlreadyExistedException();
+    
+    var memId = GuidHelper.NewId;
+    StoreMemberEntity memberEntity = new(
+      id: memId.ToGuid(),
+      storeId: dto.StoreId,
+      memberId: dto.MemberId,
+      permission: dto.Permission,
+      createdAt: DateTime.UtcNow,
+      updatedAt: DateTime.UtcNow
+    );
+    await _memberRepository.AddAsync(memberEntity.AsTable());
   }
 
   public async Task UpdateUserStoreRoleAsync(Guid ownerId, UpdateRoleOfStoreMemberDto dto)
@@ -174,7 +192,10 @@ public class StoreRepository : IStoreRepository
 
   public async Task<StoreEntity?> GetStoreByIdAsync(Guid id, bool isActive)
   {
-    var store = await _repository.FirstOrDefaultAsync(i => i.Id == id && i.Active == isActive);
+    var store = await _repository.Context.Stores?
+      .Include(i=> i.StoreMembers)
+      .Include(i=> i.Owner)
+      .FirstOrDefaultAsync(i => i.Id == id && i.Active == isActive)!;
     return store?.AsEntity();
   }
 
@@ -185,5 +206,18 @@ public class StoreRepository : IStoreRepository
       .Select(i => new RoleDto(i.Name, (int)(i.GetValue(null) ?? 0), i.Name == "Administration"))
       .ToList();
     return roles;
+  }
+
+  public async Task<StoreMemberEntity?> GetMemberByIdAsync(Guid id)
+  {
+    var data = await _memberRepository.FirstOrDefaultAsync(i => i.Id == id);
+    return data?.AsEntity();
+  }
+
+  public async Task<StoreMemberEntity?> GetMemberByMemberIdAndStoreIdAsync(Guid memberId, Guid storeId)
+  {
+    var data = await _memberRepository
+      .FirstOrDefaultAsync(i => i.MemberId == memberId && i.StoreId == storeId);
+    return data?.AsEntity();
   }
 }
