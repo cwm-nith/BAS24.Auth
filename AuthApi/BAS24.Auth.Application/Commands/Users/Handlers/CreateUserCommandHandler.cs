@@ -36,7 +36,8 @@ public class CreateUserCommandHandler : ICommandHandler<CreateUserCommand>
       IsLock = false,
       IsApprove = false,
       UpdatedAt = DateTime.UtcNow,
-      RegionName = command.RegionName
+      RegionName = command.RegionName,
+      Email = command.Email
     };
     entity.SetPhone(command.Phone);
     entity.SetPassword(command.Password, _passwordHasher);

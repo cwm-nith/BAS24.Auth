@@ -3,12 +3,12 @@ using BAS24.Api.Exceptions.Twilio;
 using BAS24.Api.Exceptions.Users;
 using BAS24.Api.IRepositories;
 using BAS24.Api.Utils;
-using BAS24.Auth.Application.Queries.Stores;
 using BAS24.Auth.Application.Queries.Users;
 using BAS24.Auth.Infrastructure.Services.Interfaces;
 using BAS24.Libs.CQRS.Queries;
+using SendGrid.Helpers.Mail;
 
-namespace BAS24.Auth.Infrastructure.QueryHandlers.Twilio;
+namespace BAS24.Auth.Infrastructure.QueryHandlers.Users;
 
 public class GetCodeSmsQueryHandler : IQueryHandler<GetCodeSmsQuery, SmsDto>
 {
@@ -32,13 +32,14 @@ public class GetCodeSmsQueryHandler : IQueryHandler<GetCodeSmsQuery, SmsDto>
 
     if (query.To.Contains('@'))
     {
-      
-    }else if (query.To.Contains('+'))
-    {
-      return await SendByPhoneNumberAsync(query);
+      return await SendByEmailAsync(query);
     }
+    // else if (query.To.Contains('+'))
+    // {
+    //   return await SendByPhoneNumberAsync(query);
+    // }
 
-    return new SmsDto("");
+    return await SendByPhoneNumberAsync(query);
   }
 
   private async Task<SmsDto> SendByPhoneNumberAsync(GetCodeSmsQuery query)
@@ -63,6 +64,41 @@ public class GetCodeSmsQueryHandler : IQueryHandler<GetCodeSmsQuery, SmsDto>
       user.Code = code;
       await _userRepository.UpdateUserAsync(user);
       return new SmsDto(data.Body);
+    }
+    catch (Exception e)
+    {
+      Console.WriteLine(e);
+      throw new FailedToSendCodeException();
+    }
+  }
+  private async Task<SmsDto> SendByEmailAsync(GetCodeSmsQuery query)
+  {
+    var user = await _userRepository.GetUserByEmailAsync(query.To);
+    if (user is null)
+    {
+      throw new UserNotFoundException();
+    }
+
+    var code = GenerateRandomNumber.Create(8);
+
+    try
+    {
+      var msg = new SendGridMessage()
+      {
+        PlainTextContent = code,
+        Subject = code,
+      };
+      msg.AddTo(new EmailAddress(user.Email));
+      var data = await _sendGridService.SendEmailAsync(msg);
+
+      if (!data.IsSuccessStatusCode)
+      {
+        throw new CodeSendFailedException();
+      }
+
+      user.Code = code;
+      await _userRepository.UpdateUserAsync(user);
+      return new SmsDto(code);
     }
     catch (Exception e)
     {

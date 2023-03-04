@@ -21,7 +21,8 @@ public static class Extensions
       code: e.Code
     )
     {
-      Id = e.Id
+      Id = e.Id,
+      Email = e.Email,
     };
   }
 
@@ -41,7 +42,8 @@ public static class Extensions
       IsApprove = t.IsApprove,
       RegionName = t.RegionName,
       UpdatedAt = t.UpdatedAt,
-      Code = t.Code
+      Code = t.Code,
+      Email = t.Email,
     };
   }
 }

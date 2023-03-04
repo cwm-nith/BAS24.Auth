@@ -1,9 +1,7 @@
 using BAS24.Api.Dtos.Twilio;
 using BAS24.Api.Dtos.Users;
 using BAS24.Api.Utils;
-using BAS24.Auth.Application.Commands.Twilio;
 using BAS24.Auth.Application.Commands.Users;
-using BAS24.Auth.Application.Queries.Stores;
 using BAS24.Auth.Application.Queries.Users;
 using BAS24.Auth.Infrastructure.Services.Interfaces;
 using BAS24.Libs.CQRS.Commands;
