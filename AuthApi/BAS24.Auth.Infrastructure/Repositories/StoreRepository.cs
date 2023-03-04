@@ -145,7 +145,8 @@ public class StoreRepository : IStoreRepository
       memberId: dto.MemberId,
       permission: dto.Permission,
       createdAt: DateTime.UtcNow,
-      updatedAt: DateTime.UtcNow
+      updatedAt: DateTime.UtcNow,
+      accepted: false
     );
     await _memberRepository.AddAsync(memberEntity.AsTable());
   }

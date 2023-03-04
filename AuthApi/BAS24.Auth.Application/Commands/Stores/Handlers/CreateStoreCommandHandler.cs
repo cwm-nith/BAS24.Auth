@@ -47,7 +47,8 @@ public class CreateStoreCommandHandler : ICommandHandler<CreateStoreCommand>
           command.OwnerId,
           StoreMemberPermissions.Administration,
           DateTime.UtcNow,
-          DateTime.UtcNow)
+          DateTime.UtcNow,
+          true)
       }
     };
     await _repository.CreateStoreAsync(entity);

@@ -10,7 +10,8 @@ public static class Extensions
     storeId: s.StoreId,
     memberId: s.MemberId,
     updatedAt: s.UpdatedAt,
-    permission: s.Permission
+    permission: s.Permission,
+    accepted: s.Accepted
   )
   {
     Id = s.Id,
@@ -23,7 +24,8 @@ public static class Extensions
     memberId: s.MemberId,
     permission: s.Permission,
     createdAt: s.CreatedAt,
-    updatedAt: s.UpdatedAt
+    updatedAt: s.UpdatedAt,
+    accepted: s.Accepted
   );
 
   public static StoreTable AsTable(this StoreEntity e) => new(

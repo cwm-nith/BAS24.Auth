@@ -10,6 +10,7 @@ public class StoreMemberEntity
   public Guid StoreId { get; set; }
   public Guid MemberId { get; set; }
   public int Permission { get; set; }
+  public bool Accepted { get; set; }
   public DateTime CreatedAt { get; set; }
   public DateTime UpdatedAt { get; set; }
 
@@ -18,7 +19,8 @@ public class StoreMemberEntity
     Guid memberId,
     int permission,
     DateTime createdAt,
-    DateTime updatedAt)
+    DateTime updatedAt,
+    bool accepted)
   {
     Id = id;
     StoreId = storeId;
@@ -26,6 +28,7 @@ public class StoreMemberEntity
     Permission = permission;
     CreatedAt = createdAt;
     UpdatedAt = updatedAt;
+    Accepted = accepted;
   }
 
   public bool IsAdmin => (Permission & StoreMemberPermissions.Administration) > 0;
