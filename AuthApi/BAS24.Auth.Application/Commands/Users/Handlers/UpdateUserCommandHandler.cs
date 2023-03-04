@@ -15,7 +15,7 @@ public class UpdateUserCommandHandler : ICommandHandler<UpdateUserCommand, Guid>
 
   public async Task HandleAsync(UpdateUserCommand command, Guid id)
   {
-    var existUn = await _repository.GetActiveUserByUsername(command.Username ?? "");
+    var existUn = await _repository.GetUserByUsername(command.Username ?? "");
 
     if (existUn is { } && existUn.Id != id)
     {

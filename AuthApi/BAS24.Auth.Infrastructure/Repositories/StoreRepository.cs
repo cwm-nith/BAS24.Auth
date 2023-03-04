@@ -1,3 +1,4 @@
+using BAS24.Api.Commons;
 using BAS24.Api.Constants;
 using BAS24.Api.Dtos.SocialLinks;
 using BAS24.Api.Dtos.Stores;
@@ -45,7 +46,7 @@ public class StoreRepository : IStoreRepository
     await strategy.ExecuteAsync(async () =>
     {
       await using var t = await _repository.Context.Database.BeginTransactionAsync();
-      var user = await _userRepository.GetUserById(entity.OwnerId);
+      var user = await _userRepository.GetUserById(entity.OwnerId, new UserFilterOptions());
       if (user is null)
       {
         throw new UserNotFoundException();
@@ -132,7 +133,7 @@ public class StoreRepository : IStoreRepository
 
   public async Task AddUserToStoreAsync(Guid id, AddMemberDto dto)
   {
-    var user = await _userRepository.GetUserById(id);
+    var user = await _userRepository.GetUserById(id, new UserFilterOptions());
     if (user is null) throw new UserNotFoundException();
     var store = await GetStoreByIdAsync(dto.StoreId, true);
     if (store is null) throw new StoreNotFoundException();

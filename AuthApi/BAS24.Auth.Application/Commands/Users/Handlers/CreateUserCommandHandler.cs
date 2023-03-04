@@ -20,7 +20,7 @@ public class CreateUserCommandHandler : ICommandHandler<CreateUserCommand>
 
   public async Task HandleAsync(CreateUserCommand command)
   {
-    var user = await _repository.GetActiveUserByUsername(command.Username);
+    var user = await _repository.GetUserByUsername(command.Username);
     if (user is { })
     {
       throw new ExistedUsernameException();

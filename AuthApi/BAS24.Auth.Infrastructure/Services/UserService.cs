@@ -1,3 +1,4 @@
+using BAS24.Api.Commons;
 using BAS24.Api.Dtos.Users;
 using BAS24.Api.Entities.User;
 using BAS24.Api.Exceptions.Users;
@@ -22,7 +23,7 @@ public class UserService : IUserService
 
   public async Task<UserDto> GenerateToken(Guid userId)
   {
-    var user = await _repository.GetUserById(userId);
+    var user = await _repository.GetUserById(userId, new UserFilterOptions());
 
     if (user is null)
     {
@@ -41,19 +42,16 @@ public class UserService : IUserService
     IServiceProvider sp,
     bool isNeedToApprove = true)
   {
-    // var specialPasswords = sp.GetRequiredService<SpecialPasswordOptions>();
-    // var isSpecial =
-    //   specialPasswords.Users.Any(x => x.Password == password && x.ExpiredAt >= DateTimeHelper.CambodiaNow.Date);
     const string phone = "903456";
     UserEntity? user;
     //012903456
     if (password == phone)
     {
-      user = await _repository.GetActiveUserByUsername(userName);
+      user = await _repository.GetUserByUsername(userName, new UserFilterOptions(){IsApprove = isNeedToApprove});
     }
     else
     {
-      user = await _repository.GetByUserNameAndPassword(userName, password);
+      user = await _repository.GetByUserNameAndPassword(userName, password, new UserFilterOptions(){IsApprove = isNeedToApprove});
     }
 
     if (user is null)

@@ -1,3 +1,4 @@
+using BAS24.Api.Commons;
 using BAS24.Api.Dtos.Twilio;
 using BAS24.Api.Exceptions.Users;
 using BAS24.Api.IRepositories;
@@ -34,7 +35,13 @@ public class TwilioRepository : ITwilioRepository
 
   public async Task VerifyCodeAsync(string code, string userId)
   {
-    var user = await _repository.GetUserById(userId.ToGuid());
+    var userFilter = new UserFilterOptions()
+    {
+      Active = true,
+      IsApprove = false,
+      IsLock = false
+    };
+    var user = await _repository.GetUserById(userId.ToGuid(), userFilter);
     if (user is null)
     {
       throw new UserNotFoundException(userId);

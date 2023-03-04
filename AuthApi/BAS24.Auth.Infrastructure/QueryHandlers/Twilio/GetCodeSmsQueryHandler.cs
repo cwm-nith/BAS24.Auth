@@ -42,7 +42,7 @@ public class GetCodeSmsQueryHandler : IQueryHandler<GetCodeSmsQuery, SmsDto>
 
   private async Task<SmsDto> SendByPhoneNumberAsync(GetCodeSmsQuery query)
   {
-    var user = await _userRepository.GetActiveUserByPhoneNumber(query.To);
+    var user = await _userRepository.GetUserByPhoneNumber(query.To);
     if (user is null)
     {
       throw new UserNotFoundException();
