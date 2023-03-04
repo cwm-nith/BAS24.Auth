@@ -23,6 +23,10 @@ public class UserEntity
   public bool IsApprove { get; set; }
   public string? RegionName { get; set; }
 
+  public UserEntity(string username)
+  {
+    Username = username;
+  }
 
   public void SetPassword(string password, IPasswordHasher<UserEntity> passwordHasher)
   {

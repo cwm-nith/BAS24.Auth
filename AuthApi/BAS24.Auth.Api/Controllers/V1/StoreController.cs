@@ -161,4 +161,18 @@ public class StoreController : BaseController
     await _command.PerformAsync(cmd, dto.Id);
     return Ok();
   }
+  
+  /// <summary>
+  /// Get store roles
+  /// </summary>
+  /// <returns></returns>
+  [ProducesResponseType(StatusCodes.Status200OK)]
+  [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+  [HttpGet("roles")]
+  public async Task<ActionResult<List<RoleDto>>> GetRolesAsync()
+  {
+    var roleDtos = await _query.QueryAsync<GetRolesQuery, List<RoleDto>>(new GetRolesQuery());
+    return Ok(roleDtos);
+  }
+  
 }

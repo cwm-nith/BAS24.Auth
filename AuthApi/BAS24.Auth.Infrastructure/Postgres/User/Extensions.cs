@@ -27,10 +27,9 @@ public static class Extensions
 
   public static UserEntity AsEntity(this UserTable t)
   {
-    return new UserEntity
+    return new UserEntity(username:t.Username)
     {
       Id = t.Id,
-      Username = t.Username,
       Password = t.Password,
       PasswordHash = t.Password,
       Fullname = t.Fullname,

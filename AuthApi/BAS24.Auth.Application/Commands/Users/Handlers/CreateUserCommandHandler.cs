@@ -26,10 +26,9 @@ public class CreateUserCommandHandler : ICommandHandler<CreateUserCommand>
       throw new ExistedUsernameException();
     }
 
-    var entity = new UserEntity
+    var entity = new UserEntity(username: command.Username)
     {
       Id = command.Id,
-      Username = command.Username,
       CreatedAt = DateTime.UtcNow,
       Fullname = command.Fullname,
       Active = true,
@@ -42,11 +41,5 @@ public class CreateUserCommandHandler : ICommandHandler<CreateUserCommand>
     entity.SetPhone(command.Phones ?? Array.Empty<string>());
     entity.SetPassword(command.Password, _passwordHasher);
     await _repository.CreateUser(entity);
-    //
-    // if (entity.IsSd())
-    // {
-    //   var ev = new UserCreatedEvent(entity.Id, entity.Fullname ?? string.Empty);
-    //   await _event.PublishAsync(ev);
-    // }
   }
 }

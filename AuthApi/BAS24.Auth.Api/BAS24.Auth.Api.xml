@@ -56,6 +56,12 @@
             <param name="dto"></param>
             <returns></returns>
         </member>
+        <member name="M:BAS24.Auth.Api.Controllers.V1.StoreController.GetRolesAsync">
+            <summary>
+            Get store roles
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:BAS24.Auth.Api.Controllers.V1.UserController.LoginAsync(BAS24.Api.Dtos.Users.LoginDto)">
             <summary>
               user login

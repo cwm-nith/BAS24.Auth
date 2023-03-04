@@ -14,10 +14,11 @@ public interface IStoreRepository
   Task DeactivateStoreAsync(Guid ownerId, Guid storeId);
   Task DeleteStoreAsync(Guid ownerId, Guid storeId);
   Task AddUserToStoreAsync();
-  Task UpdateUserStoreRoleAsync();
+  Task UpdateUserStoreRoleAsync(Guid ownerId, UpdateRoleOfStoreMemberDto dto);
   Task RemoveUserFromStoreAsync();
   Task<StoreEntity?> GetStoreByOwnerAsync(GetStoreByOwnerDto dto);
   Task<PagedResult<StoreEntity>> GetStoresByUserAsync(Guid ownerId);
   Task <PagedResult<StoreEntity>> GetAllStoresAsync(GetStoresPageDto dto);
   Task<StoreEntity?> GetStoreByIdAsync(Guid id, bool isActive);
+  List<RoleDto> GetRoles();
 }

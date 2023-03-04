@@ -1,3 +1,4 @@
+using BAS24.Api.Constants;
 using BAS24.Api.Dtos.SocialLinks;
 using BAS24.Api.Dtos.Stores;
 using BAS24.Api.Dtos.Twilio;
@@ -20,13 +21,19 @@ namespace BAS24.Auth.Infrastructure.Repositories;
 public class StoreRepository : IStoreRepository
 {
   private readonly IPostgresRepository<StoreTable> _repository;
+  private readonly IPostgresRepository<StoreMemberTable> _memberRepository;
   private readonly IUserRepository _userRepository;
   private readonly ITwilioRepository _twilioRepository;
-  public StoreRepository(IPostgresRepository<StoreTable> repository, IUserRepository userRepository, ITwilioRepository twilioRepository)
+
+  public StoreRepository(IPostgresRepository<StoreTable> repository,
+    IUserRepository userRepository,
+    ITwilioRepository twilioRepository,
+    IPostgresRepository<StoreMemberTable> memberRepository)
   {
     _repository = repository;
     _userRepository = userRepository;
     _twilioRepository = twilioRepository;
+    _memberRepository = memberRepository;
   }
 
   public async Task CreateStoreAsync(StoreEntity entity)
@@ -40,13 +47,11 @@ public class StoreRepository : IStoreRepository
       {
         throw new UserNotFoundException();
       }
+
       var code = GenerateRandomNumber.Create(8);
       if (user.Phones?.Length <= 0) throw new UserDoNotHavePhoneNumberToSendTo();
       try
       {
-
-        // var store = await GetStoreByIdAsync(entity.Id, false);
-        // if (store is null) throw new StoreNotFoundException();
         entity.Code = code;
         await _repository.AddAsync(entity.AsTable());
         var data = await _twilioRepository.RequestAsync(new SendSmsDto(user.Phones![0], code));
@@ -55,6 +60,7 @@ public class StoreRepository : IStoreRepository
         {
           throw new CodeSendFailedException();
         }
+
         await t.CommitAsync();
         Console.WriteLine(data.Body);
       }
@@ -65,7 +71,6 @@ public class StoreRepository : IStoreRepository
         throw new FailedToSendCodeException();
       }
     });
-
   }
 
   public Task UpdateStoreAsync(StoreEntity entity)
@@ -78,16 +83,16 @@ public class StoreRepository : IStoreRepository
     var q = new GetStoreByOwnerDto(ownerId, storeId, false);
     var store = await GetStoreByOwnerAsync(q);
     if (store is null) throw new StoreNotFoundException();
-    
+
     var storeAdmin = store.StoreMembers?
       .FirstOrDefault(i => i.MemberId == ownerId);
     if (storeAdmin is null) throw new StoreMemberNotFoundException();
     if (!storeAdmin.IsAdmin) throw new ForbiddenException();
-    
+
     store.Active = true;
     await UpdateStoreAsync(store);
   }
-  
+
   public async Task VerifyStoreAsync(Guid id, Guid ownerId, string code)
   {
     var q = new GetStoreByOwnerDto(ownerId, id, false);
@@ -127,9 +132,14 @@ public class StoreRepository : IStoreRepository
     throw new NotImplementedException();
   }
 
-  public Task UpdateUserStoreRoleAsync()
+  public async Task UpdateUserStoreRoleAsync(Guid ownerId, UpdateRoleOfStoreMemberDto dto)
   {
-    throw new NotImplementedException();
+    var store = await GetStoreByOwnerAsync(new GetStoreByOwnerDto(ownerId, dto.StoreId, true));
+    if (store is null) throw new StoreNotFoundException();
+    var storeMember = store.StoreMembers?.FirstOrDefault(i => i.Id == dto.MemberStoreId);
+    if (storeMember is null) throw new StoreMemberNotFoundException();
+    storeMember.Permission = dto.Permission;
+    await _memberRepository.UpdateAsync(storeMember.AsTable());
   }
 
   public Task RemoveUserFromStoreAsync()
@@ -140,7 +150,7 @@ public class StoreRepository : IStoreRepository
   public async Task<StoreEntity?> GetStoreByOwnerAsync(GetStoreByOwnerDto dto)
   {
     var store = await _repository.Context.Stores?.Include(i => i.Owner)
-      .Include(i=> i.StoreMembers)
+      .Include(i => i.StoreMembers)
       .FirstOrDefaultAsync(i => i.Id == dto.StoreId && i.OwnerId == dto.OwnerId && i.Active == dto.IsActive)!;
     return store?.AsEntity();
   }
@@ -155,7 +165,7 @@ public class StoreRepository : IStoreRepository
     var q = await _repository.Context
       .Stores?
       // ReSharper disable once SimplifyConditionalTernaryExpression
-      .Where(i=> i.Active == dto.Active && (dto.OwnerId == null ? true : i.OwnerId == dto.OwnerId.ToGuid()))
+      .Where(i => i.Active == dto.Active && (dto.OwnerId == null ? true : i.OwnerId == dto.OwnerId.ToGuid()))
       .AsQueryable()
       .PaginateAsync(dto.Page, dto.Results)!;
     var result = q.Map(i => i.AsEntity());
@@ -166,5 +176,14 @@ public class StoreRepository : IStoreRepository
   {
     var store = await _repository.FirstOrDefaultAsync(i => i.Id == id && i.Active == isActive);
     return store?.AsEntity();
+  }
+
+  public List<RoleDto> GetRoles()
+  {
+    var roles = typeof(StoreMemberPermissions)
+      .GetProperties()
+      .Select(i => new RoleDto(i.Name, (int)(i.GetValue(null) ?? 0), i.Name == "Administration"))
+      .ToList();
+    return roles;
   }
 }
