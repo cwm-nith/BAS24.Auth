@@ -13,7 +13,7 @@ public interface IUserRepository
   Task<IEnumerable<UserEntity>?> GetUserByIds(Guid[] userIds, UserFilterOptions? userFilterOptions = null);
   Task<UserEntity?> GetUserByUsername(string username, UserFilterOptions? userFilterOptions = null);
   Task<UserEntity?> GetUserByPhoneNumber(string phoneNumber, UserFilterOptions? userFilterOptions = null);
-  Task<UserEntity?> GetUserByEmail(string email, UserFilterOptions? userFilterOptions = null);
+  Task<UserEntity?> GetUserByEmailAsync(string email, UserFilterOptions? userFilterOptions = null);
   Task<PagedResult<UserEntity>> GetUserPaginate(PagedQuery query, UserFilterOptions? userFilterOptions = null);
   Task RemoveUserById(Guid userId, UserFilterOptions? userFilterOptions = null);
   Task<int> CountAllUser(UserFilterOptions? userFilterOptions = null);

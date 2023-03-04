@@ -126,11 +126,12 @@ public class UserController : BaseController
   [ProducesResponseType(StatusCodes.Status400BadRequest)]
   [ProducesResponseType(StatusCodes.Status401Unauthorized)]
   [ProducesDefaultResponseType]
+  [AllowAnonymous]
   [HttpPost("verify")]
   public async Task<ActionResult> VerifyAsync([FromBody] VerifyCodeDto dto)
   {
-    var cmd = new VerifyCodeCommand(dto.Code);
-    await _command.PerformAsync(cmd, UserId);
+    var cmd = new VerifyCodeCommand(dto.Code, dto.To);
+    await _command.PerformAsync(cmd);
     return Ok();
   }
 
@@ -143,6 +144,7 @@ public class UserController : BaseController
   [ProducesResponseType(StatusCodes.Status400BadRequest)]
   [ProducesResponseType(StatusCodes.Status401Unauthorized)]
   [ProducesDefaultResponseType]
+  [AllowAnonymous]
   [HttpPost("send-code")]
   public async Task<ActionResult<SmsDto>> SendCodeAsync([FromBody] SendSmsDto dto)
   {

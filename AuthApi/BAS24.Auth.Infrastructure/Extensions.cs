@@ -23,6 +23,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SendGrid;
+using SendGrid.Extensions.DependencyInjection;
 using Twilio.Clients;
 
 namespace BAS24.Auth.Infrastructure;
@@ -46,8 +47,13 @@ public static class Extensions
     services.AddQueryHandlers();
     services.AddEventHandlers();
 
+    services.AddSendGrid(op =>
+    {
+      op.ApiKey = configuration["SendGrid:APIKey"];
+    });
+    
     services.AddHttpClient<ITwilioRestClient, TwilioService>();
-    services.AddHttpClient<ISendGridClient>();
+    // services.AddHttpClient<ISendGridClient>();
 
     services.AddTransient<IUserService, UserService>();
     services.AddTransient<ISendGridService, SendGridService>();

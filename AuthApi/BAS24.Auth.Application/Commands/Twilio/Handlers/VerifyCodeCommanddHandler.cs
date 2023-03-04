@@ -3,7 +3,7 @@ using BAS24.Libs.CQRS.Commands;
 
 namespace BAS24.Auth.Application.Commands.Twilio.Handlers;
 
-public class VerifyCodeCommandHandler : ICommandHandler<VerifyCodeCommand, string>
+public class VerifyCodeCommandHandler : ICommandHandler<VerifyCodeCommand>
 {
   private readonly ITwilioRepository _repository;
 
@@ -12,8 +12,8 @@ public class VerifyCodeCommandHandler : ICommandHandler<VerifyCodeCommand, strin
     _repository = repository;
   }
 
-  public async Task HandleAsync(VerifyCodeCommand command, string id)
+  public async Task HandleAsync(VerifyCodeCommand command)
   {
-    await _repository.VerifyCodeAsync(command.Code, id);
+    await _repository.VerifyCodeAsync(command.Code, command.To);
   }
 }

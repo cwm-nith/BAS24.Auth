@@ -7,5 +7,5 @@ public interface ITwilioRepository
 {
   Task<MessageResource> RequestAsync(SendSmsDto dto);
   MessageResource Request(SendSmsDto dto);
-  Task VerifyCodeAsync(string code, string userId);
+  Task VerifyCodeAsync(string code, string to);
 }

@@ -144,7 +144,7 @@ public class UserRepository : IUserRepository
     return user?.AsEntity();
   }
 
-  public async Task<UserEntity?> GetUserByEmail(string email, UserFilterOptions? options)
+  public async Task<UserEntity?> GetUserByEmailAsync(string email, UserFilterOptions? options)
   {
     UserTable? user;
     if (options is null)

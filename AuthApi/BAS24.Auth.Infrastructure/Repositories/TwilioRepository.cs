@@ -1,8 +1,9 @@
 using BAS24.Api.Commons;
 using BAS24.Api.Dtos.Twilio;
+using BAS24.Api.Entities.User;
+using BAS24.Api.Exceptions.Twilio;
 using BAS24.Api.Exceptions.Users;
 using BAS24.Api.IRepositories;
-using BAS24.Libs.Postgres;
 using Microsoft.Extensions.Configuration;
 using Twilio.Clients;
 using Twilio.Rest.Api.V2010.Account;
@@ -33,7 +34,7 @@ public class TwilioRepository : ITwilioRepository
     return message;
   }
 
-  public async Task VerifyCodeAsync(string code, string userId)
+  public async Task VerifyCodeAsync(string code, string to)
   {
     var userFilter = new UserFilterOptions()
     {
@@ -41,10 +42,22 @@ public class TwilioRepository : ITwilioRepository
       IsApprove = false,
       IsLock = false
     };
-    var user = await _repository.GetUserById(userId.ToGuid(), userFilter);
+    UserEntity? user;
+    if (to.Contains('@'))
+    {
+      user = await _repository.GetUserByEmailAsync(to, userFilter);
+    }
+    else if(to.Contains('+'))
+    {
+      user = await _repository.GetUserByPhoneNumber(to, userFilter);
+    }
+    else
+    {
+      throw new InvalidSendToException();
+    }
     if (user is null)
     {
-      throw new UserNotFoundException(userId);
+      throw new UserNotFoundException();
     }
 
     if (user.Code == code)
