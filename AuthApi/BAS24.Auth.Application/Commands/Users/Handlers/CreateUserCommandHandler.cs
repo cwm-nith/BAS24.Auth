@@ -38,7 +38,7 @@ public class CreateUserCommandHandler : ICommandHandler<CreateUserCommand>
       UpdatedAt = DateTime.UtcNow,
       RegionName = command.RegionName
     };
-    entity.SetPhone(command.Phones ?? Array.Empty<string>());
+    entity.SetPhone(command.Phone);
     entity.SetPassword(command.Password, _passwordHasher);
     await _repository.CreateUser(entity);
   }

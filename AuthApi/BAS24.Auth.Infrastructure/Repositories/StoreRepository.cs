@@ -24,16 +24,19 @@ public class StoreRepository : IStoreRepository
   private readonly IPostgresRepository<StoreMemberTable> _memberRepository;
   private readonly IUserRepository _userRepository;
   private readonly ITwilioRepository _twilioRepository;
+  private readonly IAddMemberToStoreRequestRepository _addMemberToStoreRequestRepository;
 
   public StoreRepository(IPostgresRepository<StoreTable> repository,
     IUserRepository userRepository,
     ITwilioRepository twilioRepository,
-    IPostgresRepository<StoreMemberTable> memberRepository)
+    IPostgresRepository<StoreMemberTable> memberRepository,
+    IAddMemberToStoreRequestRepository addMemberToStoreRequestRepository)
   {
     _repository = repository;
     _userRepository = userRepository;
     _twilioRepository = twilioRepository;
     _memberRepository = memberRepository;
+    _addMemberToStoreRequestRepository = addMemberToStoreRequestRepository;
   }
 
   public async Task CreateStoreAsync(StoreEntity entity)
@@ -49,12 +52,12 @@ public class StoreRepository : IStoreRepository
       }
 
       var code = GenerateRandomNumber.Create(8);
-      if (user.Phones?.Length <= 0) throw new UserDoNotHavePhoneNumberToSendTo();
+      if (user.Phone is null) throw new UserDoNotHavePhoneNumberToSendTo();
       try
       {
         entity.Code = code;
         await _repository.AddAsync(entity.AsTable());
-        var data = await _twilioRepository.RequestAsync(new SendSmsDto(user.Phones![0], code));
+        var data = await _twilioRepository.RequestAsync(new SendSmsDto(user.Phone, code));
 
         if (data is null)
         {
@@ -129,6 +132,8 @@ public class StoreRepository : IStoreRepository
 
   public async Task AddUserToStoreAsync(Guid id, AddMemberDto dto)
   {
+    var user = await _userRepository.GetUserById(id);
+    if (user is null) throw new UserNotFoundException();
     var store = await GetStoreByIdAsync(dto.StoreId, true);
     if (store is null) throw new StoreNotFoundException();
     var memAdmin = store.StoreMembers?
@@ -148,7 +153,25 @@ public class StoreRepository : IStoreRepository
       updatedAt: DateTime.UtcNow,
       accepted: false
     );
-    await _memberRepository.AddAsync(memberEntity.AsTable());
+    AddMemberToStoreRequestEntity addMemberToStoreRequestEntity = new(
+      id: GuidHelper.NewId.ToGuid(), 
+      storeId: dto.StoreId, 
+      storeMemberId:memId.ToGuid(), 
+      memberId: dto.MemberId, 
+      byId: id, 
+      subject: $"{user.Fullname} added you to \"{store.Name}\" store",
+      description: $"Confirm to be in \"{store.Name}\" store", 
+      by: user.Fullname ?? "Unknown",
+      createdAt: DateTime.UtcNow, 
+      updatedAt: DateTime.UtcNow
+      );
+    var tasks = new List<Task>
+    {
+      _memberRepository.AddAsync(memberEntity.AsTable()),
+      _addMemberToStoreRequestRepository.CreateAsync(addMemberToStoreRequestEntity)
+    };
+    await Task.WhenAll(tasks.ToArray());
+    // await _memberRepository.AddAsync(memberEntity.AsTable());
   }
 
   public async Task UpdateUserStoreRoleAsync(Guid ownerId, UpdateRoleOfStoreMemberDto dto)
@@ -208,6 +231,11 @@ public class StoreRepository : IStoreRepository
       .Select(i => new RoleDto(i.Name, (int)(i.GetValue(null) ?? 0), i.Name == "Administration"))
       .ToList();
     return roles;
+  }
+
+  public Task<PagedResult<StoreMemberEntity>> GetStoreMembersAsync(Guid storeId)
+  {
+    throw new NotImplementedException();
   }
 
   public async Task<StoreMemberEntity?> GetMemberByIdAsync(Guid id)

@@ -33,7 +33,7 @@ public class UpdateUserCommandHandler : ICommandHandler<UpdateUserCommand, Guid>
     user.Fullname = command.Fullname ?? user.Fullname;
     user.RegionName = command.RegionName ?? user.RegionName;
     user.UpdatedAt = DateTime.UtcNow;
-    user.SetPhone(command.Phones);
+    user.SetPhone(command.Phone);
 
     await _repository.UpdateUser(user);
   }

@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BAS24.Auth.Infrastructure.Migrations
 {
     [DbContext(typeof(PostgresDbContext))]
-    [Migration("20230228150156_Db003")]
-    partial class Db003
+    [Migration("20230304083908_Db001")]
+    partial class Db001
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -128,16 +128,30 @@ namespace BAS24.Auth.Infrastructure.Migrations
                     b.ToTable("social_user_links");
                 });
 
-            modelBuilder.Entity("BAS24.Auth.Infrastructure.Postgres.Store.StoreMemberTable", b =>
+            modelBuilder.Entity("BAS24.Auth.Infrastructure.Postgres.Store.AddMemberToStoreRequestTable", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
+                    b.Property<string>("By")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("by");
+
+                    b.Property<Guid>("ById")
+                        .HasColumnType("uuid")
+                        .HasColumnName("by_id");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("description");
 
                     b.Property<Guid>("MemberId")
                         .HasColumnType("uuid")
@@ -147,22 +161,73 @@ namespace BAS24.Auth.Infrastructure.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("store_id");
 
-                    b.Property<int>("StoreMemberRole")
-                        .HasColumnType("integer")
-                        .HasColumnName("store_member_role");
+                    b.Property<Guid>("StoreMemberId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("store_member_id");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("subject");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("updated_at");
 
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uuid");
+                    b.HasKey("Id");
+
+                    b.HasIndex("ById")
+                        .IsUnique();
+
+                    b.HasIndex("MemberId")
+                        .IsUnique();
+
+                    b.HasIndex("StoreId")
+                        .IsUnique();
+
+                    b.HasIndex("StoreMemberId")
+                        .IsUnique();
+
+                    b.ToTable("add_member_to_store_requests");
+                });
+
+            modelBuilder.Entity("BAS24.Auth.Infrastructure.Postgres.Store.StoreMemberTable", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<bool>("Accepted")
+                        .HasColumnType("boolean")
+                        .HasColumnName("accepted");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<Guid>("MemberId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("member_id");
+
+                    b.Property<int>("Permission")
+                        .HasColumnType("integer")
+                        .HasColumnName("permission");
+
+                    b.Property<Guid>("StoreId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("store_id");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StoreId");
+                    b.HasIndex("MemberId")
+                        .IsUnique();
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("StoreId");
 
                     b.ToTable("store_members");
                 });
@@ -174,6 +239,10 @@ namespace BAS24.Auth.Infrastructure.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("boolean")
+                        .HasColumnName("active");
+
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("text")
@@ -183,6 +252,10 @@ namespace BAS24.Auth.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("uuid[]")
                         .HasColumnName("categoryIds");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("text")
+                        .HasColumnName("code");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone")
@@ -271,6 +344,10 @@ namespace BAS24.Auth.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
+                    b.Property<string>("Email")
+                        .HasColumnType("text")
+                        .HasColumnName("email");
+
                     b.Property<string>("Fullname")
                         .HasColumnType("text")
                         .HasColumnName("fullname");
@@ -288,9 +365,9 @@ namespace BAS24.Auth.Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("password");
 
-                    b.Property<string[]>("Phones")
-                        .HasColumnType("text[]")
-                        .HasColumnName("phones");
+                    b.Property<string>("Phone")
+                        .HasColumnType("text")
+                        .HasColumnName("phone");
 
                     b.Property<string>("RegionName")
                         .HasColumnType("text")
@@ -350,17 +427,54 @@ namespace BAS24.Auth.Infrastructure.Migrations
                     b.Navigation("Store");
                 });
 
+            modelBuilder.Entity("BAS24.Auth.Infrastructure.Postgres.Store.AddMemberToStoreRequestTable", b =>
+                {
+                    b.HasOne("BAS24.Auth.Infrastructure.Postgres.User.UserTable", "ByUser")
+                        .WithOne()
+                        .HasForeignKey("BAS24.Auth.Infrastructure.Postgres.Store.AddMemberToStoreRequestTable", "ById")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BAS24.Auth.Infrastructure.Postgres.User.UserTable", "Member")
+                        .WithOne()
+                        .HasForeignKey("BAS24.Auth.Infrastructure.Postgres.Store.AddMemberToStoreRequestTable", "MemberId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BAS24.Auth.Infrastructure.Postgres.Store.StoreTable", "Store")
+                        .WithOne()
+                        .HasForeignKey("BAS24.Auth.Infrastructure.Postgres.Store.AddMemberToStoreRequestTable", "StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BAS24.Auth.Infrastructure.Postgres.Store.StoreMemberTable", "StoreMember")
+                        .WithOne()
+                        .HasForeignKey("BAS24.Auth.Infrastructure.Postgres.Store.AddMemberToStoreRequestTable", "StoreMemberId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ByUser");
+
+                    b.Navigation("Member");
+
+                    b.Navigation("Store");
+
+                    b.Navigation("StoreMember");
+                });
+
             modelBuilder.Entity("BAS24.Auth.Infrastructure.Postgres.Store.StoreMemberTable", b =>
                 {
+                    b.HasOne("BAS24.Auth.Infrastructure.Postgres.User.UserTable", "User")
+                        .WithOne()
+                        .HasForeignKey("BAS24.Auth.Infrastructure.Postgres.Store.StoreMemberTable", "MemberId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("BAS24.Auth.Infrastructure.Postgres.Store.StoreTable", "Store")
                         .WithMany("StoreMembers")
                         .HasForeignKey("StoreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("BAS24.Auth.Infrastructure.Postgres.User.UserTable", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
 
                     b.Navigation("Store");
 

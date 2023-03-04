@@ -11,7 +11,8 @@ public class UserEntity
 
   public string? Code { get; set; }
   public string Username { get; set; }
-  public string[]? Phones { get; set; }
+  public string? Phone { get; set; }
+  public string? Email { get; set; }
   public string Password { get; set; } = string.Empty;
   public string PasswordHash { get; set; } = string.Empty;
   public DateTime CreatedAt { get; set; }
@@ -39,9 +40,9 @@ public class UserEntity
     PasswordHash = passwordHasher.HashPassword(this, password);
   }
 
-  public void SetPhone(string[]? phone)
+  public void SetPhone(string? phone)
   {
-    Phones = phone ?? Phones;
+    Phone = phone ?? Phone;
   }
 
   public bool ValidatePassword(string password, IPasswordHasher<UserEntity> passwordHasher)

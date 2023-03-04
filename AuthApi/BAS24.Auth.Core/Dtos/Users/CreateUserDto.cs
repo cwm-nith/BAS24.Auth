@@ -6,16 +6,18 @@ public class CreateUserDto
     string username,
     string password,
     string? fullname,
-    string[]? phones,
+    string? phone,
     string? address,
-    string? regionName)
+    string? regionName,
+    string? email)
   {
     Username = username;
     Password = password;
     Fullname = fullname;
-    Phones = phones;
+    Phone = phone;
     Address = address;
     RegionName = regionName;
+    Email = email;
   }
 
   public string Username { get; set; }
@@ -24,7 +26,8 @@ public class CreateUserDto
 
   public string? Fullname { get; set; }
 
-  public string[]? Phones { get; set; }
+  public string? Phone { get; set; }
+  public string? Email { get; set; }
 
   public string? Address { get; set; }
 

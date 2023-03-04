@@ -46,9 +46,10 @@ public class UserController : BaseController
       dto.Username,
       dto.Password,
       dto.Fullname,
-      dto.Phones,
+      dto.Phone,
       dto.Address,
-      dto.RegionName));
+      dto.RegionName,
+      email: dto.Email));
     var userDto = await _userService.LoginAsync(dto.Username, dto.Password, _serviceProvider, false);
     var token = new JsonWebToken { AccessToken = userDto.Token ?? string.Empty };
     return OkWithResource(token, $"user/{userDto.Id}", userDto.Id);
@@ -76,15 +77,13 @@ public class UserController : BaseController
   [HttpPut]
   public async Task<ActionResult> UpdateUserAsync([FromBody] UpdateUserDto update)
   {
-    // var dto = await _userService.LoginAsync(login.Username, login.Password, _serviceProvider);
-    // var token = new JsonWebToken { AccessToken = dto.Token ?? string.Empty };
-
     var cmd = new UpdateUserCommand(UserId.ToGuid(),
       update.Username,
       update.Fullname,
-      update.Phones,
+      update.Phone,
       update.Address,
-      update.RegionName);
+      update.RegionName,
+      email: update.Email);
     await _command.PerformAsync(cmd, UserId.ToGuid());
     return Accepted();
   }
@@ -195,12 +194,14 @@ public class UserController : BaseController
   [HttpPut("{userId}")]
   public async Task<ActionResult<UserDto>> GetUserByIdAsync(string userId, [FromBody] UpdateUserDto dto)
   {
-    var cmd = new UpdateUserCommand(UserId.ToGuid(),
+    var cmd = new UpdateUserCommand(
+      userId.ToGuid(),
       dto.Username,
       dto.Fullname,
-      dto.Phones,
+      dto.Phone,
       dto.Address,
-      dto.RegionName);
+      dto.RegionName,
+      email: dto.Email);
     await _command.PerformAsync(cmd, UserId.ToGuid());
     return Accepted();
   }

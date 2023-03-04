@@ -8,17 +8,19 @@ public class CreateUserCommand : ICommand
     string username,
     string password,
     string? fullname,
-    string[]? phones,
+    string? phone,
     string? address,
-    string? regionName)
+    string? regionName,
+    string? email)
   {
     Id = id;
     Username = username;
     Password = password;
     Fullname = fullname;
-    Phones = phones;
+    Phone = phone;
     Address = address;
     RegionName = regionName;
+    Email = email;
   }
 
   public Guid Id { get; set; }
@@ -28,8 +30,9 @@ public class CreateUserCommand : ICommand
 
   public string? Fullname { get; set; }
 
-  public string[]? Phones { get; set; }
+  public string? Phone { get; set; }
 
+  public string? Email { get; set; }
   public string? Address { get; set; }
 
   public string? RegionName { get; set; }

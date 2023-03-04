@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace BAS24.Auth.Infrastructure.Postgres
+namespace BAS24.Auth.Infrastructure.Migrations
 {
     [DbContext(typeof(PostgresDbContext))]
     partial class PostgresDbContextModelSnapshot : ModelSnapshot
@@ -341,6 +341,10 @@ namespace BAS24.Auth.Infrastructure.Postgres
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
+                    b.Property<string>("Email")
+                        .HasColumnType("text")
+                        .HasColumnName("email");
+
                     b.Property<string>("Fullname")
                         .HasColumnType("text")
                         .HasColumnName("fullname");
@@ -358,9 +362,9 @@ namespace BAS24.Auth.Infrastructure.Postgres
                         .HasColumnType("text")
                         .HasColumnName("password");
 
-                    b.Property<string[]>("Phones")
-                        .HasColumnType("text[]")
-                        .HasColumnName("phones");
+                    b.Property<string>("Phone")
+                        .HasColumnType("text")
+                        .HasColumnName("phone");
 
                     b.Property<string>("RegionName")
                         .HasColumnType("text")

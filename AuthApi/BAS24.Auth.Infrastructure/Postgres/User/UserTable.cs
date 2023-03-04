@@ -12,7 +12,7 @@ public class UserTable : BasePostgresTable
     string username,
     string password,
     string? fullname,
-    string[]? phones,
+    string? phone,
     bool? active,
     string? address,
     bool? isLock,
@@ -26,7 +26,7 @@ public class UserTable : BasePostgresTable
     Password = password;
     CreatedAt = createdAt;
     Fullname = fullname;
-    Phones = phones;
+    Phone = phone;
     Active = active;
     IsApprove = isApprove;
     Address = address;
@@ -48,8 +48,11 @@ public class UserTable : BasePostgresTable
   [Column("fullname")]
   public string? Fullname { get; set; }
 
-  [Column("phones")]
-  public string[]? Phones { get; set; }
+  [Column("phone")]
+  public string? Phone { get; set; }
+  
+  [Column("email")]
+  public string? Email { get; set; }
 
   [Column("active")]
   public bool? Active { get; set; }

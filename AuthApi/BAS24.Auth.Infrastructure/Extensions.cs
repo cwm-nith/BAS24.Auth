@@ -22,6 +22,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SendGrid;
 using Twilio.Clients;
 
 namespace BAS24.Auth.Infrastructure;
@@ -46,8 +47,10 @@ public static class Extensions
     services.AddEventHandlers();
 
     services.AddHttpClient<ITwilioRestClient, TwilioService>();
+    services.AddHttpClient<ISendGridClient>();
 
     services.AddTransient<IUserService, UserService>();
+    services.AddTransient<ISendGridService, SendGridService>();
 
     services.AddPostgres<PostgresDbContext>();
     services.AddPostgresRepositories();
