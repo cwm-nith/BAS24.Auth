@@ -56,6 +56,13 @@
             <param name="dto"></param>
             <returns></returns>
         </member>
+        <member name="M:BAS24.Auth.Api.Controllers.V1.StoreController.UpdateMemberRoleAsync(BAS24.Api.Dtos.Stores.UpdateRoleOfStoreMemberDto)">
+            <summary>
+            Update member role
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
         <member name="M:BAS24.Auth.Api.Controllers.V1.StoreController.GetRolesAsync">
             <summary>
             Get store roles
