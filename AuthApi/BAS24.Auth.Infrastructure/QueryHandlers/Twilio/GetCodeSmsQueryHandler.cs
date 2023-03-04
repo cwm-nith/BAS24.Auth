@@ -3,7 +3,8 @@ using BAS24.Api.Exceptions.Twilio;
 using BAS24.Api.Exceptions.Users;
 using BAS24.Api.IRepositories;
 using BAS24.Api.Utils;
-using BAS24.Auth.Application.Queries.Twilio;
+using BAS24.Auth.Application.Queries.Stores;
+using BAS24.Auth.Application.Queries.Users;
 using BAS24.Auth.Infrastructure.Services.Interfaces;
 using BAS24.Libs.CQRS.Queries;
 
@@ -42,7 +43,7 @@ public class GetCodeSmsQueryHandler : IQueryHandler<GetCodeSmsQuery, SmsDto>
 
   private async Task<SmsDto> SendByPhoneNumberAsync(GetCodeSmsQuery query)
   {
-    var user = await _userRepository.GetUserByPhoneNumber(query.To);
+    var user = await _userRepository.GetUserByPhoneNumberAsync(query.To);
     if (user is null)
     {
       throw new UserNotFoundException();
@@ -60,7 +61,7 @@ public class GetCodeSmsQueryHandler : IQueryHandler<GetCodeSmsQuery, SmsDto>
       }
 
       user.Code = code;
-      await _userRepository.UpdateUser(user);
+      await _userRepository.UpdateUserAsync(user);
       return new SmsDto(data.Body);
     }
     catch (Exception e)

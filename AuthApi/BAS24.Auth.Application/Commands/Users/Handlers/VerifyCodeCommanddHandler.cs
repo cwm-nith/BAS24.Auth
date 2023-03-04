@@ -1,13 +1,13 @@
 using BAS24.Api.IRepositories;
 using BAS24.Libs.CQRS.Commands;
 
-namespace BAS24.Auth.Application.Commands.Twilio.Handlers;
+namespace BAS24.Auth.Application.Commands.Users.Handlers;
 
 public class VerifyCodeCommandHandler : ICommandHandler<VerifyCodeCommand>
 {
-  private readonly ITwilioRepository _repository;
+  private readonly IUserRepository _repository;
 
-  public VerifyCodeCommandHandler(ITwilioRepository repository)
+  public VerifyCodeCommandHandler(IUserRepository repository)
   {
     _repository = repository;
   }

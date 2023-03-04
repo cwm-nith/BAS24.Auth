@@ -13,13 +13,11 @@ namespace BAS24.Auth.Infrastructure.Repositories;
 public class TwilioRepository : ITwilioRepository
 {
   private readonly PhoneNumber _phoneFrom;
-  private readonly IUserRepository _repository;
   private readonly ITwilioRestClient _twilioRestClient;
 
 
-  public TwilioRepository(ITwilioRestClient twilioRestClient, IConfiguration configuration, IUserRepository repository)
+  public TwilioRepository(ITwilioRestClient twilioRestClient, IConfiguration configuration)
   {
-    _repository = repository;
     _twilioRestClient = twilioRestClient;
     _phoneFrom = configuration["Twilio:From"];
   }
@@ -31,35 +29,6 @@ public class TwilioRepository : ITwilioRepository
       body: dto.Message,
       client: _twilioRestClient);
     return message;
-  }
-
-  public async Task VerifyCodeAsync(string code, string to)
-  {
-    UserEntity? user;
-    if (to.Contains('@'))
-    {
-      user = await _repository.GetUserByEmailAsync(to);
-    }
-    else if(to.Contains('+'))
-    {
-      user = await _repository.GetUserByPhoneNumber(to);
-    }
-    else
-    {
-      throw new InvalidSendToException();
-    }
-    if (user is null)
-    {
-      throw new UserNotFoundException();
-    }
-
-    if (user.Code == code)
-    {
-      user.IsApprove = true;
-      user.Active = true;
-      user.Code = null;
-      await _repository.UpdateUser(user);
-    }
   }
 
   public async Task<MessageResource> RequestAsync(SendSmsDto dto)

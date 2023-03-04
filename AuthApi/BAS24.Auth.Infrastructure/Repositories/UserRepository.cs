@@ -1,5 +1,6 @@
 using BAS24.Api.Commons;
 using BAS24.Api.Entities.User;
+using BAS24.Api.Exceptions.Twilio;
 using BAS24.Api.Exceptions.Users;
 using BAS24.Api.IRepositories;
 using BAS24.Auth.Infrastructure.Postgres;
@@ -27,12 +28,12 @@ public class UserRepository : IUserRepository
     return _repository.AddAsync(user.AsTable());
   }
 
-  public Task UpdateUser(UserEntity user)
+  public Task UpdateUserAsync(UserEntity user)
   {
     return _repository.UpdateAsync(user.AsTable());
   }
 
-  public async Task<UserEntity> GetByUserNameAndPassword(string userName, string password, UserFilterOptions? options)
+  public async Task<UserEntity> GetByUserNameAndPassword(string userName, string password, UserFilterOptions? options = null)
   {
     UserTable? user;
     if (options is null)
@@ -65,7 +66,7 @@ public class UserRepository : IUserRepository
     return entity;
   }
 
-  public async Task<UserEntity?> GetUserById(Guid userId, UserFilterOptions? options)
+  public async Task<UserEntity?> GetUserById(Guid userId, UserFilterOptions? options = null)
   {
     UserTable? user;
     if (options is null)
@@ -85,7 +86,7 @@ public class UserRepository : IUserRepository
     return user?.AsEntity();
   }
 
-  public async Task<IEnumerable<UserEntity>?> GetUserByIds(Guid[] userIds, UserFilterOptions? options)
+  public async Task<IEnumerable<UserEntity>?> GetUserByIds(Guid[] userIds, UserFilterOptions? options = null)
   {
     var context = _repository.Context;
     List<UserTable> lst;
@@ -106,7 +107,7 @@ public class UserRepository : IUserRepository
     return lst.Select(x => x.AsEntity());
   }
 
-  public async Task<UserEntity?> GetUserByUsername(string username, UserFilterOptions? options)
+  public async Task<UserEntity?> GetUserByUsername(string username, UserFilterOptions? options = null)
   {
     UserTable? user;
     if (options is null)
@@ -124,7 +125,7 @@ public class UserRepository : IUserRepository
     return user?.AsEntity();
   }
 
-  public async Task<UserEntity?> GetUserByPhoneNumber(string phoneNumber, UserFilterOptions? options)
+  public async Task<UserEntity?> GetUserByPhoneNumberAsync(string phoneNumber, UserFilterOptions? options = null)
   {
     UserTable? user;
     if (options is null)
@@ -144,7 +145,7 @@ public class UserRepository : IUserRepository
     return user?.AsEntity();
   }
 
-  public async Task<UserEntity?> GetUserByEmailAsync(string email, UserFilterOptions? options)
+  public async Task<UserEntity?> GetUserByEmailAsync(string email, UserFilterOptions? options = null)
   {
     UserTable? user;
     if (options is null)
@@ -163,7 +164,7 @@ public class UserRepository : IUserRepository
     return user?.AsEntity();
   }
 
-  public async Task<PagedResult<UserEntity>> GetUserPaginate(PagedQuery query, UserFilterOptions? options)
+  public async Task<PagedResult<UserEntity>> GetUserPaginate(PagedQuery query, UserFilterOptions? options = null)
   {
     var context = _repository.Context;
     PagedResult<UserTable> q;
@@ -185,7 +186,7 @@ public class UserRepository : IUserRepository
     return result;
   }
 
-  public async Task RemoveUserById(Guid userId, UserFilterOptions? options)
+  public async Task RemoveUserById(Guid userId, UserFilterOptions? options = null)
   {
     UserTable? user;
     if (options is null)
@@ -209,7 +210,7 @@ public class UserRepository : IUserRepository
     await _repository.UpdateAsync(user);
   }
 
-  public async Task<int> CountAllUser(UserFilterOptions? options)
+  public async Task<int> CountAllUser(UserFilterOptions? options = null)
   {
     if (options is null)
     {
@@ -218,5 +219,34 @@ public class UserRepository : IUserRepository
 
     return await _repository.CountAsync(i =>
       i.IsApprove == options.IsApprove && i.Active == options.Active && i.IsLock == options.IsLock);
+  }
+  
+  public async Task VerifyCodeAsync(string code, string to)
+  {
+    UserEntity? user;
+    if (to.Contains('@'))
+    {
+      user = await GetUserByEmailAsync(to);
+    }
+    else if(to.Contains('+'))
+    {
+      user = await GetUserByPhoneNumberAsync(to);
+    }
+    else
+    {
+      throw new InvalidSendToException();
+    }
+    if (user is null)
+    {
+      throw new UserNotFoundException();
+    }
+
+    if (user.Code == code)
+    {
+      user.IsApprove = true;
+      user.Active = true;
+      user.Code = null;
+      await UpdateUserAsync(user);
+    }
   }
 }

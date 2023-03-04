@@ -35,6 +35,6 @@ public class UpdateUserCommandHandler : ICommandHandler<UpdateUserCommand, Guid>
     user.UpdatedAt = DateTime.UtcNow;
     user.SetPhone(command.Phone);
 
-    await _repository.UpdateUser(user);
+    await _repository.UpdateUserAsync(user);
   }
 }
