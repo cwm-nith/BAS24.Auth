@@ -92,7 +92,7 @@ public class UserRepository : IUserRepository
     if (options is null)
     {
       lst = await (from user in context.Users
-        where userIds.Contains(user.Id) && user.Active == options.Active
+        where userIds.Contains(user.Id) && (user.Active ?? false)
         select user).AsNoTracking().ToListAsync();
     }
     else

@@ -1,4 +1,3 @@
-using BAS24.Api.Commons;
 using BAS24.Api.Dtos.Twilio;
 using BAS24.Api.Entities.User;
 using BAS24.Api.Exceptions.Twilio;
@@ -36,20 +35,14 @@ public class TwilioRepository : ITwilioRepository
 
   public async Task VerifyCodeAsync(string code, string to)
   {
-    var userFilter = new UserFilterOptions()
-    {
-      Active = true,
-      IsApprove = false,
-      IsLock = false
-    };
     UserEntity? user;
     if (to.Contains('@'))
     {
-      user = await _repository.GetUserByEmailAsync(to, userFilter);
+      user = await _repository.GetUserByEmailAsync(to);
     }
     else if(to.Contains('+'))
     {
-      user = await _repository.GetUserByPhoneNumber(to, userFilter);
+      user = await _repository.GetUserByPhoneNumber(to);
     }
     else
     {
