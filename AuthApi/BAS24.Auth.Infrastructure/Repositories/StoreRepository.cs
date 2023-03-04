@@ -85,7 +85,7 @@ public class StoreRepository : IStoreRepository
     if (store is null) throw new StoreNotFoundException();
 
     var storeAdmin = store.StoreMembers?
-      .FirstOrDefault(i => i.MemberId == ownerId);
+      .FirstOrDefault(i => i.MemberId == ownerId && i.Accepted);
     if (storeAdmin is null) throw new StoreMemberNotFoundException();
     if (!storeAdmin.IsAdmin) throw new ForbiddenException();
 
@@ -99,7 +99,7 @@ public class StoreRepository : IStoreRepository
     var store = await GetStoreByOwnerAsync(q);
     if (store is null) throw new StoreNotFoundException();
     var storeAdmin = store.StoreMembers?
-      .FirstOrDefault(i => i.MemberId == ownerId);
+      .FirstOrDefault(i => i.MemberId == ownerId && i.Accepted);
     if (storeAdmin is null) throw new StoreMemberNotFoundException();
     if (!storeAdmin.IsAdmin) throw new ForbiddenException();
     if (code != store.Code) throw new StoreCodeVerifyNotValidException();
@@ -114,7 +114,7 @@ public class StoreRepository : IStoreRepository
     var store = await GetStoreByOwnerAsync(q);
     if (store is null) throw new StoreNotFoundException();
     var storeAdmin = store.StoreMembers?
-      .FirstOrDefault(i => i.MemberId == ownerId);
+      .FirstOrDefault(i => i.MemberId == ownerId && i.Accepted);
     if (storeAdmin is null) throw new StoreMemberNotFoundException();
     if (!storeAdmin.IsAdmin) throw new ForbiddenException();
     if (store is null) throw new StoreNotFoundException();
@@ -132,7 +132,7 @@ public class StoreRepository : IStoreRepository
     var store = await GetStoreByIdAsync(dto.StoreId, true);
     if (store is null) throw new StoreNotFoundException();
     var memAdmin = store.StoreMembers?
-      .Any(i => i.MemberId == id && i.IsAdmin);
+      .Any(i => i.MemberId == id && i is { IsAdmin: true, Accepted: true });
     if (memAdmin != true) throw new ForbiddenException("This action for administration only!");
     
     var member = await GetMemberByMemberIdAndStoreIdAsync(dto.MemberId, dto.StoreId);
@@ -155,7 +155,8 @@ public class StoreRepository : IStoreRepository
   {
     var store = await GetStoreByOwnerAsync(new GetStoreByOwnerDto(ownerId, dto.StoreId, true));
     if (store is null) throw new StoreNotFoundException();
-    var storeMember = store.StoreMembers?.FirstOrDefault(i => i.Id == dto.MemberStoreId);
+    var storeMember = store.StoreMembers?
+      .FirstOrDefault(i => i.Id == dto.MemberStoreId && i.Accepted);
     if (storeMember is null) throw new StoreMemberNotFoundException();
     storeMember.Permission = dto.Permission;
     await _memberRepository.UpdateAsync(storeMember.AsTable());
@@ -211,14 +212,15 @@ public class StoreRepository : IStoreRepository
 
   public async Task<StoreMemberEntity?> GetMemberByIdAsync(Guid id)
   {
-    var data = await _memberRepository.FirstOrDefaultAsync(i => i.Id == id);
+    var data = await _memberRepository
+      .FirstOrDefaultAsync(i => i.Id == id && i.Accepted);
     return data?.AsEntity();
   }
 
   public async Task<StoreMemberEntity?> GetMemberByMemberIdAndStoreIdAsync(Guid memberId, Guid storeId)
   {
     var data = await _memberRepository
-      .FirstOrDefaultAsync(i => i.MemberId == memberId && i.StoreId == storeId);
+      .FirstOrDefaultAsync(i => i.MemberId == memberId && i.StoreId == storeId && i.Accepted);
     return data?.AsEntity();
   }
 }
