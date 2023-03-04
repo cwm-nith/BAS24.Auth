@@ -6,6 +6,8 @@ namespace BAS24.Auth.Infrastructure.Postgres.Store;
 
 public static class Extensions
 {
+  #region StoreMember
+
   public static StoreMemberTable AsTable(this StoreMemberEntity s) => new(
     storeId: s.StoreId,
     memberId: s.MemberId,
@@ -27,6 +29,10 @@ public static class Extensions
     updatedAt: s.UpdatedAt,
     accepted: s.Accepted
   );
+
+  #endregion
+
+  #region Store
 
   public static StoreTable AsTable(this StoreEntity e) => new(
     ownerId: e.OwnerId,
@@ -74,6 +80,50 @@ public static class Extensions
     Code = s.Code,
     Owner = s.Owner?.AsEntity(),
     StoreMembers = s.StoreMembers?.Select(i => i.AsEntity()).ToList(),
-    SocialUserLinks = s.SocialUserLinks?.Select(i=> i.AsEntity()).ToList()
+    SocialUserLinks = s.SocialUserLinks?.Select(i => i.AsEntity()).ToList()
   };
+
+  #endregion
+
+  #region AddMemberToStoreRequest
+
+  public static AddMemberToStoreRequestTable AsTable(this AddMemberToStoreRequestEntity e)
+    => new(
+      storeId: e.StoreId, 
+      storeMemberId: e.StoreMemberId, 
+      memberId: e.MemberId, 
+      byId: e.ById, 
+      subject: e.Subject, 
+      description: e.Description, 
+      by: e.By, 
+      updatedAt: e.UpdatedAt
+      )
+    {
+      Id = e.Id,
+      StoreMember = e.StoreMember?.AsTable(),
+      Store = e.Store?.AsTable(),
+      ByUser = e.ByUser?.AsTable(),
+      Member = e.Member?.AsTable()
+    };
+
+  public static AddMemberToStoreRequestEntity AsEntity(this AddMemberToStoreRequestTable t)
+    => new(
+      id: t.Id,
+      storeId: t.StoreId, 
+      storeMemberId: t.StoreMemberId, 
+      memberId: t.MemberId, 
+      byId: t.ById, 
+      subject: t.Subject, 
+      description: t.Description, 
+      by: t.By, 
+      updatedAt: t.UpdatedAt,
+      createdAt: t.CreatedAt
+    )
+    {
+      StoreMember = t.StoreMember?.AsEntity(),
+      Store = t.Store?.AsEntity(),
+      ByUser = t.ByUser?.AsEntity(),
+      Member = t.Member?.AsEntity()
+    };
+  #endregion
 }

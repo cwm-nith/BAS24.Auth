@@ -1,4 +1,3 @@
-using BAS24.Auth.Infrastructure.Postgres.SocialLink;
 using BAS24.Auth.Infrastructure.Postgres.Store;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,6 +21,11 @@ public static class AddMemberToStoreRequestTableConfig
       .HasOne(i => i.StoreMember)
       .WithOne()
       .HasForeignKey<AddMemberToStoreRequestTable>(i => i.StoreMemberId);
+    
+    modelBuilder.Entity<AddMemberToStoreRequestTable>()
+      .HasOne(i => i.ByUser)
+      .WithOne()
+      .HasForeignKey<AddMemberToStoreRequestTable>(i => i.ById);
     return modelBuilder;
   } 
 }
