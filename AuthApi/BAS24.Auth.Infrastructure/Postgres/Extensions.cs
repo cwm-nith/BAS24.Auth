@@ -20,6 +20,7 @@ public static class Extensions
     services.AddPostgresRepository<SocialUserLinkTable>();
     services.AddPostgresRepository<StoreMemberTable>();
     services.AddPostgresRepository<StoreTable>();
+    services.AddPostgresRepository<AddMemberToStoreRequestTable>();
     
     services.AddScoped(typeof(PostgresDbContext),
       sp =>
