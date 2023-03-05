@@ -1,7 +1,4 @@
 using BAS24.Api.Dtos.Twilio;
-using BAS24.Api.Entities.User;
-using BAS24.Api.Exceptions.Twilio;
-using BAS24.Api.Exceptions.Users;
 using BAS24.Api.IRepositories;
 using Microsoft.Extensions.Configuration;
 using Twilio.Clients;
