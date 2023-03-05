@@ -76,6 +76,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:BAS24.Auth.Api.Controllers.V1.StoreController.GetStoreMembersAsync(BAS24.Api.Dtos.Stores.GetStoreMembersDto)">
+            <summary>
+            Return all store member (Filter: 1: all, 2: accepted, 3: not accepted)
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
         <member name="M:BAS24.Auth.Api.Controllers.V1.UserController.LoginAsync(BAS24.Api.Dtos.Users.LoginDto)">
             <summary>
               user login

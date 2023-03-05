@@ -234,9 +234,29 @@ public class StoreRepository : IStoreRepository
     return roles;
   }
 
-  public Task<PagedResult<StoreMemberEntity>> GetStoreMembersAsync(Guid storeId)
+  public async Task<PagedResult<StoreMemberEntity>> GetStoreMembersAsync(GetStoreMembersDto dto)
   {
-    throw new NotImplementedException();
+    var context = _memberRepository.Context;
+    PagedResult<StoreMemberTable>? data;
+    if (dto.Filter == StoreMemberFilterEnum.All)
+    {
+      data = await context.StoreMembers?
+        .Where(i => i.StoreId == dto.StoreId)
+        .PaginateAsync(dto.Page, dto.Results)!;
+    }
+    else if (dto.Filter == StoreMemberFilterEnum.Accepted)
+    {
+      data = await context.StoreMembers?
+        .Where(i => i.StoreId == dto.StoreId && i.Accepted)
+        .PaginateAsync(dto.Page, dto.Results)!;
+    }
+    else
+    {
+      data = await context.StoreMembers?
+        .Where(i => i.StoreId == dto.StoreId && !i.Accepted)
+        .PaginateAsync(dto.Page, dto.Results)!;
+    }
+    return data.Map(i => i.AsEntity());
   }
 
   public async Task<StoreMemberEntity?> GetMemberByIdAsync(Guid id)

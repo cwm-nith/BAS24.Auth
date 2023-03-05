@@ -1,3 +1,4 @@
+using BAS24.Api.Dtos.Stores;
 using BAS24.Api.Entities.Stores;
 using BAS24.Auth.Infrastructure.Postgres.SocialLink;
 using BAS24.Auth.Infrastructure.Postgres.User;
@@ -30,6 +31,16 @@ public static class Extensions
     accepted: s.Accepted
   );
 
+  public static StoreMemberDto AsDto(this StoreMemberEntity e)
+    => new (
+      id: e.Id, 
+      storeId: e.StoreId, 
+      memberId: e.MemberId, 
+      permission: e.Permission, 
+      accepted: e.Accepted, 
+      createdAt: e.CreatedAt, 
+      updatedAt: e.UpdatedAt
+      );
   #endregion
 
   #region Store

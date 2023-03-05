@@ -218,4 +218,25 @@ public class StoreController : BaseController
     return Ok(roleDtos);
   }
   
+  /// <summary>
+  /// Return all store member (Filter: 1: all, 2: accepted, 3: not accepted)
+  /// </summary>
+  /// <param name="dto"></param>
+  /// <returns></returns>
+  [ProducesResponseType(StatusCodes.Status200OK)]
+  [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+  [HttpGet("store-members")]
+  public async Task<ActionResult<PagedResult<StoreMemberDto>>> GetStoreMembersAsync([FromQuery] GetStoreMembersDto dto)
+  {
+    var q = new GetStoreMembersQuery()
+    {
+      Page = dto.Page,
+      Results = dto.Results,
+      StoreId = dto.StoreId,
+      Filter = dto.Filter
+    };
+    var data = await _query
+      .QueryAsync<GetStoreMembersQuery, PagedResult<StoreMemberDto>>(q);
+    return Ok(data);
+  }
 }

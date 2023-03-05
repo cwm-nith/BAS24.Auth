@@ -21,5 +21,5 @@ public interface IStoreRepository
   Task <PagedResult<StoreEntity>> GetAllStoresAsync(GetStoresPageDto dto);
   Task<StoreEntity?> GetStoreByIdAsync(Guid id, bool isActive);
   List<RoleDto> GetRoles();
-  Task<PagedResult<StoreMemberEntity>> GetStoreMembersAsync(Guid storeId);
+  Task<PagedResult<StoreMemberEntity>> GetStoreMembersAsync(GetStoreMembersDto dto);
 }
