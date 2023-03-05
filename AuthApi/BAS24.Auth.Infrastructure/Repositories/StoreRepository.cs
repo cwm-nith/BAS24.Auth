@@ -140,10 +140,10 @@ public class StoreRepository : IStoreRepository
     var memAdmin = store.StoreMembers?
       .Any(i => i.MemberId == id && i is { IsAdmin: true, Accepted: true });
     if (memAdmin != true) throw new ForbiddenException("This action for administration only!");
-    
+
     var member = await GetMemberByMemberIdAndStoreIdAsync(dto.MemberId, dto.StoreId);
     if (member != null) throw new MemberAlreadyExistedException();
-    
+
     var memId = GuidHelper.NewId;
     StoreMemberEntity memberEntity = new(
       id: memId.ToGuid(),
@@ -155,17 +155,17 @@ public class StoreRepository : IStoreRepository
       accepted: false
     );
     AddMemberToStoreRequestEntity addMemberToStoreRequestEntity = new(
-      id: GuidHelper.NewId.ToGuid(), 
-      storeId: dto.StoreId, 
-      storeMemberId:memId.ToGuid(), 
-      memberId: dto.MemberId, 
-      byId: id, 
+      id: GuidHelper.NewId.ToGuid(),
+      storeId: dto.StoreId,
+      storeMemberId: memId.ToGuid(),
+      memberId: dto.MemberId,
+      byId: id,
       subject: $"{user.Fullname} added you to \"{store.Name}\" store",
-      description: $"Confirm to be in \"{store.Name}\" store", 
+      description: $"Confirm to be in \"{store.Name}\" store",
       by: user.Fullname ?? "Unknown",
-      createdAt: DateTime.UtcNow, 
+      createdAt: DateTime.UtcNow,
       updatedAt: DateTime.UtcNow
-      );
+    );
     var tasks = new List<Task>
     {
       _memberRepository.AddAsync(memberEntity.AsTable()),
@@ -186,10 +186,15 @@ public class StoreRepository : IStoreRepository
     await _memberRepository.UpdateAsync(storeMember.AsTable());
   }
 
-  public Task RemoveUserFromStoreAsync()
+  public async Task RemoveUserFromStoreAsync(RemoveStoreMemberDto dto)
   {
-    throw new NotImplementedException();
+    var storeMember = await _memberRepository
+      .FirstOrDefaultAsync(i =>
+        i.MemberId == dto.MemberId && i.StoreId == dto.StoreId && i.Id == dto.StoreMemberId);
+    if (storeMember is null) throw new StoreMemberNotFoundException();
+    await _memberRepository.DeleteAsync(storeMember);
   }
+  
 
   public async Task<StoreEntity?> GetStoreByOwnerAsync(GetStoreByOwnerDto dto)
   {
@@ -219,8 +224,8 @@ public class StoreRepository : IStoreRepository
   public async Task<StoreEntity?> GetStoreByIdAsync(Guid id, bool isActive)
   {
     var store = await _repository.Context.Stores?
-      .Include(i=> i.StoreMembers)
-      .Include(i=> i.Owner)
+      .Include(i => i.StoreMembers)
+      .Include(i => i.Owner)
       .FirstOrDefaultAsync(i => i.Id == id && i.Active == isActive)!;
     return store?.AsEntity();
   }
@@ -256,6 +261,7 @@ public class StoreRepository : IStoreRepository
         .Where(i => i.StoreId == dto.StoreId && !i.Accepted)
         .PaginateAsync(dto.Page, dto.Results)!;
     }
+
     return data.Map(i => i.AsEntity());
   }
 
