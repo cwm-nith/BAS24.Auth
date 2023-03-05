@@ -17,7 +17,6 @@ public interface IStoreRepository
   Task UpdateUserStoreRoleAsync(Guid ownerId, UpdateRoleOfStoreMemberDto dto);
   Task RemoveUserFromStoreAsync(RemoveStoreMemberDto dto);
   Task<StoreEntity?> GetStoreByOwnerAsync(GetStoreByOwnerDto dto);
-  Task<PagedResult<StoreEntity>> GetStoresByUserAsync(Guid ownerId);
   Task <PagedResult<StoreEntity>> GetAllStoresAsync(GetStoresPageDto dto);
   Task<StoreEntity?> GetStoreByIdAsync(Guid id, bool isActive);
   List<RoleDto> GetRoles();

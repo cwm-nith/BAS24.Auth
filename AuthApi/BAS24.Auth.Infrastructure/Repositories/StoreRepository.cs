@@ -203,12 +203,6 @@ public class StoreRepository : IStoreRepository
       .FirstOrDefaultAsync(i => i.Id == dto.StoreId && i.OwnerId == dto.OwnerId && i.Active == dto.IsActive)!;
     return store?.AsEntity();
   }
-
-  public Task<PagedResult<StoreEntity>> GetStoresByUserAsync(Guid ownerId)
-  {
-    throw new NotImplementedException();
-  }
-
   public async Task<PagedResult<StoreEntity>> GetAllStoresAsync(GetStoresPageDto dto)
   {
     var q = await _repository.Context
