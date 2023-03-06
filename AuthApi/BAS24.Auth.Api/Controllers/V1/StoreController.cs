@@ -306,4 +306,24 @@ public class StoreController : BaseController
     await _command.PerformAsync(cmd);
     return Ok();
   }
+
+  /// <summary>
+  /// Hard delete store
+  /// </summary>
+  /// <param name="id"></param>
+  /// <returns></returns>
+  [ProducesResponseType(StatusCodes.Status200OK)]
+  [ProducesResponseType(StatusCodes.Status400BadRequest)]
+  [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+  [HttpDelete("{id:guid}")]
+  public async Task<ActionResult> DeleteStoreAsync(Guid id)
+  {
+    var cmd = new DeleteStoreCommand()
+    {
+      Id = id,
+      OwnerId = UserId.ToGuid()
+    };
+    await _command.PerformAsync(cmd);
+    return Ok();
+  }
 }
