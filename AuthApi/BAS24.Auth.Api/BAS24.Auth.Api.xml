@@ -90,6 +90,13 @@
             <param name="dto"></param>
             <returns></returns>
         </member>
+        <member name="M:BAS24.Auth.Api.Controllers.V1.StoreController.AcceptedAddStoreMemberAsync(BAS24.Api.Dtos.Stores.AcceptedAddMemberRequestDto)">
+            <summary>
+            accepted add store member
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
         <member name="M:BAS24.Auth.Api.Controllers.V1.UserController.LoginAsync(BAS24.Api.Dtos.Users.LoginDto)">
             <summary>
               user login

@@ -259,6 +259,16 @@ public class StoreRepository : IStoreRepository
     return data.Map(i => i.AsEntity());
   }
 
+  public async Task AcceptedAddMemberRequest(AcceptedAddMemberRequestDto dto, Guid memberId)
+  {
+    var storeMember = await _memberRepository
+      .FirstOrDefaultAsync(i =>
+      i.StoreId == dto.StoreId && i.Id == dto.StoreMemberId && i.MemberId == memberId);
+    if (storeMember is null) throw new StoreMemberNotFoundException();
+    storeMember.Accepted = true;
+    await _memberRepository.UpdateAsync(storeMember);
+  }
+
   public async Task<StoreMemberEntity?> GetMemberByIdAsync(Guid id)
   {
     var data = await _memberRepository
