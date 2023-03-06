@@ -128,7 +128,7 @@ public class StoreRepository : IStoreRepository
 
   public Task DeleteStoreAsync(Guid ownerId, Guid storeId)
   {
-    throw new NotImplementedException();
+    return _repository.DeleteAsync(i => i.Id == storeId && i.OwnerId == ownerId);
   }
 
   public async Task AddUserToStoreAsync(Guid id, AddMemberDto dto)

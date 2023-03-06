@@ -97,6 +97,20 @@
             <param name="dto"></param>
             <returns></returns>
         </member>
+        <member name="M:BAS24.Auth.Api.Controllers.V1.StoreController.UpdateStoreAsync(BAS24.Api.Dtos.Stores.UpdateStoreDto)">
+            <summary>
+            Update store
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BAS24.Auth.Api.Controllers.V1.StoreController.DeleteStoreAsync(System.Guid)">
+            <summary>
+            Hard delete store
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:BAS24.Auth.Api.Controllers.V1.UserController.LoginAsync(BAS24.Api.Dtos.Users.LoginDto)">
             <summary>
               user login

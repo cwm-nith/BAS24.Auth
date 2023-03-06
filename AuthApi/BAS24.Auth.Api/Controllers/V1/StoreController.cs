@@ -281,4 +281,49 @@ public class StoreController : BaseController
     await _command.PerformAsync(cmd);
     return Ok();
   }
+  
+  /// <summary>
+  /// Update store
+  /// </summary>
+  /// <param name="dto"></param>
+  /// <returns></returns>
+  [ProducesResponseType(StatusCodes.Status200OK)]
+  [ProducesResponseType(StatusCodes.Status400BadRequest)]
+  [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+  [HttpPut]
+  public async Task<ActionResult> UpdateStoreAsync([FromBody] UpdateStoreDto dto)
+  {
+    var cmd = new UpdateStoreCommand(
+      id: dto.Id,
+      name: dto.Name, 
+      description: dto.Description, 
+      address: dto.Address, 
+      phones: dto.Phones, 
+      emails: dto.Emails, 
+      tags: dto.Tags, 
+      keyWords: dto.KeyWords,
+      ownerId: UserId.ToGuid());
+    await _command.PerformAsync(cmd);
+    return Ok();
+  }
+
+  /// <summary>
+  /// Hard delete store
+  /// </summary>
+  /// <param name="id"></param>
+  /// <returns></returns>
+  [ProducesResponseType(StatusCodes.Status200OK)]
+  [ProducesResponseType(StatusCodes.Status400BadRequest)]
+  [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+  [HttpDelete("{id:guid}")]
+  public async Task<ActionResult> DeleteStoreAsync(Guid id)
+  {
+    var cmd = new DeleteStoreCommand()
+    {
+      Id = id,
+      OwnerId = UserId.ToGuid()
+    };
+    await _command.PerformAsync(cmd);
+    return Ok();
+  }
 }
