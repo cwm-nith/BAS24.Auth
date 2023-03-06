@@ -9,10 +9,6 @@ COPY ["AuthApi/BAS24.Auth.Api/BAS24.Auth.Api.csproj", "AuthApi/BAS24.Auth.Applic
 
 COPY AuthApi/script.sh ./
 
-#RUN dotnet new sln --name BAS24.Auth
-##RUN for file in $(ls *.csproj); do dotnet sln add ${file}; done
-#RUN for file in $(ls *.csproj); do mkdir -p ${file%.*}/ && mv $file ${file%.*}/; done
-#RUN for file in $(ls); do if [${file} -ne "BAS24.Auth.sln"] then; dotnet sln add "${file}/${file}.csproj";fi; done
 RUN chmod u+x script.sh
 RUN ./script.sh
 
