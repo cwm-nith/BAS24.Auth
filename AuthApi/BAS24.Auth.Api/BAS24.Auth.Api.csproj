@@ -13,7 +13,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="BAS24.Libs" Version="1.0.3" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.3" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.3" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.3">
