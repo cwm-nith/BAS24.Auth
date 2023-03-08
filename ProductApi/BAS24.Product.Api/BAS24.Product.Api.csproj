@@ -7,8 +7,18 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.3" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.3" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.3">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\BAS24.Product.Application\BAS24.Product.Application.csproj" />
+      <ProjectReference Include="..\BAS24.Product.Core\BAS24.Product.Core.csproj" />
+      <ProjectReference Include="..\BAS24.Product.Infrastructure\BAS24.Product.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
