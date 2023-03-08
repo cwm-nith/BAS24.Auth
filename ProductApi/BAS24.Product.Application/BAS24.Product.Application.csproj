@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\BAS24.Product.Core\BAS24.Product.Core.csproj" />
+    </ItemGroup>
+
 </Project>
