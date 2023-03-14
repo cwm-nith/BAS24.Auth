@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BAS24.Product.Api</name>
+    </assembly>
+    <members>
+        <member name="M:BAS24.Product.Api.Controllers.V1.CurrencyController.Get">
+            <summary>
+            Get Currency
+            </summary>
+            <returns/>
+        </member>
+    </members>
+</doc>

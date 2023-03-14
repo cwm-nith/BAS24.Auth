@@ -1,38 +1,20 @@
-using System.Text;
 using BAS24.Auth.Infrastructure;
+using BAS24.JwtAuthManager;
 using BAS24.Libs.CQRS.Handlers;
 using BAS24.Libs.Json;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers().AddDefaultJsonOptions(); 
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-// builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddCommandCorrelationContextHandlers();
 builder.Services.AddEventCorrelationContextHandlers();
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-  .AddJwtBearer(options =>
-  {
-    options.SaveToken = true;
-    options.RequireHttpsMetadata = true;
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-      ValidateIssuer = true,
-      ValidateAudience = true,
-      ValidAudience = builder.Configuration["Jwt:Audience"],
-      ValidIssuer = builder.Configuration["Jwt:Site"],
-      IssuerSigningKey =
-        new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SigningKey"] ?? "")),
-      ValidateLifetime = false
-    };
-  });
+builder.Services.AddJwtAuthManager(builder.Configuration);
+
 var app = builder.Build();
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
