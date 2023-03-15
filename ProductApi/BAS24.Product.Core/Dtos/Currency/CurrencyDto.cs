@@ -3,6 +3,7 @@ namespace BAS24.Product.Core.Dtos.Currency;
 public class CurrencyDto
 {
   public Guid Id { get; set; }
+  public Guid StoreOwnerId { get; set; }
   public string Symbol { get; set; }
 
   public string Description { get; set; }
@@ -18,6 +19,7 @@ public class CurrencyDto
   public DateTime UpdatedAt { get; set; }
 
   public CurrencyDto(Guid id,
+    Guid storeOwnerId,
     string symbol,
     string description,
     bool active,
@@ -27,6 +29,7 @@ public class CurrencyDto
     DateTime updatedAt)
   {
     Id = id;
+    StoreOwnerId = storeOwnerId;
     Symbol = symbol;
     Description = description;
     Active = active;

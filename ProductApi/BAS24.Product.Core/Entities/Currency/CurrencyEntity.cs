@@ -2,6 +2,7 @@ namespace BAS24.Product.Core.Entities.Currency;
 
 public class CurrencyEntity
 {
+  public Guid StoreOwnerId { get; set; }
   public Guid Id { get; set; }
   public string Symbol { get; set; }
 
@@ -17,7 +18,9 @@ public class CurrencyEntity
 
   public DateTime UpdatedAt { get; set; }
 
-  public CurrencyEntity(Guid id,
+  public CurrencyEntity(
+    Guid id,
+    Guid storeOwnerId,
     string symbol,
     string description,
     bool active,
@@ -27,6 +30,7 @@ public class CurrencyEntity
     DateTime updatedAt)
   {
     Id = id;
+    StoreOwnerId = storeOwnerId;
     Symbol = symbol;
     Description = description;
     Active = active;

@@ -10,4 +10,8 @@
       <ProjectReference Include="..\BAS24.Product.Core\BAS24.Product.Core.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Events" />
+    </ItemGroup>
+
 </Project>

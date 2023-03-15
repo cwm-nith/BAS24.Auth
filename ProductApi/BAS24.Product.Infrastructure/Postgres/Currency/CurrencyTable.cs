@@ -6,6 +6,9 @@ namespace BAS24.Product.Infrastructure.Postgres.Currency;
 [Table("currencies")]
 public class CurrencyTable : BasePostgresTable
 {
+  [Column("store_owner_id")]
+  public Guid StoreOwnerId { get; set; }
+  
   [Column("symbol")]
   public string Symbol { get; set; }
 
@@ -27,13 +30,16 @@ public class CurrencyTable : BasePostgresTable
   [Column("updated_at")]
   public DateTime UpdatedAt { get; set; }
 
-  public CurrencyTable(string symbol,
+  public CurrencyTable(
+    Guid storeOwnerId,
+    string symbol,
     string description,
     bool active,
     bool baseCurrency,
     bool localCurrency,
     DateTime updatedAt)
   {
+    StoreOwnerId = storeOwnerId;
     Symbol = symbol;
     Description = description;
     Active = active;
