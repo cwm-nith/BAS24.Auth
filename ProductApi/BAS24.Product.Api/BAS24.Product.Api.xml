@@ -4,17 +4,70 @@
         <name>BAS24.Product.Api</name>
     </assembly>
     <members>
-        <member name="M:BAS24.Product.Api.Controllers.V1.CurrencyController.Get">
-            <summary>
-            Get Currency
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:BAS24.Product.Api.Controllers.V1.CurrencyController.AddAsync(BAS24.Product.Core.Dtos.Currency.AddCurrencyDto)">
             <summary>
             Create Currency base on store owner or store admin
             </summary>
             <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BAS24.Product.Api.Controllers.V1.CurrencyController.UpdateAsync(System.Guid,BAS24.Product.Core.Dtos.Currency.UpdateCurrencyDto)">
+            <summary>
+            Update currency by id, store owner and store admin
+            </summary>
+            <param name="id"></param>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BAS24.Product.Api.Controllers.V1.CurrencyController.GetAllAsync(BAS24.Libs.CQRS.Queries.PagedQuery)">
+            <summary>
+            Get all currentcy
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BAS24.Product.Api.Controllers.V1.CurrencyController.GetAllActiveByStoreAsync(System.Guid,BAS24.Product.Core.Dtos.Currency.GetAllActiveByStoreDto)">
+            <summary>
+            Get active currencies by store
+            </summary>
+            <param name="storeId"></param>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BAS24.Product.Api.Controllers.V1.CurrencyController.GetAllByStoreAsync(System.Guid,BAS24.Product.Core.Dtos.Currency.GetAllActiveByStoreDto)">
+            <summary>
+            Get all currencies by store
+            </summary>
+            <param name="storeId"></param>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BAS24.Product.Api.Controllers.V1.CurrencyController.GetByIdAsync(System.Guid)">
+            <summary>
+            Get currency by Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BAS24.Product.Api.Controllers.V1.CurrencyController.GetBaseCurrencyAsync(System.Guid)">
+            <summary>
+            Get base currency by store
+            </summary>
+            <param name="storeId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BAS24.Product.Api.Controllers.V1.CurrencyController.GetLocalCurrencyAsync(System.Guid)">
+            <summary>
+            Get local currency by store
+            </summary>
+            <param name="storeId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BAS24.Product.Api.Controllers.V1.CurrencyController.DeleteAsync(System.Guid)">
+            <summary>
+            Delete currency
+            </summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
     </members>
