@@ -3,6 +3,7 @@ namespace BAS24.Product.Core.Entities.Currency;
 public class CurrencyEntity
 {
   public Guid StoreOwnerId { get; set; }
+  public Guid StoreId { get; set; }
   public Guid Id { get; set; }
   public string Symbol { get; set; }
 
@@ -21,6 +22,7 @@ public class CurrencyEntity
   public CurrencyEntity(
     Guid id,
     Guid storeOwnerId,
+    Guid storeId,
     string symbol,
     string description,
     bool active,
@@ -31,6 +33,7 @@ public class CurrencyEntity
   {
     Id = id;
     StoreOwnerId = storeOwnerId;
+    StoreId = storeId;
     Symbol = symbol;
     Description = description;
     Active = active;

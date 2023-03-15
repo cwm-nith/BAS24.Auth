@@ -4,6 +4,7 @@ public class CurrencyDto
 {
   public Guid Id { get; set; }
   public Guid StoreOwnerId { get; set; }
+  public Guid StoreId { get; set; }
   public string Symbol { get; set; }
 
   public string Description { get; set; }
@@ -20,6 +21,7 @@ public class CurrencyDto
 
   public CurrencyDto(Guid id,
     Guid storeOwnerId,
+    Guid storeId,
     string symbol,
     string description,
     bool active,
@@ -30,6 +32,7 @@ public class CurrencyDto
   {
     Id = id;
     StoreOwnerId = storeOwnerId;
+    StoreId = storeId;
     Symbol = symbol;
     Description = description;
     Active = active;

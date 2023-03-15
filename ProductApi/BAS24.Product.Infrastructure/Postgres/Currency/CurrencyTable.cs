@@ -9,6 +9,9 @@ public class CurrencyTable : BasePostgresTable
   [Column("store_owner_id")]
   public Guid StoreOwnerId { get; set; }
   
+  [Column("store_id")]
+  public Guid StoreId { get; set; }
+  
   [Column("symbol")]
   public string Symbol { get; set; }
 
@@ -32,6 +35,7 @@ public class CurrencyTable : BasePostgresTable
 
   public CurrencyTable(
     Guid storeOwnerId,
+    Guid storeId,
     string symbol,
     string description,
     bool active,
@@ -40,6 +44,7 @@ public class CurrencyTable : BasePostgresTable
     DateTime updatedAt)
   {
     StoreOwnerId = storeOwnerId;
+    StoreId = storeId;
     Symbol = symbol;
     Description = description;
     Active = active;

@@ -8,6 +8,7 @@ public static class Extensions
   public static CurrencyEntity AsEntity(this CurrencyTable c) => new(
     id: c.Id,
     storeOwnerId: c.StoreOwnerId,
+    storeId: c.StoreId,
     symbol: c.Symbol,
     description: c.Description,
     active: c.Active,
@@ -19,6 +20,7 @@ public static class Extensions
 
   public static CurrencyTable AsTable(this CurrencyEntity c) => new(
     storeOwnerId: c.StoreOwnerId,
+    storeId: c.StoreId,
     symbol: c.Symbol,
     description: c.Description,
     active: c.Active,
@@ -30,6 +32,7 @@ public static class Extensions
   public static CurrencyDto AsDto(this CurrencyEntity c) => new(
     id: c.Id,
     storeOwnerId:c.StoreOwnerId,
+    storeId: c.StoreId,
     symbol: c.Symbol,
     description: c.Description,
     active: c.Active,

@@ -20,6 +20,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker-compose", "docker-compose", "{B9E70904-4F73-433B-80DE-1FE602C1FFD4}"
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yml = docker-compose.yml
+		kafka-compose.yml = kafka-compose.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateWay", "ApiGateWay", "{A6434E52-E428-4D32-86A4-8E612E819E8D}"
