@@ -20,6 +20,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker-compose", "docker-compose", "{B9E70904-4F73-433B-80DE-1FE602C1FFD4}"
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yml = docker-compose.yml
+		kafka-compose.yml = kafka-compose.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateWay", "ApiGateWay", "{A6434E52-E428-4D32-86A4-8E612E819E8D}"
@@ -47,6 +48,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAS24.Product.Core", "ProductApi\BAS24.Product.Core\BAS24.Product.Core.csproj", "{83BEBAB6-1EB6-43A4-9D3D-9B188F621384}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAS24.Product.Infrastructure", "ProductApi\BAS24.Product.Infrastructure\BAS24.Product.Infrastructure.csproj", "{0A0377CA-55E4-4DC9-853E-AD9B4B1F5875}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAS24.JwtAuthManager", "BAS24.JwtAuthManager\BAS24.JwtAuthManager.csproj", "{B1127105-B892-4C09-8569-9C9398887CFC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -90,6 +93,10 @@ Global
 		{0A0377CA-55E4-4DC9-853E-AD9B4B1F5875}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A0377CA-55E4-4DC9-853E-AD9B4B1F5875}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A0377CA-55E4-4DC9-853E-AD9B4B1F5875}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1127105-B892-4C09-8569-9C9398887CFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1127105-B892-4C09-8569-9C9398887CFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1127105-B892-4C09-8569-9C9398887CFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1127105-B892-4C09-8569-9C9398887CFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{26DD2601-2CA0-40BA-AC18-68370DCBCD36} = {E85122C2-0C28-47F3-A554-6B542A17B840}
@@ -103,5 +110,6 @@ Global
 		{83CB6396-36EC-4A13-A2CE-54035FB0F022} = {021ED468-4471-4B98-95A7-3F53349AE3C7}
 		{83BEBAB6-1EB6-43A4-9D3D-9B188F621384} = {021ED468-4471-4B98-95A7-3F53349AE3C7}
 		{0A0377CA-55E4-4DC9-853E-AD9B4B1F5875} = {021ED468-4471-4B98-95A7-3F53349AE3C7}
+		{B1127105-B892-4C09-8569-9C9398887CFC} = {E85122C2-0C28-47F3-A554-6B542A17B840}
 	EndGlobalSection
 EndGlobal

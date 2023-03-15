@@ -7,11 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\BAS24.Product.Core\BAS24.Product.Core.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Events" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.3" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
     </ItemGroup>
 
 </Project>
