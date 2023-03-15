@@ -1,25 +1,46 @@
+using BAS24.JwtAuthManager;
+using BAS24.Libs.CQRS.Handlers;
+using BAS24.Libs.Json;
+using BAS24.Product.Infrastructure;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// Add services to the container.
+builder.Services.AddControllers().AddDefaultJsonOptions(); 
+
+builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddCommandCorrelationContextHandlers();
+builder.Services.AddEventCorrelationContextHandlers();
+
+builder.Services.AddJwtAuthManager(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+app.UseSwagger(c =>
 {
-  app.UseSwagger();
-  app.UseSwaggerUI();
-}
+  c.RouteTemplate = "swagger/{documentName}/swagger.json";
+});
 
-app.UseHttpsRedirection();
+app.UseSwaggerUI(c =>
+{
+  foreach (var description in provider.ApiVersionDescriptions)
+  {
+    c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+  }
 
+  c.RoutePrefix = "swagger";
+});
+
+//app.UseHttpsRedirection();
+
+app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseInfrastructure();
 app.MapControllers();
 
 app.Run();

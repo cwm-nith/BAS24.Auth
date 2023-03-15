@@ -50,6 +50,6 @@ services:
       - DB_USER=postgres
       - DB_PASSWORD=postgres
       - DB_NAME=BAS24Auth
-
+        
 volumes:
   bas24apiauthdb:

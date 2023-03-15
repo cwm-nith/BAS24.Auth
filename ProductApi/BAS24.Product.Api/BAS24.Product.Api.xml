@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BAS24.Product.Api</name>
+    </assembly>
+    <members>
+        <member name="M:BAS24.Product.Api.Controllers.V1.CurrencyController.Get">
+            <summary>
+            Get Currency
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:BAS24.Product.Api.Controllers.V1.CurrencyController.AddAsync(BAS24.Product.Core.Dtos.Currency.AddCurrencyDto)">
+            <summary>
+            Create Currency base on store owner or store admin
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
