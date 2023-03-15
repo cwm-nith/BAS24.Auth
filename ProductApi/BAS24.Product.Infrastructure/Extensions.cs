@@ -3,10 +3,12 @@ using BAS24.Libs.CQRS.Events;
 using BAS24.Libs.CQRS.Queries;
 using BAS24.Libs.Jwt;
 using BAS24.Libs.Logging;
+using BAS24.Libs.Postgres;
 using BAS24.Libs.Swagger;
 using BAS24.Product.Core.Exceptions.Middlewares;
 using BAS24.Product.Core.Middlewares;
 using BAS24.Product.Infrastructure.Options;
+using BAS24.Product.Infrastructure.Postgres;
 using BAS24.Product.Infrastructure.Swagger.CustomizeHeader;
 using BAS24.Product.Infrastructure.Swagger.RequestExamples;
 using Microsoft.AspNetCore.Builder;
@@ -47,8 +49,8 @@ public static class Extensions
     // services.AddTransient<IUserService, UserService>();
     // services.AddTransient<ISendGridService, SendGridService>();
     //
-    // services.AddPostgres<PostgresDbContext>();
-    // services.AddPostgresRepositories();
+    services.AddPostgres<PostgresDbContext>();
+    services.AddPostgresRepositories();
 
     services.ConfigureOptions<ConfigureSwaggerOptions>();
     services.AddApiVersioning(setup =>
@@ -63,7 +65,6 @@ public static class Extensions
       setup.GroupNameFormat = "'v'VVV";
       setup.SubstituteApiVersionInUrl = true;
     });
-    // services.AddSwagger<AuthorizationHeaderParameterOperationFilter>("Api.xml").AddSwaggerExample();
     services.AddSwagger<AuthorizationHeaderParameterOperationFilter>("BAS24.Product.Api.xml").AddSwaggerExample();
 
     services.Configure<ForwardedHeadersOptions>(options =>
@@ -80,7 +81,7 @@ public static class Extensions
     //     new CultureInfo("en-US"),
     //     new CultureInfo("fr")
     // };
-    // PrepareDatabase.PrepareDatabasePopulation(app);
+    PrepareDatabase.PrepareDatabasePopulation(app);
     app.UseForwardedHeaders();
 
     app.UseErrorHandler()
