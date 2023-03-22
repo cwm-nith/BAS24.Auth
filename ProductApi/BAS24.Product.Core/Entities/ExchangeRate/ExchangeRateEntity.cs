@@ -1,3 +1,5 @@
+using BAS24.Product.Core.Entities.Currency;
+
 namespace BAS24.Product.Core.Entities.ExchangeRate;
 
 public class ExchangeRateEntity
@@ -10,6 +12,8 @@ public class ExchangeRateEntity
   public decimal BaseSetRate { get; set; }
   public DateTime CreatedAt { get; set; }
   public DateTime UpdatedAt { get; set; }
+  
+  public CurrencyEntity? Currency { get; set; }
 
   public ExchangeRateEntity(Guid id,
     Guid currencyId,

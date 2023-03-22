@@ -54,7 +54,8 @@ public class CurrencyController : BaseController
   [ProducesResponseType(StatusCodes.Status200OK)]
   [ProducesResponseType(StatusCodes.Status400BadRequest)]
   [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-  [HttpPut("{id:guid}")]
+  [Route("{id:guid}")]
+  [HttpPut]
   public async Task<ActionResult> UpdateAsync(Guid id, [FromBody] UpdateCurrencyDto dto)
   {
     var cmd = new UpdateCurrencyCommand(
