@@ -68,7 +68,7 @@ public class CurrencyController : BaseController
   }
 
   /// <summary>
-  /// Get all currentcy
+  /// Get all currency
   /// </summary>
   /// <param name="dto"></param>
   /// <returns></returns>
