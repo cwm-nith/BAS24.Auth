@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using BAS24.Libs.Postgres;
+using BAS24.Product.Infrastructure.Postgres.Currency;
 
 namespace BAS24.Product.Infrastructure.Postgres.ExchangeRate;
 
@@ -26,6 +27,8 @@ public class ExchangeRateTable : BasePostgresTable
 
   [Column("updated_at")]
   public DateTime UpdatedAt { get; set; }
+
+  public CurrencyTable? Currency { get; set; }
 
   public ExchangeRateTable(Guid currencyId,
     decimal rate,

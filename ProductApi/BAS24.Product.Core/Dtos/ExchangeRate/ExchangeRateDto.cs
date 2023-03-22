@@ -1,3 +1,5 @@
+using BAS24.Product.Core.Dtos.Currency;
+
 namespace BAS24.Product.Core.Dtos.ExchangeRate;
 
 public class ExchangeRateDto
@@ -10,6 +12,7 @@ public class ExchangeRateDto
   public decimal BaseSetRate { get; set; }
   public DateTime CreatedAt { get; set; }
   public DateTime UpdatedAt { get; set; }
+  public CurrencyDto? Currency { get; set; }
 
   public ExchangeRateDto(Guid id,
     Guid currencyId,
