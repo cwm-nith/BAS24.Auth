@@ -37,10 +37,36 @@ public class ExchangeRateController : BaseController
       Rate = dto.Rate,
       CurrencyId = dto.CurrencyId,
       SetRate = dto.SetRate,
-      BaseSetRate = dto.SetRate,
-      LocalSetRate = dto.LocalSetRate
+      BaseSetRate = dto.BaseSetRate,
+      LocalSetRate = dto.LocalSetRate,
     };
     await _command.PerformAsync(cmd);
     return AcceptedWithResource("exchangeRate", id);
   }
+
+  /// <summary>
+  /// Update exchange rate
+  /// </summary>
+  /// <param name="id"></param>
+  /// <param name="dto"></param>
+  /// <returns></returns>
+  [ProducesResponseType(StatusCodes.Status200OK)]
+  [ProducesResponseType(StatusCodes.Status400BadRequest)]
+  [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+  [HttpPut("{id:guid}")]
+  public async Task<ActionResult> UpdateAsync(Guid id, [FromBody] UpdateExchangeRateDto dto)
+  {
+    var cmd = new UpdateExchangeRateCommand()
+    {
+      Id = id,
+      Rate = dto.Rate,
+      SetRate = dto.SetRate,
+      BaseSetRate = dto.BaseSetRate,
+      LocalSetRate = dto.LocalSetRate
+    };
+    await _command.PerformAsync(cmd);
+    return Ok();
+  }
+  
+
 }
