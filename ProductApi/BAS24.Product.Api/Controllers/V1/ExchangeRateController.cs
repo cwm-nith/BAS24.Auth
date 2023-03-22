@@ -67,6 +67,21 @@ public class ExchangeRateController : BaseController
     await _command.PerformAsync(cmd);
     return Ok();
   }
-  
+
+  /// <summary>
+  /// Delete exchange rate
+  /// </summary>
+  /// <param name="id"></param>
+  /// <returns></returns>
+  [ProducesResponseType(StatusCodes.Status200OK)]
+  [ProducesResponseType(StatusCodes.Status400BadRequest)]
+  [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+  [HttpDelete("{id:guid}")]
+  public async Task<ActionResult> DeleteAsync(Guid id)
+  {
+    var cmd = new DeleteExchangeRateCommand();
+    await _command.PerformAsync(cmd, id);
+    return Ok();
+  }
 
 }

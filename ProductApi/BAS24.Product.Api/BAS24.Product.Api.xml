@@ -21,7 +21,7 @@
         </member>
         <member name="M:BAS24.Product.Api.Controllers.V1.CurrencyController.GetAllAsync(BAS24.Libs.CQRS.Queries.PagedQuery)">
             <summary>
-            Get all currentcy
+            Get all currency
             </summary>
             <param name="dto"></param>
             <returns></returns>
@@ -68,6 +68,21 @@
             Delete currency
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BAS24.Product.Api.Controllers.V1.ExchangeRateController.CreateAsync(BAS24.Product.Core.Dtos.ExchangeRate.CreateExchangeDto)">
+            <summary>
+            Create Exchange Rate
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BAS24.Product.Api.Controllers.V1.ExchangeRateController.UpdateAsync(System.Guid,BAS24.Product.Core.Dtos.ExchangeRate.UpdateExchangeRateDto)">
+            <summary>
+            Update exchange rate
+            </summary>
+            <param name="id"></param>
+            <param name="dto"></param>
             <returns></returns>
         </member>
     </members>
