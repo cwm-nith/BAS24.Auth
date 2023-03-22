@@ -2,6 +2,7 @@ using BAS24.Libs.CQRS.Commands;
 using BAS24.Libs.CQRS.Queries;
 using BAS24.Libs.Postgres;
 using BAS24.Product.Application.Commands.ExchangeRate;
+using BAS24.Product.Application.Queries.ExchangeRates;
 using BAS24.Product.Core.Dtos.ExchangeRate;
 using BAS24.Product.Core.Utils;
 using Microsoft.AspNetCore.Mvc;
@@ -84,4 +85,23 @@ public class ExchangeRateController : BaseController
     return Ok();
   }
 
+  /// <summary>
+  /// Get all exchange rates
+  /// </summary>
+  /// <param name="page"></param>
+  /// <returns></returns>
+  [ProducesResponseType(StatusCodes.Status200OK)]
+  [ProducesResponseType(StatusCodes.Status400BadRequest)]
+  [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+  [HttpGet]
+  public async Task<ActionResult<PagedResult<ExchangeRateDto>>> GetAllAsync([FromQuery] PagedQuery page)
+  {
+    var q = new GetAllExchangeRateQuery()
+    {
+      Page = page.Page,
+      Results = page.Results
+    };
+    var data = await _query.QueryAsync<GetAllExchangeRateQuery, PagedResult<ExchangeRateDto>>(q);
+    return Ok(data);
+  }
 }
