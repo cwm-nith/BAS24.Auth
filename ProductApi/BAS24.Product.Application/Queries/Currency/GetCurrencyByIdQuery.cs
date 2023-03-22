@@ -3,7 +3,7 @@ using BAS24.Product.Core.Dtos.Currency;
 
 namespace BAS24.Product.Application.Queries.Currency;
 
-public class GetCurrenciesQuery:PagedQuery, IQuery<PagedResult<CurrencyDto>>
+public class GetCurrencyByIdQuery : IQuery<CurrencyDto>
 {
-  
+  public Guid Id { get; set; }
 }
