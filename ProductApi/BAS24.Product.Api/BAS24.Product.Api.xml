@@ -85,5 +85,19 @@
             <param name="dto"></param>
             <returns></returns>
         </member>
+        <member name="M:BAS24.Product.Api.Controllers.V1.ExchangeRateController.DeleteAsync(System.Guid)">
+            <summary>
+            Delete exchange rate
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BAS24.Product.Api.Controllers.V1.ExchangeRateController.GetByIdAsync(System.Guid)">
+            <summary>
+            Get exchange rate by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>
