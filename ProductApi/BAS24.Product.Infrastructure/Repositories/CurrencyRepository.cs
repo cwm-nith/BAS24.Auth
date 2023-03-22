@@ -9,9 +9,9 @@ namespace BAS24.Product.Infrastructure.Repositories;
 
 public class CurrencyRepository : ICurrencyRepository
 {
-  private readonly PostgresRepository<CurrencyTable> _repository;
+  private readonly IPostgresRepository<CurrencyTable> _repository;
 
-  public CurrencyRepository(PostgresRepository<CurrencyTable> repository)
+  public CurrencyRepository(IPostgresRepository<CurrencyTable> repository)
   {
     _repository = repository;
   }

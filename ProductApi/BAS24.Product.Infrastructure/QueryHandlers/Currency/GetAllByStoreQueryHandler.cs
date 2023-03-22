@@ -4,9 +4,9 @@ using BAS24.Product.Core.Dtos.Currency;
 
 namespace BAS24.Product.Infrastructure.QueryHandlers.Currency;
 
-public class GetCurrenciesQueryHandler: IQueryHandler<GetCurrenciesQuery, PagedResult<CurrencyDto>>
+public class GetAllByStoreQueryHandler:IQueryHandler<GetAllByStoreQuery, PagedResult<CurrencyDto>>
 {
-  public Task<PagedResult<CurrencyDto>> HandleAsync(GetCurrenciesQuery query)
+  public Task<PagedResult<CurrencyDto>>? HandleAsync(GetAllByStoreQuery query)
   {
     throw new NotImplementedException();
   }
