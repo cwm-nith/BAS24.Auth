@@ -10,4 +10,8 @@
       <PackageReference Include="BAS24.Libs" Version="1.0.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="IServices" />
+    </ItemGroup>
+
 </Project>

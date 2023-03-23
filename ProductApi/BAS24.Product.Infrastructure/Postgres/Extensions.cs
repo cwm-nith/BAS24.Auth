@@ -2,6 +2,7 @@ using BAS24.Libs.Postgres;
 using BAS24.Product.Core.IRepositories;
 using BAS24.Product.Infrastructure.Postgres.Currency;
 using BAS24.Product.Infrastructure.Postgres.ExchangeRate;
+using BAS24.Product.Infrastructure.Postgres.Store;
 using BAS24.Product.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +15,8 @@ public static class Extensions
   {
     services.AddPostgresRepository<CurrencyTable>();
     services.AddPostgresRepository<ExchangeRateTable>();
+    services.AddPostgresRepository<StoreTable>();
+    services.AddPostgresRepository<StoreMemberTable>();
     
     services.AddScoped(typeof(PostgresDbContext),
       sp =>
