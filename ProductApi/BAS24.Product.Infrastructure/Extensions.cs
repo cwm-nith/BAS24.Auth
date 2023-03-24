@@ -6,6 +6,7 @@ using BAS24.Libs.Logging;
 using BAS24.Libs.Postgres;
 using BAS24.Libs.Swagger;
 using BAS24.Product.Core.Exceptions.Middlewares;
+using BAS24.Product.Core.Kafka.Consumers;
 using BAS24.Product.Core.Middlewares;
 using BAS24.Product.Infrastructure.Options;
 using BAS24.Product.Infrastructure.Postgres;
@@ -37,7 +38,7 @@ public static class Extensions
     services.AddCommandHandlers();
     services.AddQueryHandlers();
     services.AddEventHandlers();
-
+    services.AddKafkaConsumer();
     // services.AddSendGrid(op =>
     // {
     //   op.ApiKey = configuration["SendGrid:APIKey"];
