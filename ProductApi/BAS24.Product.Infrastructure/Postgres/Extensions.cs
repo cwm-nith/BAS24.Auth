@@ -1,3 +1,5 @@
+using BAS24.Auth.Infrastructure.Services;
+using BAS24.Auth.Infrastructure.Services.Interfaces;
 using BAS24.Libs.Postgres;
 using BAS24.Product.Core.IRepositories;
 using BAS24.Product.Infrastructure.Postgres.Currency;
@@ -27,6 +29,7 @@ public static class Extensions
 
     services.AddTransient<ICurrencyRepository, CurrencyRepository>();
     services.AddTransient<IExchangeRepository, ExchangeRepository>();
+    services.AddSingleton<IKafkaProducerService, KafkaProducerServiceService>();
 
     // services.AddTransient<IDbRepository, DbRepository>(sp =>
     // {

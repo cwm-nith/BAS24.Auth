@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\AuthApi\BAS24.Auth.Infrastructure\BAS24.Auth.Infrastructure.csproj" />
       <ProjectReference Include="..\BAS24.Product.Application\BAS24.Product.Application.csproj" />
       <ProjectReference Include="..\BAS24.Product.Core\BAS24.Product.Core.csproj" />
     </ItemGroup>

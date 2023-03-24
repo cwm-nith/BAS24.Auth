@@ -7,11 +7,11 @@ using Newtonsoft.Json;
 
 namespace BAS24.Auth.Infrastructure.Services;
 
-public class KafkaProducers : IKafkaProducers
+public class KafkaProducerServiceService : IKafkaProducerService
 {
   private readonly IConfiguration _configuration;
 
-  public KafkaProducers(IConfiguration configuration)
+  public KafkaProducerServiceService(IConfiguration configuration)
   {
     _configuration = configuration;
   }
