@@ -22,7 +22,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SendGrid;
 using SendGrid.Extensions.DependencyInjection;
 using Twilio.Clients;
 
@@ -42,6 +41,7 @@ public static class Extensions
     services.AddSingleton<ICommandDispatcher, CommandDispatcher>();
     services.AddSingleton<IQueryDispatcher, QueryDispatcher>();
     services.AddSingleton<IEventDispatcher, EventDispatcher>();
+    services.AddSingleton<IKafkaProducerService, KafkaProducerServiceService>();
 
     services.AddCommandHandlers();
     services.AddQueryHandlers();
@@ -74,7 +74,6 @@ public static class Extensions
       setup.GroupNameFormat = "'v'VVV";
       setup.SubstituteApiVersionInUrl = true;
     });
-    // services.AddSwagger<AuthorizationHeaderParameterOperationFilter>("Api.xml").AddSwaggerExample();
     services.AddSwagger<AuthorizationHeaderParameterOperationFilter>("BAS24.Auth.Api.xml").AddSwaggerExample();
 
     services.Configure<ForwardedHeadersOptions>(options =>

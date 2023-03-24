@@ -126,10 +126,9 @@ namespace BAS24.Product.Infrastructure.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("local_store_id");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("name");
+                    b.Property<Guid>("MemberId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("member_id");
 
                     b.Property<int>("Permission")
                         .HasColumnType("integer")

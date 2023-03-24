@@ -12,8 +12,6 @@ public class StoreMemberTable:BasePostgresTable
   public Guid StoreId { get; set; } // store id from other service
   [Column("member_id")]
   public Guid MemberId { get; set; }
-  [Column("name")]
-  public string Name { get; set; } = string.Empty;
   [Column("permission")]
   public int Permission { get; set; }
 
