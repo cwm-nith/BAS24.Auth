@@ -38,14 +38,7 @@ public class UpdateStoreCommandHandler:ICommandHandler<UpdateStoreCommand>
       Name = entity.Name,
       Active = entity.Active
     };
-    //TODO: to verify that Task.WhenAll is working correctly
-    var task1 = _producer.SendAsync(data, KafkaTopics.UpdateStore);
-    var task2 = _storeRepository.UpdateStoreAsync(entity);
-    var tasks = new[]
-    {
-      task1,
-      task2
-    };
-    Task.WaitAll(tasks);
+    await _producer.SendAsync(data, KafkaTopics.UpdateStore);
+    await _storeRepository.UpdateStoreAsync(entity);
   }
 }
