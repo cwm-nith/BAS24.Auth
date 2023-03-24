@@ -1,5 +1,5 @@
+using BAS24.Api.IServices;
 using BAS24.Auth.Infrastructure.Services;
-using BAS24.Auth.Infrastructure.Services.Interfaces;
 using BAS24.Libs.Postgres;
 using BAS24.Product.Core.IRepositories;
 using BAS24.Product.Infrastructure.Postgres.Currency;

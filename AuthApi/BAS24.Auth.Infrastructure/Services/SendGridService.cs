@@ -1,5 +1,5 @@
 using BAS24.Api.Exceptions.SendGrids;
-using BAS24.Auth.Infrastructure.Services.Interfaces;
+using BAS24.Api.IServices;
 using Microsoft.Extensions.Configuration;
 using SendGrid;
 using SendGrid.Helpers.Mail;

@@ -1,10 +1,10 @@
 using BAS24.Api.Entities.User;
 using BAS24.Api.Exceptions.Middlewares;
+using BAS24.Api.IServices;
 using BAS24.Api.Middlewares;
 using BAS24.Auth.Infrastructure.Options;
 using BAS24.Auth.Infrastructure.Postgres;
 using BAS24.Auth.Infrastructure.Services;
-using BAS24.Auth.Infrastructure.Services.Interfaces;
 using BAS24.Auth.Infrastructure.Swagger.CustomizeHeader;
 using BAS24.Auth.Infrastructure.Swagger.RequestExamples;
 using BAS24.Libs.CQRS.Commands;

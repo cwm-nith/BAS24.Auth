@@ -1,7 +1,7 @@
 using SendGrid;
 using SendGrid.Helpers.Mail;
 
-namespace BAS24.Auth.Infrastructure.Services.Interfaces;
+namespace BAS24.Api.IServices;
 
 public interface ISendGridService
 {

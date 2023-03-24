@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using System.Net;
-using BAS24.Auth.Infrastructure.Services.Interfaces;
+using BAS24.Api.IServices;
 using Confluent.Kafka;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
