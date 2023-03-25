@@ -26,6 +26,8 @@ public class UpdateRoleOfStoreMemberCommandHandler : ICommandHandler<UpdateRoleO
       MemberStoreId = command.StoreMemberId,
       Permission = command.Permission
     };
+    
+    await _repository.UpdateUserStoreRoleAsync(id, dto);
     var data = new KafkaUpdateMemberStorePermissionModel()
     {
       StoreId = dto.StoreId,
@@ -34,6 +36,5 @@ public class UpdateRoleOfStoreMemberCommandHandler : ICommandHandler<UpdateRoleO
       Permission = dto.Permission
     };
     await _producer.SendAsync(data, KafkaTopics.UpdateStoreMemberPermission);
-    await _repository.UpdateUserStoreRoleAsync(id, dto);
   }
 }
