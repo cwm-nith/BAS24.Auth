@@ -26,6 +26,8 @@ public class AddMemberCommandHandler : ICommandHandler<AddMemberCommand, Guid>
       MemberId = command.MemberId,
       StoreId = command.StoreId,
     };
+    
+    await _storeRepository.AddUserToStoreAsync(id, cmd);
     var data = new KafkaAddMemberToStoreModel()
     { 
       Permission = cmd.Permission,
@@ -34,6 +36,5 @@ public class AddMemberCommandHandler : ICommandHandler<AddMemberCommand, Guid>
       OwnerId = id,
     };
     await _producer.SendAsync(data, KafkaTopics.AddMemberToStore);
-    await _storeRepository.AddUserToStoreAsync(id, cmd);
   }
 }
