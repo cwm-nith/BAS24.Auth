@@ -13,5 +13,5 @@ public class StoreTable:BasePostgresTable
   [Column("active")]
   public bool Active { get; set; }
 
-  public List<StoreMemberTable> StoreMembers { get; set; }
+  public List<StoreMemberTable>? StoreMembers { get; set; }
 }

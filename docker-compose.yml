@@ -24,7 +24,7 @@ services:
       context: .
       dockerfile: ApiGateWay/Dockerfile
     container_name: bas24_api_gateway
-    #    restart: unless-stopped
+    restart: unless-stopped
     ports:
       - "8000:80"
     networks:
@@ -39,7 +39,7 @@ services:
       context: .
       dockerfile: AuthApi/Dockerfile
     container_name: bas24_auth_api
-#    restart: unless-stopped
+    restart: unless-stopped
     ports:
       - "8001:80"
     networks:

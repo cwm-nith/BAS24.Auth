@@ -2,9 +2,9 @@ using BAS24.Api.Dtos.Twilio;
 using BAS24.Api.Exceptions.Twilio;
 using BAS24.Api.Exceptions.Users;
 using BAS24.Api.IRepositories;
+using BAS24.Api.IServices;
 using BAS24.Api.Utils;
 using BAS24.Auth.Application.Queries.Users;
-using BAS24.Auth.Infrastructure.Services.Interfaces;
 using BAS24.Libs.CQRS.Queries;
 using SendGrid.Helpers.Mail;
 

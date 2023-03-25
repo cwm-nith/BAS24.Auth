@@ -72,7 +72,7 @@ public class StoreRepository : IStoreRepository
       {
         Console.WriteLine(e);
         await t.RollbackAsync();
-        throw new FailedToSendCodeException();
+        throw new Exception(e.Message);
       }
     });
   }

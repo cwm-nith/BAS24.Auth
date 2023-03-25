@@ -10,8 +10,8 @@ public class StoreMemberTable:BasePostgresTable
   public Guid LocalStoreId { get; set; }
   [Column("store_id")]
   public Guid StoreId { get; set; } // store id from other service
-  [Column("name")]
-  public string Name { get; set; } = string.Empty;
+  [Column("member_id")]
+  public Guid MemberId { get; set; }
   [Column("permission")]
   public int Permission { get; set; }
 
