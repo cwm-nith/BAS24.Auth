@@ -18,12 +18,13 @@ public class DeleteStoreCommandHandler:ICommandHandler<DeleteStoreCommand>
 
   public async Task HandleAsync(DeleteStoreCommand command)
   {
+    
+    await _storeRepository.DeleteStoreAsync(command.OwnerId, command.Id);
     var data = new KafkaDeleteStoreModel()
     {
       Owner = command.OwnerId,
       StoreId = command.Id
     };
-    await _storeRepository.DeleteStoreAsync(command.OwnerId, command.Id);
     await _producer.SendAsync(data, KafkaTopics.DeleteStore);
   }
 }
