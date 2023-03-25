@@ -26,6 +26,8 @@ public class RemoveStoreMemberCommandHandler:ICommandHandler<RemoveStoreMemberCo
       StoreId = command.StoreId,
       StoreMemberId = command.StoreMemberId
     };
+    
+    await _storeRepository.RemoveUserFromStoreAsync(cmd);
     var data = new KafkaRemoveMemberFromStoreModel()
     {
       MemberId = cmd.MemberId,
@@ -33,6 +35,5 @@ public class RemoveStoreMemberCommandHandler:ICommandHandler<RemoveStoreMemberCo
       StoreMemberId = cmd.StoreMemberId
     };
     await _producer.SendAsync(data, KafkaTopics.RemoveStoreMember);
-    await _storeRepository.RemoveUserFromStoreAsync(cmd);
   }
 }
