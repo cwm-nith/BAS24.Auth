@@ -1,29 +1,29 @@
-using System.Diagnostics;
 using BAS24.Product.Core.IServices;
 using BAS24.Product.Core.Kafka.Constants;
 using BAS24.Product.Core.Kafka.Models.Stores;
 using Confluent.Kafka;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
-namespace BAS24.Product.Core.Kafka.Consumers.Stores;
+namespace BAS24.Product.Infrastructure.Services;
 
-public class CreateStoreConsumer : IHostedService
+public class KafkaConsumerService:IKafkaConsumerService
 {
-  private readonly IKafkaConsumerService _consumerService;
+  private readonly IConfiguration _configuration;
+  private readonly ILogger<KafkaConsumerService> _logger;
 
-  public CreateStoreConsumer(IKafkaConsumerService consumerService)
+  public KafkaConsumerService(IConfiguration configuration, ILogger<KafkaConsumerService> logger)
   {
-    _consumerService = consumerService;
+    _configuration = configuration;
+    _logger = logger;
   }
 
-  public Task StartAsync(CancellationToken cancellationToken)
+  public Task Subscribe<>(string groupId, string topic, CancellationToken cancellationToken)
   {
     var config = new ConsumerConfig
     {
-      GroupId = KafkaGroupIds.CreateStore,
+      GroupId = groupId,
       BootstrapServers = _configuration["Kafka:BootstrapServers"],
       AutoOffsetReset = AutoOffsetReset.Earliest
     };
@@ -31,15 +31,14 @@ public class CreateStoreConsumer : IHostedService
     try
     {
       using var consumerBuilder = new ConsumerBuilder<Ignore, string>(config).Build();
-      consumerBuilder.Subscribe(KafkaTopics.CreateStore);
+      consumerBuilder.Subscribe(topic);
       try
       {
         while (true)
         {
           var consumer = consumerBuilder.Consume(cancellationToken);
           var orderRequest = JsonConvert.DeserializeObject<KafkaCreateStoreModel>(consumer.Message.Value);
-          Debug.WriteLine($"Processing create store Id: {orderRequest?.StoreId} {DateTime.Now}");
-          _logger.LogInformation($"Processing create store Id: {orderRequest?.StoreId} {DateTime.Now}");
+          _logger.LogInformation($"{groupId}: {orderRequest?.StoreId} {DateTime.Now}");
         }
       }
       catch (OperationCanceledException)
@@ -49,14 +48,9 @@ public class CreateStoreConsumer : IHostedService
     }
     catch (Exception ex)
     {
-      Debug.WriteLine(ex.Message);
       _logger.LogError(ex.Message);
     }
-    return Task.CompletedTask;
-  }
 
-  public Task StopAsync(CancellationToken cancellationToken)
-  {
     return Task.CompletedTask;
   }
 }
