@@ -2,9 +2,10 @@ version: "3.5"
 
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:6.1.1
+    image: confluentinc/cp-zookeeper:7.3.2
     hostname: zookeeper
     container_name: zookeeper
+    restart: unless-stopped
     ports:
       - "2181:2181"
     environment:
@@ -12,9 +13,10 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
 
   broker:
-    image: confluentinc/cp-server:6.1.1
+    image: confluentinc/cp-server:7.3.2
     hostname: broker
     container_name: broker
+    restart: unless-stopped
     depends_on:
       - zookeeper
     ports:
@@ -41,9 +43,10 @@ services:
       CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
 
   schema-registry:
-    image: confluentinc/cp-schema-registry:6.1.1
+    image: confluentinc/cp-schema-registry:7.3.2
     hostname: schema-registry
     container_name: schema-registry
+    restart: unless-stopped
     depends_on:
       - broker
     ports:
@@ -54,9 +57,10 @@ services:
       SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
 
   connect:
-    image: cnfldemos/cp-server-connect-datagen:0.4.0-6.1.0
+    image: cnfldemos/cp-server-connect-datagen:0.6.0-7.3.0
     hostname: connect
     container_name: connect
+    restart: unless-stopped
     depends_on:
       - broker
       - schema-registry
@@ -85,9 +89,10 @@ services:
       CONNECT_LOG4J_LOGGERS: org.apache.zookeeper=ERROR,org.I0Itec.zkclient=ERROR,org.reflections=ERROR
 
   control-center:
-    image: confluentinc/cp-enterprise-control-center:6.1.1
+    image: confluentinc/cp-enterprise-control-center:7.3.2
     hostname: control-center
     container_name: control-center
+    restart: unless-stopped
     depends_on:
       - broker
       - schema-registry
@@ -108,9 +113,10 @@ services:
       PORT: 9021
 
   ksqldb-server:
-    image: confluentinc/cp-ksqldb-server:6.1.1
+    image: confluentinc/cp-ksqldb-server:7.3.2
     hostname: ksqldb-server
     container_name: ksqldb-server
+    restart: unless-stopped
     depends_on:
       - broker
       - connect
@@ -131,7 +137,8 @@ services:
       KSQL_KSQL_LOGGING_PROCESSING_STREAM_AUTO_CREATE: 'true'
 
   ksqldb-cli:
-    image: confluentinc/cp-ksqldb-cli:6.1.1
+    image: confluentinc/cp-ksqldb-cli:7.3.2
+    restart: unless-stopped
     container_name: ksqldb-cli
     depends_on:
       - broker
@@ -141,9 +148,10 @@ services:
     tty: true
 
   ksql-datagen:
-    image: confluentinc/ksqldb-examples:6.1.1
+    image: confluentinc/ksqldb-examples:7.3.2
     hostname: ksql-datagen
     container_name: ksql-datagen
+    restart: unless-stopped
     depends_on:
       - ksqldb-server
       - broker
@@ -163,7 +171,8 @@ services:
       STREAMS_SCHEMA_REGISTRY_PORT: 8081
 
   rest-proxy:
-    image: confluentinc/cp-kafka-rest:6.1.1
+    image: confluentinc/cp-kafka-rest:7.3.2
+    restart: unless-stopped
     depends_on:
       - broker
       - schema-registry

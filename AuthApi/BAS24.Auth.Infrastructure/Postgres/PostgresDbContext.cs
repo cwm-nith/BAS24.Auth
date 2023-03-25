@@ -19,7 +19,7 @@ public class PostgresDbContext : DbContext
   public DbSet<SocialUserLinkTable>? SocialUserLinks { get; set; }
   public DbSet<StoreMemberTable>? StoreMembers { get; set; }
   public DbSet<StoreTable>? Stores { get; set; }
-  public DbSet<AddMemberToStoreRequestTable> AddMemberToStoreRequests { get; set; }
+  public DbSet<AddMemberToStoreRequestTable>? AddMemberToStoreRequests { get; set; }
 
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -29,7 +29,7 @@ public class PostgresDbContext : DbContext
       .AddUserTableRelationship()
       .AddStoreTableRelationship()
       .AddSocialLinkTableRelationship()
-      .AddStoreMemberTableRelationship()
+      // .AddStoreMemberTableRelationship()
       .AddAddMemberToStoreRequestTableRelationship();
   }
 }

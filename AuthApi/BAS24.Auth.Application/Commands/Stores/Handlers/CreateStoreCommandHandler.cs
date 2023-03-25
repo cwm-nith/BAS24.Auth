@@ -57,6 +57,9 @@ public class CreateStoreCommandHandler : ICommandHandler<CreateStoreCommand>
           true)
       }
     };
+    
+    await _repository.CreateStoreAsync(entity);
+    
     KafkaCreateStoreModel data = new ()
     {
       OwnerId = entity.OwnerId,
@@ -65,6 +68,5 @@ public class CreateStoreCommandHandler : ICommandHandler<CreateStoreCommand>
       Name = entity.Name
     };
     await _producer.SendAsync(data, KafkaTopics.CreateStore);
-    await _repository.CreateStoreAsync(entity);
   }
 }

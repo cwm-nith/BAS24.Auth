@@ -25,7 +25,7 @@ public class StoreMemberTable : BasePostgresTable
   [Column("updated_at")]
   public DateTime UpdatedAt { get; set; }
 
-  public UserTable? User { get; set; }
+  // public UserTable? User { get; set; }
   public StoreTable? Store { get; set; }
 
   public StoreMemberTable(Guid storeId, Guid memberId, DateTime updatedAt, int permission, bool accepted)
