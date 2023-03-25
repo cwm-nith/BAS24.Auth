@@ -33,12 +33,13 @@ public class UpdateStoreCommandHandler:ICommandHandler<UpdateStoreCommand>
     entity.Tags = command.Tags;
     entity.KeyWords = command.KeyWords;
     entity.UpdatedAt = DateTime.UtcNow;
+   
+    await _storeRepository.UpdateStoreAsync(entity);
     KafkaUpdateStoreModel data = new()
     {
       Name = entity.Name,
       Active = entity.Active
     };
     await _producer.SendAsync(data, KafkaTopics.UpdateStore);
-    await _storeRepository.UpdateStoreAsync(entity);
   }
 }
