@@ -6,10 +6,12 @@ using BAS24.Libs.Logging;
 using BAS24.Libs.Postgres;
 using BAS24.Libs.Swagger;
 using BAS24.Product.Core.Exceptions.Middlewares;
+using BAS24.Product.Core.IServices;
 using BAS24.Product.Core.Kafka.Consumers;
 using BAS24.Product.Core.Middlewares;
 using BAS24.Product.Infrastructure.Options;
 using BAS24.Product.Infrastructure.Postgres;
+using BAS24.Product.Infrastructure.Services;
 using BAS24.Product.Infrastructure.Swagger.CustomizeHeader;
 using BAS24.Product.Infrastructure.Swagger.RequestExamples;
 using Microsoft.AspNetCore.Builder;
@@ -34,6 +36,7 @@ public static class Extensions
     services.AddSingleton<ICommandDispatcher, CommandDispatcher>();
     services.AddSingleton<IQueryDispatcher, QueryDispatcher>();
     services.AddSingleton<IEventDispatcher, EventDispatcher>();
+    services.AddSingleton<IKafkaConsumerService, KafkaConsumerService>();
 
     services.AddCommandHandlers();
     services.AddQueryHandlers();

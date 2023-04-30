@@ -17,7 +17,7 @@ public static class Extensions
     services.AddPostgresRepository<ExchangeRateTable>();
     services.AddPostgresRepository<StoreTable>();
     services.AddPostgresRepository<StoreMemberTable>();
-    
+
     services.AddScoped(typeof(PostgresDbContext),
       sp =>
       {
@@ -27,6 +27,7 @@ public static class Extensions
 
     services.AddTransient<ICurrencyRepository, CurrencyRepository>();
     services.AddTransient<IExchangeRepository, ExchangeRepository>();
+    services.AddSingleton<IKafkaConsumerRepository, KafkaConsumerRepository>();
 
     // services.AddTransient<IDbRepository, DbRepository>(sp =>
     // {
