@@ -1,54 +1,32 @@
+using BAS24.Product.Core.Exceptions;
+using BAS24.Product.Core.IRepositories;
 using BAS24.Product.Core.IServices;
 using BAS24.Product.Core.Kafka.Constants;
-using BAS24.Product.Core.Kafka.Models.Stores;
-using Confluent.Kafka;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 namespace BAS24.Product.Infrastructure.Services;
 
 public class KafkaConsumerService:IKafkaConsumerService
 {
-  private readonly IConfiguration _configuration;
-  private readonly ILogger<KafkaConsumerService> _logger;
+  private readonly IKafkaConsumerRepository _consumerRepository;
 
-  public KafkaConsumerService(IConfiguration configuration, ILogger<KafkaConsumerService> logger)
+  public KafkaConsumerService(IKafkaConsumerRepository consumerRepository)
   {
-    _configuration = configuration;
-    _logger = logger;
+    _consumerRepository = consumerRepository;
   }
 
-  public Task Subscribe<>(string groupId, string topic, CancellationToken cancellationToken)
+  public Task SubscribeAsync(string topic, CancellationToken cancellationToken)
   {
-    var config = new ConsumerConfig
-    {
-      GroupId = groupId,
-      BootstrapServers = _configuration["Kafka:BootstrapServers"],
-      AutoOffsetReset = AutoOffsetReset.Earliest
-    };
 
-    try
+    switch (topic)
     {
-      using var consumerBuilder = new ConsumerBuilder<Ignore, string>(config).Build();
-      consumerBuilder.Subscribe(topic);
-      try
-      {
-        while (true)
-        {
-          var consumer = consumerBuilder.Consume(cancellationToken);
-          var orderRequest = JsonConvert.DeserializeObject<KafkaCreateStoreModel>(consumer.Message.Value);
-          _logger.LogInformation($"{groupId}: {orderRequest?.StoreId} {DateTime.Now}");
-        }
-      }
-      catch (OperationCanceledException)
-      {
-        consumerBuilder.Close();
-      }
-    }
-    catch (Exception ex)
-    {
-      _logger.LogError(ex.Message);
+      case var _ when KafkaTopics.CreateStore == topic:
+        _consumerRepository.CreateStoreConsumerAsync(KafkaGroupIds.CreateStore, topic, cancellationToken);
+        break;
+      case var _ when KafkaTopics.UpdateStore == topic:
+        _consumerRepository.UpdateStoreConsumerAsync(KafkaGroupIds.UpdateStore, topic, cancellationToken);
+        break;
+      default:
+        throw new KafkaTopicInvalidException();
     }
 
     return Task.CompletedTask;

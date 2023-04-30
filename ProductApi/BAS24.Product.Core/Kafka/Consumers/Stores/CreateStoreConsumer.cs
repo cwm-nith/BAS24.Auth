@@ -1,12 +1,6 @@
-using System.Diagnostics;
 using BAS24.Product.Core.IServices;
 using BAS24.Product.Core.Kafka.Constants;
-using BAS24.Product.Core.Kafka.Models.Stores;
-using Confluent.Kafka;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 namespace BAS24.Product.Core.Kafka.Consumers.Stores;
 
@@ -19,40 +13,9 @@ public class CreateStoreConsumer : IHostedService
     _consumerService = consumerService;
   }
 
-  public Task StartAsync(CancellationToken cancellationToken)
+  public async Task StartAsync(CancellationToken cancellationToken)
   {
-    var config = new ConsumerConfig
-    {
-      GroupId = KafkaGroupIds.CreateStore,
-      BootstrapServers = _configuration["Kafka:BootstrapServers"],
-      AutoOffsetReset = AutoOffsetReset.Earliest
-    };
-
-    try
-    {
-      using var consumerBuilder = new ConsumerBuilder<Ignore, string>(config).Build();
-      consumerBuilder.Subscribe(KafkaTopics.CreateStore);
-      try
-      {
-        while (true)
-        {
-          var consumer = consumerBuilder.Consume(cancellationToken);
-          var orderRequest = JsonConvert.DeserializeObject<KafkaCreateStoreModel>(consumer.Message.Value);
-          Debug.WriteLine($"Processing create store Id: {orderRequest?.StoreId} {DateTime.Now}");
-          _logger.LogInformation($"Processing create store Id: {orderRequest?.StoreId} {DateTime.Now}");
-        }
-      }
-      catch (OperationCanceledException)
-      {
-        consumerBuilder.Close();
-      }
-    }
-    catch (Exception ex)
-    {
-      Debug.WriteLine(ex.Message);
-      _logger.LogError(ex.Message);
-    }
-    return Task.CompletedTask;
+    await _consumerService.SubscribeAsync(KafkaTopics.CreateStore, cancellationToken);
   }
 
   public Task StopAsync(CancellationToken cancellationToken)

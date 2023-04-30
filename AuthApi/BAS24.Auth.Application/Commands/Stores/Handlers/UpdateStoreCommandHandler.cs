@@ -38,7 +38,8 @@ public class UpdateStoreCommandHandler:ICommandHandler<UpdateStoreCommand>
     KafkaUpdateStoreModel data = new()
     {
       Name = entity.Name,
-      Active = entity.Active
+      Active = entity.Active,
+      StoreId = entity.Id
     };
     await _producer.SendAsync(data, KafkaTopics.UpdateStore);
   }

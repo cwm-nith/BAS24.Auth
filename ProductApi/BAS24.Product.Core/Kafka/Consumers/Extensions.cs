@@ -9,6 +9,7 @@ public static class Extensions
   public static IServiceCollection AddKafkaConsumer(this IServiceCollection services)
   {
     services.AddSingleton<IHostedService, CreateStoreConsumer>();
+    services.AddSingleton<IHostedService, UpdateStoreConsumer>();
     return services;
   }
 }
