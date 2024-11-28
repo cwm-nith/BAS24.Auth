@@ -1,0 +1,73 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+updates:
+  - package-ecosystem: "nuget" # See documentation for possible values
+    directory: "/ApiGateWay" # Location of package manifests
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+    open-pull-requests-limit: 5
+  - package-ecosystem: "nuget" # See documentation for possible values
+    directory: "/AuthApi/BAS24.Auth.Api" # Location of package manifests
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+    open-pull-requests-limit: 5
+  - package-ecosystem: "nuget" # See documentation for possible values
+    directory: "/AuthApi/BAS24.Auth.Application" # Location of package manifests
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+    open-pull-requests-limit: 5
+  - package-ecosystem: "nuget" # See documentation for possible values
+    directory: "/AuthApi/BAS24.Auth.Core" # Location of package manifests
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+    open-pull-requests-limit: 5
+  - package-ecosystem: "nuget" # See documentation for possible values
+    directory: "/AuthApi/BAS24.Auth.Infrastructure" # Location of package manifests
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+    open-pull-requests-limit: 5
+  - package-ecosystem: "nuget" # See documentation for possible values
+    directory: "/BAS24.JwtAuthManager" # Location of package manifests
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+    open-pull-requests-limit: 5
+  - package-ecosystem: "nuget" # See documentation for possible values
+    directory: "/ProductApi/BAS24.Product.Api" # Location of package manifests
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+    open-pull-requests-limit: 5
+  - package-ecosystem: "nuget" # See documentation for possible values
+    directory: "/ProductApi/BAS24.Product.Api" # Location of package manifests
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+    open-pull-requests-limit: 5
+  - package-ecosystem: "nuget" # See documentation for possible values
+    directory: "/ProductApi/BAS24.Product.Application" # Location of package manifests
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+    open-pull-requests-limit: 5
+  - package-ecosystem: "nuget" # See documentation for possible values
+    directory: "/ProductApi/BAS24.Product.Core" # Location of package manifests
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+    open-pull-requests-limit: 5
+  - package-ecosystem: "nuget" # See documentation for possible values
+    directory: "/ProductApi/BAS24.Product.Infrastructure" # Location of package manifests
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+    open-pull-requests-limit: 5
