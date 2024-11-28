@@ -12,25 +12,7 @@ updates:
       day: "wednesday"
     open-pull-requests-limit: 5
   - package-ecosystem: "nuget" # See documentation for possible values
-    directory: "/AuthApi/BAS24.Auth.Api" # Location of package manifests
-    schedule:
-      interval: "weekly"
-      day: "wednesday"
-    open-pull-requests-limit: 5
-  - package-ecosystem: "nuget" # See documentation for possible values
-    directory: "/AuthApi/BAS24.Auth.Application" # Location of package manifests
-    schedule:
-      interval: "weekly"
-      day: "wednesday"
-    open-pull-requests-limit: 5
-  - package-ecosystem: "nuget" # See documentation for possible values
-    directory: "/AuthApi/BAS24.Auth.Core" # Location of package manifests
-    schedule:
-      interval: "weekly"
-      day: "wednesday"
-    open-pull-requests-limit: 5
-  - package-ecosystem: "nuget" # See documentation for possible values
-    directory: "/AuthApi/BAS24.Auth.Infrastructure" # Location of package manifests
+    directory: "/AuthApi" # Location of package manifests
     schedule:
       interval: "weekly"
       day: "wednesday"
@@ -42,31 +24,7 @@ updates:
       day: "wednesday"
     open-pull-requests-limit: 5
   - package-ecosystem: "nuget" # See documentation for possible values
-    directory: "/ProductApi/BAS24.Product.Api" # Location of package manifests
-    schedule:
-      interval: "weekly"
-      day: "wednesday"
-    open-pull-requests-limit: 5
-  - package-ecosystem: "nuget" # See documentation for possible values
-    directory: "/ProductApi/BAS24.Product.Api" # Location of package manifests
-    schedule:
-      interval: "weekly"
-      day: "wednesday"
-    open-pull-requests-limit: 5
-  - package-ecosystem: "nuget" # See documentation for possible values
-    directory: "/ProductApi/BAS24.Product.Application" # Location of package manifests
-    schedule:
-      interval: "weekly"
-      day: "wednesday"
-    open-pull-requests-limit: 5
-  - package-ecosystem: "nuget" # See documentation for possible values
-    directory: "/ProductApi/BAS24.Product.Core" # Location of package manifests
-    schedule:
-      interval: "weekly"
-      day: "wednesday"
-    open-pull-requests-limit: 5
-  - package-ecosystem: "nuget" # See documentation for possible values
-    directory: "/ProductApi/BAS24.Product.Infrastructure" # Location of package manifests
+    directory: "/ProductApi" # Location of package manifests
     schedule:
       interval: "weekly"
       day: "wednesday"
